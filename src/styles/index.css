@@ -1,3 +1,10 @@
+:root {
+  --container: 50%;
+  --roundness: 7px;
+  --step1: 1550px;
+  --step2: 900px
+}
+
 @font-face {
   src: url("./src/public/font");
   font-family: "Ubuntu";
@@ -6,4 +13,22 @@
 
 body {
   font-family: "Ubuntu";
+  margin: 0;
+  background-color: whitesmoke;
+}
+
+@media screen and (max-width: 1550px) {
+  :root {
+    --container: 70%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --container: 100%;
+  }
+
+  body {
+    background-color: white;
+  }
 }

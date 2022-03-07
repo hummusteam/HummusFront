@@ -1,0 +1,13 @@
+.navigation-container {
+  height: 120px;
+  border-radius: var(--roundness);
+  margin: 1em;
+  background-color: aliceblue;
+  overflow: hidden;
+}
+
+.banner {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

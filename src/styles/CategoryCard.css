@@ -1,0 +1,18 @@
+.category-card-container {
+  min-height: 150px;
+  min-width: 150px;
+  background-color: white;
+  border-radius: var(--roundness);
+  transition: 0.2s;
+  padding: 50px 25px;
+  color: white;
+  text-shadow: rgb(97, 97, 97) 1px 0 10px;
+  font-weight: 500;
+  font-size: 30px;
+}
+
+.category-card-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 -1px 4px 0 rgba(144, 144, 144, 0.08), 0 6px 8px 0 rgba(87, 87, 87, 0.12);
+  cursor: pointer;
+}

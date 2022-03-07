@@ -1,0 +1,49 @@
+.app-container {
+  width: var(--container);
+  margin: auto;
+}
+
+.app-canvas {
+  margin: auto;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  grid-auto-flow: dense;
+  gap: 1em;
+  padding: 1em;
+}
+
+.app-container .app-canvas:nth-child(2n + 1) {
+  transform: translateX(-100px);
+}
+
+@media screen and (max-width: 1550px) {
+  .app-canvas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .app-canvas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  .app-canvas div {
+    border-radius: unset;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app-canvas {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+  }
+
+  .app-canvas div {
+    border-radius: unset;
+  }
+}
