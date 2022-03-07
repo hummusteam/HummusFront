@@ -1,0 +1,9 @@
+@font-face {
+  src: url("./src/public/font");
+  font-family: "Ubuntu";
+  font-style: normal;
+}
+
+body {
+  font-family: "Ubuntu";
+}
