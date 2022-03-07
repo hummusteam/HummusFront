@@ -1,5 +1,5 @@
 .navigation-container {
-  height: 120px;
+  height: 150px;
   border-radius: var(--roundness);
   margin: 1em;
   background-color: aliceblue;
@@ -10,4 +10,12 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+@media screen and (max-width: 900px) {
+  .navigation-container {
+    border-radius: unset;
+    margin: 0;
+    margin-bottom: 1em;
+  }
 }

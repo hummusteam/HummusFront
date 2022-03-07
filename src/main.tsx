@@ -1,11 +1,16 @@
+import "./styles/Index.css";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/index.css";
-import App from "./components/App";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Home, Menu } from "./pages";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/menu" element={<Menu />} />
+    </Routes>
+  </Router>,
+
   document.getElementById("root")
 );
