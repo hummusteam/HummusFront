@@ -33,6 +33,7 @@
 
   .app-canvas div {
     border-radius: unset;
+    font-size: 30px;
   }
 }
 
@@ -45,5 +46,6 @@
 
   .app-canvas div {
     border-radius: unset;
+    font-size: 50px;
   }
 }
