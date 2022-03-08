@@ -1,15 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import "../styles/Navigation.css";
+import { Link } from "react-router-dom";
 
 export default function Navigation({ url }: { url: string }) {
-  const navigate = useNavigate();
-  const redirect = () => {
-    navigate('/');
-  };
-
   return (
-    <div className="navigation-container" onClick={redirect}>
-      <img className="banner" src={url} />
-    </div>
+    <Link to="/">
+      <div className="navigation-container">
+        <img className="banner" src={url} />
+      </div>
+    </Link>
   );
 }
