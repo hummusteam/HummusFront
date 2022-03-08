@@ -1,13 +1,11 @@
 :root {
   --container: 50%;
   --roundness: 7px;
-  --step1: 1550px;
-  --step2: 900px
 }
 
 @font-face {
-  src: url("./src/public/font");
   font-family: "Ubuntu";
+  src: url("/src/public/font/Ubuntu-Regular.ttf");
   font-style: normal;
 }
 
