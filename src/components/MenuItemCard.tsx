@@ -2,6 +2,6 @@ import "../styles/MenuItemCard.css";
 
 export default function MenuItemCard() {
   return (
-    <div>MenuItemCard</div>
+    <div className="menu-item-container">A menu item</div>
   )
 }

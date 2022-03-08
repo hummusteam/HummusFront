@@ -3,25 +3,69 @@
   margin: auto;
 }
 
-.menu-carousel {
-  width: calc(100% - 2em);
-  border-radius: var(--roundness);
-  overflow: hidden;
+.inner-menu-container {
   margin: 1em;
 }
 
+.menu-carousel {
+  width: calc(100%);
+  border-radius: var(--roundness);
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
 .menu-carousel-inner {
-  height: 95px;
   display: grid;
   grid-auto-flow: column;
   gap: 1em;
   overflow: scroll;
 }
 
+.menu-items {
+  margin: auto;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  grid-auto-flow: dense;
+  gap: 1em;
+}
+
+.menu-header {
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 1550px) {
+  .menu-items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media screen and (max-width: 900px) {
-  .menu-carousel {
+  .menu-items {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+
+  .menu-items div {
     border-radius: unset;
-    margin: 0;
-    width: 100%;
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .menu-items {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+  }
+
+  .menu-items div {
+    border-radius: unset;
+    font-size: 50px;
   }
 }

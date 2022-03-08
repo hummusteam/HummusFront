@@ -10,7 +10,6 @@ interface Category {
 export default function CategoryCard(category: Category) {
   const navigate = useNavigate();
   const redirect = () => {
-    console.log(category.name)
     navigate(`menu?category=${category.name}`);
   };
 
