@@ -31,13 +31,6 @@
   gap: 1em;
 }
 
-.menu-header {
-  display: grid;
-  grid-auto-flow: column;
-  justify-content: space-between;
-  margin: 0 5px;
-}
-
 @media screen and (max-width: 1550px) {
   .menu-items {
     grid-template-columns: repeat(3, 1fr);

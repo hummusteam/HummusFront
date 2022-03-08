@@ -4,6 +4,8 @@
   color: white;
   text-shadow: rgb(97, 97, 97) 1px 0 10px;
   font-weight: 500;
+  background-color: white;
+  text-decoration: none;
 }
 
 .big-category-card {
