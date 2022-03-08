@@ -4,13 +4,13 @@
 }
 
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/src/public/font/Ubuntu-Regular.ttf");
+  font-family: 'Ubuntu';
+  src: url('/src/public/font/Ubuntu-Regular.ttf');
   font-style: normal;
 }
 
 body {
-  font-family: "Ubuntu";
+  font-family: 'Ubuntu';
   margin: 0;
   background-color: whitesmoke;
   overflow-x: hidden;

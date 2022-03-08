@@ -1,7 +1,7 @@
-import "./styles/Index.css";
-import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Home, Menu } from "./pages";
+import './styles/Index.css';
+import ReactDOM from 'react-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Home, Menu } from './pages';
 
 ReactDOM.render(
   <Router>
@@ -10,5 +10,5 @@ ReactDOM.render(
       <Route path="/menu" element={<Menu />} />
     </Routes>
   </Router>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

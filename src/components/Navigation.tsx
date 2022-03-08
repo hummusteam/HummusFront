@@ -1,5 +1,5 @@
-import "../styles/Navigation.css";
-import { Link } from "react-router-dom";
+import '../styles/Navigation.css';
+import { Link } from 'react-router-dom';
 
 export default function Navigation({ url }: { url: string }) {
   return (

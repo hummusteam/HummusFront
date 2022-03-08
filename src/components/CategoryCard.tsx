@@ -1,5 +1,5 @@
-import "../styles/CategoryCard.css";
-import { Link } from "react-router-dom";
+import '../styles/CategoryCard.css';
+import { Link } from 'react-router-dom';
 
 interface Category {
   name: string;
@@ -14,8 +14,8 @@ export default function CategoryCard(category: Category) {
         className="category-card-container big-category-card"
         style={{
           backgroundImage: `url(${category.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
       >
         {category.title}
