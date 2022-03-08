@@ -1,25 +1,13 @@
-import '../styles/CategoryCard.css';
-import { Link } from 'react-router-dom';
+import '../styles/CategoryCard.css'
+import { Link } from 'react-router-dom'
+import { Category } from '../types'
 
-interface Category {
-  name: string;
-  title: string;
-  url: string;
-}
-
-export default function CategoryCard(category: Category) {
+export default function SmallCategoryCard(category: Category) {
   return (
-    <Link to={`/menu?category=${category.name}`}>
-      <div
-        className="category-card-container big-category-card"
-        style={{
-          backgroundImage: `url(${category.url})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        {category.title}
+    <Link to={`/menu?category=${category.id}`}>
+      <div className="category-card-container big-category-card" style={{ backgroundImage: `url(${category.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        {category.name}
       </div>
     </Link>
-  );
+  )
 }
