@@ -1,14 +1,23 @@
 .category-card-container {
-  min-height: 150px;
-  min-width: 150px;
-  background-color: white;
   border-radius: var(--roundness);
   transition: 0.2s;
-  padding: 50px 25px;
   color: white;
   text-shadow: rgb(97, 97, 97) 1px 0 10px;
   font-weight: 500;
+}
+
+.big-category-card {
+  padding: 50px 25px;
+  min-height: 150px;
+  min-width: 150px;
   font-size: 30px;
+}
+
+.small-category-card {
+  padding: 25px;
+  min-width: 150px;
+  height: fit-content;
+  font-size: 22px;
 }
 
 .category-card-container:hover {

@@ -5,10 +5,10 @@ interface Category {
   url: string;
 }
 
-export default function CategoryCard(category: Category) {
+export default function SmallCategoryCard(category: Category) {
   return (
     <div
-      className="category-card-container big-category-card"
+      className="category-card-container small-category-card"
       style={{
         backgroundImage: `url(${category.url})`,
         backgroundSize: "cover",

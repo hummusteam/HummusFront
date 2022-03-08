@@ -1,0 +1,27 @@
+.menu-container {
+  width: var(--container);
+  margin: auto;
+}
+
+.menu-carousel {
+  width: calc(100% - 2em);
+  border-radius: var(--roundness);
+  overflow: hidden;
+  margin: 1em;
+}
+
+.menu-carousel-inner {
+  height: 95px;
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1em;
+  overflow: scroll;
+}
+
+@media screen and (max-width: 900px) {
+  .menu-carousel {
+    border-radius: unset;
+    margin: 0;
+    width: 100%;
+  }
+}
