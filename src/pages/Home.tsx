@@ -1,6 +1,5 @@
 import "../styles/Home.css";
-import CategoryCard from "../components/CategoryCard";
-import Navigation from "../components/Navigation";
+import { CategoryCard, Navigation } from "../components";
 
 export default function Home() {
   const banner = "https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png";
