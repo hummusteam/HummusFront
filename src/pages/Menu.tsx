@@ -34,7 +34,8 @@ export default function Menu() {
           {menuItems.length &&
             menuItems.map((m) => {
               return <MenuItemCard key={m.id} id={m.id} name={m.name} price={m.price} image={m.image} />
-            })}
+            })
+          }
         </div>
       </div>
     </div>
