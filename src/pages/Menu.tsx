@@ -1,9 +1,10 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchItemByCategory, fetchMenuItems } from '../api'
 import { useSearchParams } from 'react-router-dom'
+import EditableForm from '../components/EditableForm'
 
 export default function Menu() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
@@ -30,6 +31,7 @@ export default function Menu() {
                   categories.map((c) => {
                     return <SmallCategoryCard key={c.id} {...c} />
                   })}
+                <Button text={'Add new category'} />
               </div>
             </div>
 
@@ -38,6 +40,7 @@ export default function Menu() {
                 menuItems.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
+              <Button text={'Add new menu item'} />
             </div>
           </div>
         </div>
