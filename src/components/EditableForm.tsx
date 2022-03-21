@@ -4,7 +4,7 @@ import { Editable } from '../types'
 
 export default function EditableForm<T extends Editable>(obj: T) {
   const [editingState, setEditingState] = useState(false)
-  
+
   return (
     <>
       {/* <div className="edit-btn-block" /> */}
@@ -15,12 +15,14 @@ export default function EditableForm<T extends Editable>(obj: T) {
       {editingState ? (
         <>
           <div className="edit-form">
-            <h1 className='edit-form-title'>Update information</h1>
+            <h1 className="edit-form-title">Update information</h1>
             {Object.values(obj).map((data) =>
-              Object.entries(data).map((value) => (
-                <div className='edit-form-inputs'>
-                  <div className='edit-form-label' key={value[0] as string}>{value[0].charAt(0).toUpperCase() + value[0].slice(1)}</div>
-                  <input className='edit-form-input' key={value[1] as string} defaultValue={value[1] as string} />
+              Object.entries(data.data).map((value) => (
+                <div className="edit-form-inputs">
+                  <div className="edit-form-label" key={value[0] as string}>
+                    {value[0].charAt(0).toUpperCase() + value[0].slice(1)}
+                  </div>
+                  <input className="edit-form-input" key={value[1] as string} defaultValue={value[1] as string} />
                 </div>
               ))
             )}

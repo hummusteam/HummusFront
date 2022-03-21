@@ -19,7 +19,7 @@ export default function Home() {
       <div className="app-canvas">
         {categories.length &&
           categories.map((c) => {
-            return <CategoryCard key={c.id} id={c.id} name={c.name} image={c.image} />
+            return <CategoryCard key={c.id} {...c} />
           })}
       </div>
     </div>

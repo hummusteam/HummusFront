@@ -7,7 +7,6 @@ import { MenuItem } from '../types'
 export default function Home() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
-
   useEffect(() => {
     fetchMenuItems().then(setMenuItem)
   }, [])
@@ -19,9 +18,9 @@ export default function Home() {
        <div className="app-canvas">
         {menuItems.length && menuItems.map((c) => {
             return<div>
-            <h1>{c.name}</h1>
+            <h1>{c.data.name}</h1>
             <p>ID: {c.id}</p>
-            <p>{c.price} $</p>
+            <p>{c.data.price} $</p>
             </div>
           })}
       </div> 

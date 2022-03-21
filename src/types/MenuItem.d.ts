@@ -1,7 +1,11 @@
-import Editable from "./Editable"
+import Editable from './Editable'
 
 export default interface MenuItem extends Editable {
-  name: string
-  price: number
-  image: string
+  data: {
+    name: string
+    price: number
+    image: string
+    category: string
+    ingredientIds: string[]
+  }
 }

@@ -4,10 +4,10 @@ import EditableForm from './EditableForm'
 
 export default function SmallCategoryCard(category: Category) {
   return (
-    <div className="category-card-container" style={{ backgroundImage: `url(${category.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+    <div className="category-card-container" style={{ backgroundImage: `url(${category.data.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <EditableForm obj={category} />
       <a href={`/menu?category=${category.id}`}>
-        <div className="big-category-card">{category.name}</div>
+        <div className="big-category-card">{category.data.name}</div>
       </a>
     </div>
   )

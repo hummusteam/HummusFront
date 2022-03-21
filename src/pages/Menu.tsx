@@ -13,13 +13,7 @@ export default function Menu() {
   const categoryId = searchParams.get('category')
 
   useEffect(() => {
-    // if (categoryId) {
-    //   fetchMenuItems().then(setMenuItem)
-    // }
-    // else {
     fetchItemByCategory(categoryId).then(setMenuItem)
-    // }
-
     fetchCategories().then(setCategories)
   }, [])
 
@@ -34,7 +28,7 @@ export default function Menu() {
               <div className="menu-carousel-inner">
                 {categories.length &&
                   categories.map((c) => {
-                    return <SmallCategoryCard key={c.id} id={c.id} name={c.name} image={c.image} putUrl={''} />
+                    return <SmallCategoryCard key={c.id} {...c} />
                   })}
               </div>
             </div>
@@ -42,7 +36,7 @@ export default function Menu() {
             <div className="menu-items">
               {menuItems.length &&
                 menuItems.map((m) => {
-                  return <MenuItemCard key={m.id} id={m.id} name={m.name} price={m.price} image={m.image} putUrl={''} />
+                  return <MenuItemCard key={m.id} {...m} />
                 })}
             </div>
           </div>
