@@ -1,14 +1,14 @@
 .category-card-container {
+  position: relative;
   border-radius: var(--roundness);
   transition: 0.2s;
-  color: white;
   text-shadow: rgb(97, 97, 97) 1px 0 10px;
   font-weight: 500;
-  background-color: white;
-  text-decoration: none;
+  align-items: center;
 }
 
 .big-category-card {
+  color: white;
   padding: 50px 25px;
   min-height: 150px;
   min-width: 150px;
@@ -16,6 +16,7 @@
 }
 
 .small-category-card {
+  color: white;
   padding: 25px;
   min-width: 150px;
   height: fit-content;
@@ -23,7 +24,6 @@
 }
 
 .category-card-container:hover {
-  transform: scale(0.97);
   box-shadow: 0 -1px 4px 0 rgba(144, 144, 144, 0.08), 0 6px 8px 0 rgba(87, 87, 87, 0.12);
   cursor: pointer;
 }

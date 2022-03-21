@@ -13,7 +13,6 @@ export default function Menu() {
   const categoryId = searchParams.get('category')
 
   useEffect(() => {
-    console.log(categoryId)
     // if (categoryId) {
     //   fetchMenuItems().then(setMenuItem)
     // }
@@ -26,7 +25,7 @@ export default function Menu() {
 
   return (
     <>
-      {(menuItems.length || categories.length) ? (
+      {menuItems.length || categories.length ? (
         <div className="menu-container">
           <Navigation url={banner} />
 
@@ -35,16 +34,15 @@ export default function Menu() {
               <div className="menu-carousel-inner">
                 {categories.length &&
                   categories.map((c) => {
-                    return <SmallCategoryCard key={c.id} id={c.id} name={c.name} image={c.image} />
+                    return <SmallCategoryCard key={c.id} id={c.id} name={c.name} image={c.image} putUrl={''} />
                   })}
               </div>
             </div>
 
-            <h1>Menu Items</h1>
             <div className="menu-items">
               {menuItems.length &&
                 menuItems.map((m) => {
-                  return <MenuItemCard key={m.id} id={m.id} name={m.name} price={m.price} image={m.image} />
+                  return <MenuItemCard key={m.id} id={m.id} name={m.name} price={m.price} image={m.image} putUrl={''} />
                 })}
             </div>
           </div>

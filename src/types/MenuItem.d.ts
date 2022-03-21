@@ -1,5 +1,6 @@
-export default interface MenuItem {
-  id: string
+import Editable from "./Editable"
+
+export default interface MenuItem extends Editable {
   name: string
   price: number
   image: string

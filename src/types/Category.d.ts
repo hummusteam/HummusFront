@@ -1,5 +1,6 @@
-export default interface Category {
-  id: string
+import Editable from "./Editable"
+
+export default interface Category extends Editable {
   name: string
   image: string
 }
