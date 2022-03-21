@@ -26,7 +26,6 @@ export default async function fetchItemByCategory(category: string | null): Prom
         name: d.name,
         image: d.image,
         price: d.price,
-        category: d.category,
         ingredientIds: d.ingredientIds,
       },
     }

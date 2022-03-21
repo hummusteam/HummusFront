@@ -5,7 +5,6 @@ export default interface MenuItem extends Editable {
     name: string
     price: number
     image: string
-    category: string
     ingredientIds: string[]
   }
 }
