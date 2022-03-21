@@ -1,9 +1,14 @@
 import '../styles/EditableForm.css'
 import { useState } from 'react'
 import { Editable } from '../types'
+import Button from './Button'
 
 export default function EditableForm<T extends Editable>(obj: T) {
   const [editingState, setEditingState] = useState(false)
+
+  const updateObj = () => {
+    
+  }
 
   return (
     <>
@@ -26,6 +31,17 @@ export default function EditableForm<T extends Editable>(obj: T) {
                 </div>
               ))
             )}
+            <div className="edit-form-btns">
+              <div onClick={() => setEditingState(false)}>
+                <Button text={'Cancel'} />
+              </div>
+              <div onClick={updateObj}>
+                <Button text={'Update'} />
+              </div>
+              <div onClick={() => null}>
+                <Button text={'Delete'} />
+              </div>
+            </div>
           </div>
           <div onClick={() => setEditingState(false)} className="edit-form-block" />
         </>

@@ -89,3 +89,12 @@
   font-size: 20px;
   font-weight: bolder;
 }
+
+.edit-form-btns {
+   margin-top: 40px;
+   display: flex;
+}
+
+.edit-form-btns button{
+  margin-right: 1em;
+}
