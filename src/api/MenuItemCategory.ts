@@ -12,15 +12,14 @@ type ApiMenuItem = {
 }
 
 export default async function fetchItemByCategory(category: string | null): Promise<MenuItem[]> {
-  const putUrl = 'https://menuapi.tycho.dev/MenuItem/GetByCategory'
   const data: ApiMenuItem[] = await axios
-    .get(putUrl + '/' + category)
+    .get('https://menuapi.tycho.dev/MenuItem/GetByCategory/' + category)
     .then((res) => res.data)
     .catch(console.log)
 
   return data.map((d: ApiMenuItem) => {
     return {
-      putUrl: putUrl,
+      putUrl: 'https://menuapi.tycho.dev/MenuItem',
       id: d.id,
       data: {
         name: d.name,

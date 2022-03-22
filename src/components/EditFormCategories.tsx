@@ -1,14 +1,11 @@
 import '../styles/EditableForm.css'
 import { useState } from 'react'
-import { Editable } from '../types'
+import { Category, Editable, MenuItem } from '../types'
 import Button from './Button'
+import putMenuItems from '../api/MenuItemPut'
 
-export default function EditForm<T extends Editable>(obj: T) {
+export default function EditFormCategories(obj: Category) {
   const [editingState, setEditingState] = useState(false)
-
-  const updateObj = () => {
-    
-  }
 
   return (
     <>
@@ -35,9 +32,9 @@ export default function EditForm<T extends Editable>(obj: T) {
               <div onClick={() => setEditingState(false)}>
                 <Button text={'Cancel'} />
               </div>
-              <div onClick={updateObj}>
+              {/* <div onClick={updateObj}>
                 <Button text={'Update'} />
-              </div>
+              </div> */}
               <div onClick={() => null}>
                 <Button text={'Delete'} />
               </div>
