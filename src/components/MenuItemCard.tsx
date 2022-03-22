@@ -3,9 +3,9 @@ import { MenuItem } from '../types'
 
 export default function MenuItemCard(menuItem: MenuItem) {
   return (
-    <div className="menu-item-container">
+    <div className="menu-item-container" style={{ backgroundImage: `url(${menuItem.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <h1>{menuItem.name}</h1>
-      <h3>{menuItem.price}</h3>
+      <h2>{menuItem.price}</h2>
       <h3></h3>
     </div>
   )

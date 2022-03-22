@@ -3,3 +3,4 @@ export { default as Meta } from "./Meta";
 export { default as CategoryCard } from "./CategoryCard";
 export { default as SmallCategoryCard } from "./SmallCategoryCard";
 export { default as MenuItemCard } from "./MenuItemCard";
+export { default as Loading } from "./Loading";
