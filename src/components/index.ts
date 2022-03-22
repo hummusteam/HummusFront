@@ -4,3 +4,5 @@ export { default as CategoryCard } from "./CategoryCard";
 export { default as SmallCategoryCard } from "./SmallCategoryCard";
 export { default as MenuItemCard } from "./MenuItemCard";
 export { default as Loading } from "./Loading";
+export { default as Editable } from "./EditableForm";
+export { default as Button } from "./Button";

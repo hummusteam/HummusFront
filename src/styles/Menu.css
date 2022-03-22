@@ -34,6 +34,8 @@
 @media screen and (max-width: 1550px) {
   .menu-items {
     grid-template-columns: repeat(3, 1fr);
+    overflow: hidden;
+    border-radius: var(--roundness);
   }
 }
 
