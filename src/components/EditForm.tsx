@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Editable } from '../types'
 import Button from './Button'
 
-export default function EditableForm<T extends Editable>(obj: T) {
+export default function EditForm<T extends Editable>(obj: T) {
   const [editingState, setEditingState] = useState(false)
 
   const updateObj = () => {
