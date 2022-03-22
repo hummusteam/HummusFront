@@ -1,14 +1,32 @@
 import '../styles/EditForm.css'
-import { useState } from 'react'
-import { Editable, MenuItem } from '../types'
-import Button from './Button'
-import putMenuItems from '../api/MenuItemPut'
+import { useRef, useState } from 'react'
+import { MenuItem } from '../types'
+import { Button } from '../components'
+import { deleteMenuItem, putMenuItem } from '../api'
 
-export default function EditFormMenuItem(obj: MenuItem) {
+export default function EditFormMenuItem(menuItem: MenuItem) {
   const [editingState, setEditingState] = useState(false)
 
-  const updateObj = () => {
-    putMenuItems(obj) 
+  let nameInput = useRef(null)
+  let priceInput = useRef(null)
+  let imageInput = useRef(null)
+
+  const updateMenuItem = async () => {
+    await putMenuItem({
+      id: menuItem.id,
+      dateTimeCreated: menuItem.dateTimeCreated,
+      name: nameInput.current.value,
+      price: priceInput.current.value,
+      image: imageInput.current.value,
+      category: menuItem.category,
+      ingredientIds: menuItem.ingredientIds,
+    })
+    window.location.reload()
+  }
+
+  const removeMenuItem = async () => {
+    await deleteMenuItem(menuItem)
+    window.location.reload()
   }
 
   return (
@@ -19,33 +37,39 @@ export default function EditFormMenuItem(obj: MenuItem) {
       </button>
 
       {editingState ? (
-        <>
+        <form>
           <div className="edit-form">
-            <h1 className="edit-form-title">Update information</h1>
-            {Object.values(obj).map((data) =>
-              Object.entries(data.data).map((value) => (
-                <div className="edit-form-inputs">
-                  <div className="edit-form-label" key={value[0] as string}>
-                    {value[0].charAt(0).toUpperCase() + value[0].slice(1)}
-                  </div>
-                  <input className="edit-form-input" key={value[1] as string} defaultValue={value[1] as string} />
-                </div>
-              ))
-            )}
+            <h1 className="edit-form-title">Update menu item information</h1>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Dish name</div>
+              <input className="edit-form-input" ref={nameInput} defaultValue={menuItem.name} />
+            </div>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Price</div>
+              <input className="edit-form-input" ref={priceInput} defaultValue={menuItem.price} />
+            </div>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Image URL</div>
+              <input className="edit-form-input" ref={imageInput} defaultValue={menuItem.image} />
+            </div>
+
             <div className="edit-form-btns">
               <div onClick={() => setEditingState(false)}>
                 <Button text={'Cancel'} />
               </div>
-              <div onClick={updateObj}>
+              <div onClick={updateMenuItem}>
                 <Button text={'Update'} />
               </div>
-              <div onClick={() => null}>
+              <div onClick={removeMenuItem}>
                 <Button text={'Delete'} />
               </div>
             </div>
           </div>
           <div onClick={() => setEditingState(false)} className="edit-form-block" />
-        </>
+        </form>
       ) : null}
     </>
   )

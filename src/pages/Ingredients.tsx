@@ -14,16 +14,19 @@ export default function Home() {
   return (
     <div className="app-container ">
       <Navigation url={banner} />
-      
-       <div className="app-canvas">
-        {menuItems.length && menuItems.map((c) => {
-            return<div>
-            <h1>{c.data.name}</h1>
-            <p>ID: {c.id}</p>
-            <p>{c.data.price} $</p>
-            </div>
+
+      <div className="app-canvas">
+        {menuItems.length &&
+          menuItems.map((c) => {
+            return (
+              <div>
+                <h1>{c.name}</h1>
+                <p>ID: {c.id}</p>
+                <p>{c.price} $</p>
+              </div>
+            )
           })}
-      </div> 
+      </div>
     </div>
   )
 }

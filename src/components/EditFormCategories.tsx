@@ -1,11 +1,29 @@
 import '../styles/EditForm.css'
-import { useState } from 'react'
-import { Category, Editable, MenuItem } from '../types'
-import Button from './Button'
-import putMenuItems from '../api/MenuItemPut'
+import { useRef, useState } from 'react'
+import { Category } from '../types'
+import { Button } from '../components'
+import { deleteCategory, putCategory } from '../api'
 
-export default function EditFormCategories(obj: Category) {
+export default function EditFormCategories(category: Category) {
   const [editingState, setEditingState] = useState(false)
+
+  let nameInput = useRef(null)
+  let imageInput = useRef(null)
+
+  const updateCategory = async () => {
+    await putCategory({
+      id: category.id,
+      dateTimeCreated: category.dateTimeCreated,
+      name: nameInput.current.value,
+      image: imageInput.current.value,
+    })
+    window.location.reload()
+  }
+
+  const removeCategory = async () => {
+    await deleteCategory(category)
+    window.location.reload()
+  }
 
   return (
     <>
@@ -17,25 +35,26 @@ export default function EditFormCategories(obj: Category) {
       {editingState ? (
         <>
           <div className="edit-form">
-            <h1 className="edit-form-title">Update information</h1>
-            {Object.values(obj).map((data) =>
-              Object.entries(data.data).map((value) => (
-                <div className="edit-form-inputs">
-                  <div className="edit-form-label" key={value[0] as string}>
-                    {value[0].charAt(0).toUpperCase() + value[0].slice(1)}
-                  </div>
-                  <input className="edit-form-input" key={value[1] as string} defaultValue={value[1] as string} />
-                </div>
-              ))
-            )}
+            <h1 className="edit-form-title">Update category information</h1>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Category name</div>
+              <input className="edit-form-input" ref={nameInput} defaultValue={category.name} />
+            </div>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Image URL</div>
+              <input className="edit-form-input" ref={imageInput} defaultValue={category.image} />
+            </div>
+
             <div className="edit-form-btns">
               <div onClick={() => setEditingState(false)}>
                 <Button text={'Cancel'} />
               </div>
-              {/* <div onClick={updateObj}>
+              <div onClick={updateCategory}>
                 <Button text={'Update'} />
-              </div> */}
-              <div onClick={() => null}>
+              </div>
+              <div onClick={removeCategory}>
                 <Button text={'Delete'} />
               </div>
             </div>
