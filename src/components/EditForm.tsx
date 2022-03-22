@@ -1,4 +1,4 @@
-import '../styles/EditableForm.css'
+import '../styles/EditForm.css'
 import { useState } from 'react'
 import { Editable } from '../types'
 import Button from './Button'

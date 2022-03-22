@@ -13,6 +13,7 @@ type ApiMenuItem = {
 
 export default async function fetchItemByCategory(category: string | null): Promise<MenuItem[]> {
   const putUrl = 'https://menuapi.tycho.dev/MenuItem/GetByCategory'
+  
   const data: ApiMenuItem[] = await axios
     .get(putUrl + '/' + category)
     .then((res) => res.data)
