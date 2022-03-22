@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
@@ -19,27 +19,26 @@ export default function Menu() {
 
   return (
     <>
-      {menuItems.length || categories.length ? (
+      {menuItems.length != 0 || categories.length != 0 ? (
         <div className="menu-container">
           <Navigation url={banner} />
 
           <div className="inner-menu-container">
             <div className="menu-carousel">
               <div className="menu-carousel-inner">
-                {categories.length &&
+                {categories.length != 0 &&
                   categories.map((c) => {
                     return <SmallCategoryCard key={c.id} {...c} />
                   })}
-                <Button text={'Add new category'} />
               </div>
             </div>
 
             <div className="menu-items">
-              {menuItems.length &&
+              <AddFormMenuItem categoryId={categoryId} />
+              {menuItems.length != 0 &&
                 menuItems.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
-              <Button text={'Add new menu item'} />
             </div>
           </div>
         </div>

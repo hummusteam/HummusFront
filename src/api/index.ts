@@ -1,2 +1,2 @@
-export { fetchCategories, putCategory, deleteCategory } from './Categories'
-export { fetchMenuItems, fetchMenuItemsByCategory, putMenuItem, deleteMenuItem } from './MenuItems'
+export { fetchCategories, putCategory, postCategory, deleteCategory } from './Categories'
+export { fetchMenuItems, fetchMenuItemsByCategory, putMenuItem, postMenuItem, deleteMenuItem } from './MenuItems'

@@ -59,6 +59,7 @@ export default function EditFormCategories(category: Category) {
               </div>
             </div>
           </div>
+          
           <div onClick={() => setEditingState(false)} className="edit-form-block" />
         </>
       ) : null}

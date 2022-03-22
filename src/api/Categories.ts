@@ -16,4 +16,14 @@ export async function putCategory(category: Category) {
     .catch(console.log)
 }
 
-export async function deleteCategory(category: Category) {}
+export async function postCategory(category: Category) {
+  await axios
+    .post('https://menuapi.tycho.dev/Category', category, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .catch(console.log)
+}
+
+export async function deleteCategory(category: Category) {
+  await axios.delete('https://menuapi.tycho.dev/Category', { data: category }).catch(console.log)
+}

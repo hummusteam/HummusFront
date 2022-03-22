@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { Button, CategoryCard, Navigation } from '../components'
+import { AddFormCategory, Button, CategoryCard, Loading, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
@@ -13,16 +13,22 @@ export default function Home() {
   }, [])
 
   return (
-    <div className="app-container ">
-      <Navigation url={banner} />
+    <>
+      {categories.length != 0 ? (
+        <div className="app-container">
+          <Navigation url={banner} />
 
-      <div className="app-canvas">
-        {categories.length &&
-          categories.map((c) => {
-            return <CategoryCard key={c.id} {...c} />
-          })}
-        <Button text={'Add new category'} />
-      </div>
-    </div>
+          <div className="app-canvas">
+            <AddFormCategory />
+            {categories.length &&
+              categories.map((c) => {
+                return <CategoryCard key={c.id} {...c} />
+              })}
+          </div>
+        </div>
+      ) : (
+        <Loading />
+      )}
+    </>
   )
 }

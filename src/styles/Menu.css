@@ -29,6 +29,7 @@
   justify-content: space-around;
   grid-auto-flow: dense;
   gap: 1em;
+  padding-bottom: 100px;
 }
 
 @media screen and (max-width: 1550px) {
