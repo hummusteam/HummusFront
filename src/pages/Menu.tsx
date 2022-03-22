@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Cart } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchItemByCategory, fetchMenuItems } from '../api'
@@ -14,12 +14,7 @@ export default function Menu() {
 
   useEffect(() => {
     console.log(categoryId)
-    // if (categoryId) {
-    //   fetchMenuItems().then(setMenuItem)
-    // }
-    // else {
     fetchItemByCategory(categoryId).then(setMenuItem)
-    // }
 
     fetchCategories().then(setCategories)
   }, [])
