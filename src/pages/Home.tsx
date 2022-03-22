@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { CategoryCard, Navigation } from '../components'
+import { Button, CategoryCard, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
@@ -19,8 +19,9 @@ export default function Home() {
       <div className="app-canvas">
         {categories.length &&
           categories.map((c) => {
-            return <CategoryCard key={c.id} id={c.id} name={c.name} image={c.image} />
+            return <CategoryCard key={c.id} {...c} />
           })}
+        <Button text={'Add new category'} />
       </div>
     </div>
   )

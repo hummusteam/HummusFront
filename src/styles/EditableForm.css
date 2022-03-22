@@ -1,0 +1,100 @@
+.edit-btn {
+  position: absolute;
+  width: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 37px;
+  border-radius: var(--roundness);
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+  white-space: nowrap;
+  font-family: inherit;
+  background-color: white;
+  font-weight: bold;
+  font-size: 17px;
+  transition: 0.2s;
+  filter: drop-shadow(10px);
+}
+
+.edit-btn-block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.4;
+  border-radius: var(--roundness);
+}
+
+.edit-btn:hover {
+  cursor: pointer;
+}
+
+.edit-form {
+  cursor: default; /* FIX ME - fix cursor inheritance */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: auto;
+  min-width: 450px;
+  min-height: 300px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  text-shadow: none;
+  border-radius: var(--roundness);
+  padding: 50px 25px 70px 25px;
+  z-index: 99;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.08), 0 6px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+.edit-form-block {
+  cursor: default; /* FIX ME - fix cursor inheritance */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 9;
+}
+
+.edit-form-title {
+  margin-bottom: 50px;
+}
+
+.edit-form-inputs {
+  margin: 20px 0;
+}
+
+.edit-form-input {
+  min-height: 37px;
+  --padding: 20px;
+  width: calc(100% - var(--padding));
+  font-family: Ubuntu, Segoe UI, Roboto;
+  border-radius: var(--roundness);
+  border: none;
+  transition: 0.2s;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #eee;
+  padding-left: var(--padding);
+}
+
+.edit-form-label {
+  margin: 15px 0;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.edit-form-btns {
+   margin-top: 40px;
+   display: flex;
+}
+
+.edit-form-btns button{
+  margin-right: 1em;
+}

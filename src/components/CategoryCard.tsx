@@ -1,12 +1,14 @@
 import '../styles/CategoryCard.css'
 import { Category } from '../types'
+import EditForm from './EditForm'
 
 export default function SmallCategoryCard(category: Category) {
   return (
-    <a href={`/menu?category=${category.id}`}>
-      <div className="category-card-container big-category-card" style={{ backgroundImage: `url(${category.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        {category.name}
-      </div>
-    </a>
+    <div className="category-card-container" style={{ backgroundImage: `url(${category.data.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <EditForm obj={category} />
+      <a href={`/menu?category=${category.id}`}>
+        <div className="big-category-card">{category.data.name}</div>
+      </a>
+    </div>
   )
 }

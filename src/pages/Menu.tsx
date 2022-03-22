@@ -1,9 +1,10 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchItemByCategory, fetchMenuItems } from '../api'
 import { useSearchParams } from 'react-router-dom'
+import EditableForm from '../components/EditForm'
 
 export default function Menu() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
@@ -13,20 +14,13 @@ export default function Menu() {
   const categoryId = searchParams.get('category')
 
   useEffect(() => {
-    console.log(categoryId)
-    // if (categoryId) {
-    //   fetchMenuItems().then(setMenuItem)
-    // }
-    // else {
     fetchItemByCategory(categoryId).then(setMenuItem)
-    // }
-
     fetchCategories().then(setCategories)
   }, [])
 
   return (
     <>
-      {(menuItems.length || categories.length) ? (
+      {menuItems.length || categories.length ? (
         <div className="menu-container">
           <Navigation url={banner} />
 
@@ -35,17 +29,18 @@ export default function Menu() {
               <div className="menu-carousel-inner">
                 {categories.length &&
                   categories.map((c) => {
-                    return <SmallCategoryCard key={c.id} id={c.id} name={c.name} image={c.image} />
+                    return <SmallCategoryCard key={c.id} {...c} />
                   })}
+                <Button text={'Add new category'} />
               </div>
             </div>
 
-            <h1>Menu Items</h1>
             <div className="menu-items">
               {menuItems.length &&
                 menuItems.map((m) => {
-                  return <MenuItemCard key={m.id} id={m.id} name={m.name} price={m.price} image={m.image} />
+                  return <MenuItemCard key={m.id} {...m} />
                 })}
+              <Button text={'Add new menu item'} />
             </div>
           </div>
         </div>
