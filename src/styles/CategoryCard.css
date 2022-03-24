@@ -10,8 +10,8 @@
 .big-category-card {
   color: white;
   padding: 50px 25px;
-  min-height: 150px;
-  min-width: 150px;
+  height: 150px;
+  /* min-width: 150px; */
   font-size: 30px;
 }
 

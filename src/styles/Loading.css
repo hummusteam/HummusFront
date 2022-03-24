@@ -1,11 +1,15 @@
 .lds-container {
+  position: fixed;
   width: 100%;
   height: 100%;
 }
 
 .lds-grid {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   position: relative;
-  margin: auto;
   width: 80px;
   height: 80px;
 }
