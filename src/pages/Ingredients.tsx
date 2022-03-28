@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { CategoryCard, Navigation } from '../components'
+import { Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchMenuItems } from '../api'
 import { MenuItem } from '../types'

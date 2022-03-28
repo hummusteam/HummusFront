@@ -11,7 +11,7 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
   let priceInput = useRef(null)
   let imageInput = useRef(null)
 
-  const updateMenuItem = async () => {
+  async function updateMenuItem() {
     await putMenuItem({
       id: menuItem.id,
       dateTimeCreated: menuItem.dateTimeCreated,
@@ -24,7 +24,7 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
     window.location.reload()
   }
 
-  const removeMenuItem = async () => {
+  async function removeMenuItem() {
     await deleteMenuItem(menuItem)
     window.location.reload()
   }

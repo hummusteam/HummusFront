@@ -11,7 +11,7 @@ export default function AddFormCategory() {
   let nameInput = useRef(null)
   let imageInput = useRef(null)
 
-  const addCategory = async () => {
+  async function addCategory() {
     await postCategory({
       id: uuid(),
       dateTimeCreated: moment().format(),
