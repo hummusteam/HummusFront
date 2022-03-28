@@ -10,7 +10,6 @@ ReactDOM.render(
       <Route path="/menu" element={<Menu />} />
       <Route path="/menu:categoryId" element={<Menu />} />
       <Route path="/ingredients" element={<Ingredients />} />
-      <Route path="/Test" element={<Test />} />
     </Routes>
   </Router>,
   document.getElementById('root')
