@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
 
+const AUTHED = false
+
 export default function Home() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
@@ -19,7 +21,7 @@ export default function Home() {
           <Navigation url={banner} />
 
           <div className="app-canvas">
-            <AddFormCategory />
+            {AUTHED ? <AddFormCategory /> : null}
             {categories.length &&
               categories.map((c) => {
                 return <CategoryCard key={c.id} {...c} />

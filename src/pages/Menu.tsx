@@ -5,6 +5,8 @@ import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
 import { useSearchParams } from 'react-router-dom'
 
+const AUTHED = false
+
 export default function Menu() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
@@ -34,7 +36,7 @@ export default function Menu() {
             </div>
 
             <div className="menu-items">
-              <AddFormMenuItem categoryId={categoryId} />
+              {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
               {menuItems.length != 0 &&
                 menuItems.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
