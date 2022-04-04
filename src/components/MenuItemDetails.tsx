@@ -38,14 +38,16 @@ export default function MenuItemDetails(item: MenuItem) {
   }
 
   function addMenuItem() {
+    // Getting clicked items under Etra Ingredients to a list `extras`
     const ingredientElements = document.getElementsByClassName('extraIngredient')
 
-    var extras: { [id: string]: number } = {}
+    let extras: { [id: string]: number } = {}
 
     for (let i = 0; i < ingredientElements.length; i++) {
-      extras[ingredientElements[i].id] = 1
+      extras[ingredientElements[i].id] = 1 // currently adds 1 bc not fully implemented
     }
 
+    // Configure an OrderItem obj as `configuredOrder`
     const configuredOrder: OrderItem = {
       id: uuid(),
       dateTimeCreated: item.dateTimeCreated,
@@ -55,10 +57,18 @@ export default function MenuItemDetails(item: MenuItem) {
       description: '',
     }
 
+    // Create cookie with order item. Check if orders already added
     const cookies = new Cookies()
-    cookies.set('order_', JSON.stringify([configuredOrder]))
 
-    // console.log(cookies.get('order_') as OrderItem)
+    if (cookies.get('_order')) {
+      // Deserialize object from cookie using casting
+      const order: OrderItem[] = cookies.get('_order')
+      order.push(configuredOrder)
+      cookies.set('_order', JSON.stringify(order))
+      console.log(order)
+    } else {
+      cookies.set('_order', JSON.stringify([configuredOrder]))
+    }
 
     document.location.reload()
   }
@@ -75,18 +85,17 @@ export default function MenuItemDetails(item: MenuItem) {
               <div className="details-form-details">
                 <p className="details-form-title">{item.name}</p>
                 <p className="details-form-detail">{item.price} €</p>
-                {ingredients ? (
+                {ingredients != null && ingredients.length != 0 ? (
                   <>
                     <h3>Extra ingredients</h3>
                     <div className="details-form-ingredients">
-                      {ingredients.length &&
-                        ingredients.map((i) => {
-                          return (
-                            <div onClick={() => handleExtraIngredient(i)} id={i.id} className="ingredient" key={i.id}>
-                              {i.name}
-                            </div>
-                          )
-                        })}
+                      {ingredients.map((i) => {
+                        return (
+                          <div onClick={() => handleExtraIngredient(i)} id={i.id} className="ingredient" key={i.id}>
+                            {i.name}
+                          </div>
+                        )
+                      })}
                     </div>
                   </>
                 ) : null}
