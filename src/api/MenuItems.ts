@@ -24,10 +24,11 @@ export async function putMenuItem(item: MenuItem) {
 }
 
 export async function postMenuItem(item: MenuItem) {
-  const res = await axios.post('https://menuapi.tycho.dev/MenuItem', item, {
-    headers: { 'Content-Type': 'application/json' },
-  })
-  .catch(console.log)
+  await axios
+    .post('https://menuapi.tycho.dev/MenuItem', item, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .catch(console.log)
 }
 
 export async function deleteMenuItem(item: MenuItem) {
