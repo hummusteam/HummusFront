@@ -46,11 +46,6 @@
     gap: 0;
     padding: 0;
   }
-
-  .menu-items div {
-    border-radius: unset;
-    font-size: 30px;
-  }
 }
 
 @media screen and (max-width: 400px) {
