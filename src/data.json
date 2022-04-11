@@ -1,0 +1,32 @@
+[
+    {
+      "id": 1,
+      "product_name": "Banana",
+      "product_price": 2,
+      "amount": 125
+    },
+    {
+      "id": 2,
+      "product_name": "Apple",
+      "product_price": 1.5,
+      "amount": 98
+    },
+    {
+      "id": 3,
+      "product_name": "Strawberry",
+      "product_price": 1.75,
+      "amount": 213
+    },
+    {
+      "id": 4,
+      "product_name": "Nut",
+      "product_price": 5,
+      "amount": 765
+    },
+    {
+      "id": 5,
+      "product_name": "Seed",
+      "product_price": 6,
+      "amount": 1231
+    }
+]
