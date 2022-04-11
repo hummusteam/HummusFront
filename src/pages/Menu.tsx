@@ -5,7 +5,7 @@ import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
 import { useSearchParams } from 'react-router-dom'
 
-const AUTHED = false
+const AUTHED = true
 
 export default function Menu() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'

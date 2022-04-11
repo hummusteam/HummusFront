@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
 
-const AUTHED = false
+const AUTHED = true
 
 export default function Home() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
