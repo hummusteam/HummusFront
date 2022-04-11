@@ -7,6 +7,8 @@ import Cookies from 'universal-cookie'
 import OrderItem from '../types/OrderItem'
 import { v4 as uuid } from 'uuid'
 
+
+
 export default function MenuItemDetails(item: MenuItem) {
   const [isShowing, showDetails] = useState(false)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])

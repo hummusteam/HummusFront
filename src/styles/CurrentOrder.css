@@ -1,36 +1,56 @@
 
-  .orders-container {
-    cursor: default; /* FIX ME - fix cursor inheritance */
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    width: auto;
-    height: auto;
-    min-width: 450px;
-    min-height: 300px;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    color: black;
-    text-shadow: none;
-    border-radius: var(--roundness);
-    padding: 50px 25px 70px 25px;
-    z-index: 99;
-    box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.08), 0 6px 8px 0 rgba(0, 0, 0, 0.12);
-  }
   
   .orders-container {
     cursor: default; /* FIX ME - fix cursor inheritance */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    opacity: 0.5;
-    z-index: 9;
+    position: relative;
+    border: 4px solid goldenrod;
+    /* top: 50%;
+    left: 50%; */
+    width: auto;
+    height: auto;
+    min-width: 50vw;
+    min-height: 80vh;
+    max-width: 75vw;
+    /* transform: translate(-50%, -50%); */
+    background-color: white;
+    margin-top: 2vh;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    border-radius: var(--roundness);
+    padding: 4vh 2vw 4vw 2vw;
+    /* z-index: 99; */
+    box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.08), 0 6px 8px 0 rgba(0, 0, 0, 0.12);
+    margin: auto;
+  }
+  
+  .generic{
+    border: 3px solid green;
+    margin-bottom: 1vh;
+    cursor: default;
+    height: 20vh;
+    min-height: 5vh;
+    box-sizing: border-box;
+    width:100%;
+    position: relative;
   }
 
-  .my-orders{
 
-    border: 3px solid pink;
-  }
+
+.my-orders{
+  box-sizing: border-box;
+  /* size: 50%; */
+  height: 200px;
+}
+
+.previous-orders{
+  min-height: 150px;
+}
+
+.notes input{
+  box-sizing: border-box;
+
+  border: solid salmon 3px;
+  width: 100%;
+  height: 100%;
+  width: relative;
+}
