@@ -3,10 +3,11 @@ import { AddFormCategory, CategoryCard, Loading, Navigation } from '../component
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
-
-const AUTHED = true
+import {useLocalStorage} from "../util/UseLocalStorage";
+import Button from "../components/Button";
 
 export default function Home() {
+  const [AUTHED, setAuthed] = useLocalStorage("authed", false);
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
 
@@ -26,6 +27,9 @@ export default function Home() {
               categories.map((c) => {
                 return <CategoryCard key={c.id} {...c} />
               })}
+          </div>
+          <div onClick={() => {setAuthed(!AUTHED); location.reload();}}>
+            <Button text={"Toggle admin mode"} />
           </div>
         </div>
       ) : (
