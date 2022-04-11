@@ -16,6 +16,34 @@ body {
   overflow-x: hidden;
 }
 
+textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: var(--roundness);
+  background-color: rgb(249, 249, 249);
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: calc(var(--roundness)/2);
+  min-width: 50px;
+  text-align: center;
+}
+
+button:active {
+  background-color: white;
+}
+
+hr {
+  border: 1px dashed rgb(208, 208, 208);
+}
+
 @media screen and (max-width: 1550px) {
   :root {
     --container: 70%;

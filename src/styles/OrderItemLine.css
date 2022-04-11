@@ -1,0 +1,53 @@
+.orderlineContainer {
+  width: 100%;
+  height: auto;
+  border-radius: var(--roundness);
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-right: 20px;
+}
+
+.orderlineImage {
+  height: 50px;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: calc(var(--roundness) / 1.5);
+  overflow: hidden;
+}
+
+.orderlineDetails * {
+  margin: 0;
+  margin-bottom: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+
+.orderlineName {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.orderlineQtys {
+  display: grid;
+  grid-auto-flow: column;
+  margin: 0;
+}
+
+.qtyBtn {
+  display: grid;
+  grid-auto-flow: column;
+  text-align: center;
+}
+
+.qtyBtns * {
+  margin: auto;
+  text-align: center;
+}
+
+.qtyInput {
+  min-width: 30px;
+  display: flex;
+  justify-content: center;
+}
