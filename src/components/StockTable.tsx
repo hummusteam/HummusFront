@@ -1,93 +1,60 @@
-import { MouseEventHandler, useCallback, useEffect, useState } from "react";
-import { fetchIngredients } from "../api";
-import { Ingredient } from "../types";
-import Button from "./Button";
+import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
+import { fetchIngredients } from '../api'
+import { Ingredient } from '../types'
+import Button from './Button'
 
-type Data = typeof ingredients;
+export default function SortableTable() {
+  const [sortKey, setSortKey] = useState<SortKeys>('id')
+  const [sortOrder, setSortOrder] = useState<SortOrder>('ascn')
+  const [ingredients, setIngredients] = useState<Ingredient[]>([])
 
-type SortKeys = keyof Data[0];
+  useEffect(() => {
+    fetchIngredients().then((data) => {
+      setIngredients([...data])
+    })
+  }, [])
+  
+  type Data = typeof ingredients
 
-type SortOrder = "ascn" | "desc";
+  type SortKeys = keyof Data[0]
 
-const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  type SortOrder = 'ascn' | 'desc'
 
-useEffect(() => {
-  fetchIngredients().then((data) => {
-    setIngredients([...data])
-  })
-}, [])
+  function sortData({ tableData, sortKey, reverse }: { tableData: Data; sortKey: SortKeys; reverse: boolean }) {
+    if (!sortKey) return tableData
 
-function sortData({
-  tableData,
-  sortKey,
-  reverse,
-}: 
+    const sortedData = ingredients.sort((a, b) => {
+      return a[sortKey] > b[sortKey] ? 1 : -1
+    })
 
-{
-  tableData: Data;
-  sortKey: SortKeys;
-  reverse: boolean;
-}) 
+    if (reverse) {
+      return sortedData.reverse()
+    }
 
-{
-  if (!sortKey) return tableData;
-
-  const sortedData = ingredients.sort((a, b) => {
-    return a[sortKey] > b[sortKey] ? 1 : -1;
-  });
-
-  if (reverse) {
-    return sortedData.reverse();
+    return sortedData
   }
 
-  return sortedData;
-}
-
-function SortButton({
-  sortOrder,
-  columnKey,
-  sortKey,
-  onClick,
-}: {
-  sortOrder: SortOrder;
-  columnKey: SortKeys;
-  sortKey: SortKeys;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`${
-        sortKey === columnKey && sortOrder === "desc"
-          ? "sort-button sort-reverse"
-          : "sort-button"
-      }`}
-    >
-      ▲
-    </button>
-  );
-}
-
-function SortableTable({ data }: { data: Data }) {
-  const [sortKey, setSortKey] = useState<SortKeys>("id");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
+  function SortButton({ sortOrder, columnKey, sortKey, onClick }: { sortOrder: SortOrder; columnKey: SortKeys; sortKey: SortKeys; onClick: MouseEventHandler<HTMLButtonElement> }) {
+    return (
+      <button onClick={onClick} className={`${sortKey === columnKey && sortOrder === 'desc' ? 'sort-button sort-reverse' : 'sort-button'}`}>
+        ▲
+      </button>
+    )
+  }
 
   const headers: { key: SortKeys; label: string }[] = [
-    { key: "id", label: "ID" },
-    { key: "amount", label: "Amount" },
-    { key: "name", label: "Name" },
-    { key: "dateTimeCreated", label: "Date" },
-  ];
+    { key: 'id', label: 'ID' },
+    { key: 'amount', label: 'Amount' },
+    { key: 'name', label: 'Name' },
+    { key: 'dateTimeCreated', label: 'Date' },
+  ]
 
-  const sortedData = useCallback(
-    () => sortData({ tableData: data, sortKey, reverse: sortOrder === "desc" }),
-    [data, sortKey, sortOrder]
-  );
+  const sortedData = useCallback(() => sortData({ tableData: ingredients, sortKey, reverse: sortOrder === 'desc' }), [ingredients, sortKey, sortOrder])
 
   function changeSort(key: SortKeys) {
-    setSortOrder(sortOrder === "ascn" ? "desc" : "ascn");
+    setSortOrder(sortOrder === 'ascn' ? 'desc' : 'ascn')
 
-    setSortKey(key);
+    setSortKey(key)
   }
 
   return (
@@ -97,7 +64,7 @@ function SortableTable({ data }: { data: Data }) {
           {headers.map((row) => {
             return (
               <td key={row.key}>
-                {row.label}{" "}
+                {row.label}{' '}
                 <SortButton
                   columnKey={row.key}
                   onClick={() => changeSort(row.key)}
@@ -107,7 +74,7 @@ function SortableTable({ data }: { data: Data }) {
                   }}
                 />
               </td>
-            );
+            )
           })}
         </tr>
       </thead>
@@ -120,14 +87,11 @@ function SortableTable({ data }: { data: Data }) {
               <td>{ingredient.name}</td>
               <td>{ingredient.amount}</td>
               <td>{ingredient.dateTimeCreated}</td>
-              <Button text={"Edit"}/>
+              <Button text={'Edit'} />
             </tr>
-            
-          );
+          )
         })}
       </tbody>
     </table>
-  );
+  )
 }
-
-export default SortableTable;
