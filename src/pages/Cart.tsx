@@ -14,6 +14,8 @@ type OrderItemElement = {
 export default function Cart() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
+  const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
+
   // const router = useRouter()
 
   useEffect(() => {
@@ -38,6 +40,12 @@ export default function Cart() {
     window.alert('cancel order')
   }
 
+  function getPriceFromItem(price: number) {
+    setOrderItemsSum((sum) => {
+      return Math.round((sum += price) * 100) / 100
+    })
+  }
+
   return (
     <div className="app-container">
       <Navigation url={banner} />
@@ -58,23 +66,23 @@ export default function Cart() {
             {orderItemElements &&
               orderItemElements.length != 0 &&
               orderItemElements.map((orderItemElement) => {
-                return <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
+                return <OrderItemLine getPriceFromItem={getPriceFromItem} key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
               })}
           </div>
           <div className="orderOverview">
             <div className="genericDetail">
-              <h4>Sub total</h4>
-              <h4>
-                {123}
-                <small>€</small>
-              </h4>
-            </div>
-            <div className="genericDetail">
-              <h3>Total</h3>
+              <h3>Sub total</h3>
               <h3>
-                {123}
+                {orderItemsSum}
                 <small>€</small>
               </h3>
+            </div>
+            <div className="genericDetail">
+              <h2>Total</h2>
+              <h2>
+                {Math.round((orderItemsSum * 1.05) * 100) / 100}
+                <small>€</small>
+              </h2>
             </div>
           </div>
         </div>
