@@ -4,7 +4,7 @@
   border-radius: var(--roundness);
   overflow: hidden;
   box-sizing: border-box;
-  padding: 10px;
+  padding-left: 10px;
   padding-right: 20px;
 }
 
@@ -49,5 +49,5 @@
 }
 
 .orderlineBtns {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
