@@ -61,8 +61,6 @@ function SortableTable({ data }: { data: Data }) {
 
   const headers: { key: SortKeys; label: string }[] = [
     { key: "id", label: "ID" },
-    { key: "product_name", label: "Product name" },
-    { key: "product_price", label: "Product price" },
     { key: "amount", label: "Amount" },
   ];
 
