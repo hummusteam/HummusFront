@@ -1,25 +1,38 @@
-import { MouseEventHandler, useCallback, useState } from "react";
-import data from "../data.json";
+import { MouseEventHandler, useCallback, useEffect, useState } from "react";
+import { fetchIngredients } from "../api";
+import { Ingredient } from "../types";
 import Button from "./Button";
 
-type Data = typeof data;
+type Data = typeof ingredients;
 
 type SortKeys = keyof Data[0];
 
 type SortOrder = "ascn" | "desc";
 
+const [ingredients, setIngredients] = useState<Ingredient[]>([])
+
+useEffect(() => {
+  fetchIngredients().then((data) => {
+    setIngredients([...data])
+  })
+}, [])
+
 function sortData({
   tableData,
   sortKey,
   reverse,
-}: {
+}: 
+
+{
   tableData: Data;
   sortKey: SortKeys;
   reverse: boolean;
-}) {
+}) 
+
+{
   if (!sortKey) return tableData;
 
-  const sortedData = data.sort((a, b) => {
+  const sortedData = ingredients.sort((a, b) => {
     return a[sortKey] > b[sortKey] ? 1 : -1;
   });
 
@@ -56,12 +69,14 @@ function SortButton({
 }
 
 function SortableTable({ data }: { data: Data }) {
-  const [sortKey, setSortKey] = useState<SortKeys>("product_price");
+  const [sortKey, setSortKey] = useState<SortKeys>("id");
   const [sortOrder, setSortOrder] = useState<SortOrder>("ascn");
 
   const headers: { key: SortKeys; label: string }[] = [
     { key: "id", label: "ID" },
     { key: "amount", label: "Amount" },
+    { key: "name", label: "Name" },
+    { key: "dateTimeCreated", label: "Date" },
   ];
 
   const sortedData = useCallback(
@@ -98,13 +113,13 @@ function SortableTable({ data }: { data: Data }) {
       </thead>
 
       <tbody>
-        {sortedData().map((product) => {
+        {sortedData().map((ingredient) => {
           return (
-            <tr key={product.id}>
-              <td>{product.id}</td>
-              <td>{product.product_name}</td>
-              <td>{product.product_price}</td>
-              <td>{product.amount}</td>
+            <tr key={ingredient.id}>
+              <td>{ingredient.id}</td>
+              <td>{ingredient.name}</td>
+              <td>{ingredient.amount}</td>
+              <td>{ingredient.dateTimeCreated}</td>
               <Button text={"Edit"}/>
             </tr>
             
