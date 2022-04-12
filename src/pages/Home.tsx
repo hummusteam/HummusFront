@@ -3,6 +3,7 @@ import { AddFormCategory, CategoryCard, Loading, Navigation } from '../component
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
+import CartButton from '../components/CartButton'
 
 const AUTHED = false
 
@@ -17,17 +18,20 @@ export default function Home() {
   return (
     <>
       {categories.length != 0 ? (
-        <div className="app-container">
-          <Navigation url={banner} />
+        <>
+          <div className="app-container">
+            <Navigation url={banner} />
 
-          <div className="app-canvas">
-            {AUTHED ? <AddFormCategory /> : null}
-            {categories.length &&
-              categories.map((c) => {
-                return <CategoryCard key={c.id} {...c} />
-              })}
+            <div className="app-canvas">
+              {AUTHED ? <AddFormCategory /> : null}
+              {categories.length &&
+                categories.map((c) => {
+                  return <CategoryCard key={c.id} {...c} />
+                })}
+            </div>
           </div>
-        </div>
+          <CartButton />
+        </>
       ) : (
         <Loading />
       )}

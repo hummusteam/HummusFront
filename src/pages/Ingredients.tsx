@@ -3,6 +3,7 @@ import { Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchMenuItems } from '../api'
 import { MenuItem } from '../types'
+import CartButton from '../components/CartButton'
 
 export default function Home() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'

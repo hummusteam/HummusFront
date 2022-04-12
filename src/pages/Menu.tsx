@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
 import { useSearchParams } from 'react-router-dom'
+import CartButton from '../components/CartButton'
 
 const AUTHED = false
 
@@ -22,28 +23,31 @@ export default function Menu() {
   return (
     <>
       {menuItems.length != 0 || categories.length != 0 ? (
-        <div className="menu-container">
-          <Navigation url={banner} />
+        <>
+          <div className="menu-container">
+            <Navigation url={banner} />
 
-          <div className="inner-menu-container">
-            <div className="menu-carousel">
-              <div className="menu-carousel-inner">
-                {categories.length != 0 &&
-                  categories.map((c) => {
-                    return <SmallCategoryCard key={c.id} {...c} />
+            <div className="inner-menu-container">
+              <div className="menu-carousel">
+                <div className="menu-carousel-inner">
+                  {categories.length != 0 &&
+                    categories.map((c) => {
+                      return <SmallCategoryCard key={c.id} {...c} />
+                    })}
+                </div>
+              </div>
+
+              <div className="menu-items">
+                {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
+                {menuItems.length != 0 &&
+                  menuItems.map((m) => {
+                    return <MenuItemCard key={m.id} {...m} />
                   })}
               </div>
             </div>
-
-            <div className="menu-items">
-              {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
-              {menuItems.length != 0 &&
-                menuItems.map((m) => {
-                  return <MenuItemCard key={m.id} {...m} />
-                })}
-            </div>
           </div>
-        </div>
+          <CartButton />
+        </>
       ) : (
         <Loading />
       )}

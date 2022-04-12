@@ -10,6 +10,8 @@
     "format": "prettier --write \"./**/*.tsx\" \"./**/*.css\""
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.1.1",
+    "@fortawesome/react-fontawesome": "^0.1.18",
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@types/styled-components": "^5.1.24",
