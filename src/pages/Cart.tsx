@@ -46,12 +46,18 @@ export default function Cart() {
           </div>
           <div className="orderOverview">
             <div className="genericDetail">
-              <h2>Sub total</h2>
-              <h2>{123}</h2>
+              <h4>Sub total</h4>
+              <h4>
+                {123}
+                <small>€</small>
+              </h4>
             </div>
             <div className="genericDetail">
-              <h2>Total</h2>
-              <h2>{123}</h2>
+              <h3>Total</h3>
+              <h3>
+                {123}
+                <small>€</small>
+              </h3>
             </div>
           </div>
         </div>
