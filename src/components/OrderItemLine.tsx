@@ -19,16 +19,10 @@ export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }:
         setExtras((varr) => [...varr, { ingredient: data, qty: item[1] }])
       })
     })
-
-    console.log(itemQty)
   }, [])
 
   useEffect(() => {
-    if (itemQty == 0) {
-      getPriceFromItem(-menuItem.price)
-    } else {
-      getPriceFromItem(menuItem.price * itemQty)
-    }
+    getPriceFromItem(menuItem.price * (!itemQty ? -1 : itemQty))
   }, [itemQty])
 
   function handleAddOrderItem() {
