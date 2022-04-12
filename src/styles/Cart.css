@@ -1,6 +1,5 @@
 .ordersContainer {
   margin: 1em;
-  margin-top: 50px;
   display: grid;
   grid-auto-flow: row;
   grid-template-columns: 1fr 1fr;
@@ -41,6 +40,17 @@
 
 .genericDetail * {
   margin: 0;
+}
+
+.cartRedirectBtns {
+  margin: 1em;
+  display: flex;
+  gap: 1em;
+}
+
+.cartRedirectBtns > * {
+  margin: 0;
+  /* background-color: aqua; */
 }
 
 @media screen and (max-width: 900px) {
