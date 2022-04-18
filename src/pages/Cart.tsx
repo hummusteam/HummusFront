@@ -50,16 +50,26 @@ export default function Cart() {
   }
 
   function handleSubmission() {
+    const session: Session = cookies.get('_session')
+    const orderItems: OrderItem[] = cookies.get('_order')
     const order: Order = {
       id: uuid(),
       dateTimeCreated: moment().format(),
-      orderItems: cookies.get('_order'),
+      orderItems: orderItems,
       orderStatus: 0,
       description: desc.current.value,
     }
-    const session: Session = cookies.get('_session')
 
-    placeOrder(session.id, order).then(console.log).catch(console.log)
+    placeOrder(session.id, order)
+      .then(console.log)
+      .catch(console.log)
+      .then(() => {
+        window.alert('Order has been place!')
+        cookies.remove('_order')
+      })
+      .catch(() => {
+        // window.alert("An error occured, sorry about that.")
+      })
   }
 
   return (
