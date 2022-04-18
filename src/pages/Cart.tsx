@@ -51,25 +51,32 @@ export default function Cart() {
 
   function handleSubmission() {
     const session: Session = cookies.get('_session')
-    const orderItems: OrderItem[] = cookies.get('_order')
-    const order: Order = {
-      id: uuid(),
-      dateTimeCreated: moment().format(),
-      orderItems: orderItems,
-      orderStatus: 0,
-      description: desc.current.value,
-    }
+    if (!session) {
+      window.alert('Please scan a QR code on the table.')
+    } else {
+      const orderItems: OrderItem[] = cookies.get('_order')
+      if (!orderItems) {
+        window.alert('No items found. Choose something from the menu.')
+      } else {
+        const order: Order = {
+          id: uuid(),
+          dateTimeCreated: moment().format(),
+          orderItems: orderItems,
+          orderStatus: 0,
+          description: desc.current.value,
+        }
 
-    placeOrder(session.id, order)
-      .then(console.log)
-      .catch(console.log)
-      .then(() => {
-        window.alert('Order has been place!')
-        cookies.remove('_order')
-      })
-      .catch(() => {
-        // window.alert("An error occured, sorry about that.")
-      })
+        placeOrder(session.id, order)
+          .then(() => {
+            window.alert('Order has been place!')
+            cookies.remove('_order')
+            window.location.reload()
+          })
+          .catch(() => {
+            window.alert("An error occured, sorry about that.")
+          })
+      }
+    }
   }
 
   return (
