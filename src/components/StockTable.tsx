@@ -43,10 +43,9 @@ export default function SortableTable() {
   }
 
   const headers: { key: SortKeys; label: string }[] = [
-    { key: 'id', label: 'ID' },
-    { key: 'amount', label: 'Amount' },
     { key: 'name', label: 'Name' },
-    { key: 'dateTimeCreated', label: 'Date' },
+    { key: 'amount', label: 'Amount' },
+    { key: 'allergenIngredients', label: 'Allergen' },
   ]
 
   const sortedData = useCallback(() => sortData({ tableData: ingredients, sortKey, reverse: sortOrder === 'desc' }), [ingredients, sortKey, sortOrder])
@@ -83,10 +82,9 @@ export default function SortableTable() {
         {sortedData().map((ingredient) => {
           return (
             <tr key={ingredient.id}>
-              <td>{ingredient.id}</td>
               <td>{ingredient.name}</td>
               <td>{ingredient.amount}</td>
-              <td>{ingredient.dateTimeCreated}</td>
+              <td>{ingredient.allergenIngredients}</td>
               <Button text={'Edit'} />
             </tr>
           )
