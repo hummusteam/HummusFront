@@ -59,10 +59,7 @@ export default function Cart() {
     }
     const session: Session = cookies.get('_session')
 
-    // placeOrder(session.id, order).then(console.log).catch(console.log)
-
-    console.log(order)
-    console.log(session.id)
+    placeOrder(session.id, order).then(console.log).catch(console.log)
   }
 
   return (
