@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react'
+import Cookies from 'universal-cookie'
 import { fetchIngredientById } from '../api'
 import '../styles/OrderItemLine.css'
 import { Ingredient, MenuItem, OrderItem } from '../types'
 import Button from './Button'
+import { v4 as uuid } from 'uuid'
+import moment from 'moment'
 
 type IngredientElement = {
   ingredient: Ingredient
@@ -12,6 +15,7 @@ type IngredientElement = {
 export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }: { menuItem: MenuItem; orderItem: OrderItem; getPriceFromItem: any }) {
   const [extras, setExtras] = useState<IngredientElement[]>([])
   const [itemQty, setItemQty] = useState<number>(1)
+  const cookies = new Cookies()
 
   useEffect(() => {
     Object.entries(orderItem.extraIngredients).map(async (item) => {
@@ -29,14 +33,36 @@ export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }:
     setItemQty((qty) => (qty += 1))
     getPriceFromItem(menuItem.price)
 
-    // change cookie
+    const order: OrderItem[] = cookies.get('_order')
+    const newOrderItem: OrderItem = {
+      id: uuid(),
+      dateTimeCreated: moment().format(),
+      menuItemId: orderItem.menuItemId,
+      allergyId: orderItem.allergyId,
+      description: orderItem.description,
+      extraIngredients: orderItem.extraIngredients,
+    }
+
+    order.push(newOrderItem)
+    cookies.set('_order', order)
   }
 
   function handleRemoveOrderItem() {
     setItemQty((qty) => (qty -= 1))
     getPriceFromItem(-menuItem.price)
 
-    // change cookie
+    const order: OrderItem[] = cookies.get('_order')
+
+    for (let i = 0; i < order.length; i++) {
+      const registeredOrderItem = order[i]
+
+      if (registeredOrderItem.menuItemId == orderItem.menuItemId) {
+        order.splice(i, 1)
+        break
+      }
+    }
+
+    cookies.set('_order', order)
   }
 
   return (
