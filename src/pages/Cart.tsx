@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router'
+import '../styles/Cart.css'
 import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
 import { fetchMenuItemByID } from '../api/MenuItems'

@@ -4,8 +4,7 @@ import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
 import { useSearchParams } from 'react-router-dom'
-
-const AUTHED = false
+import { useLocalStorage } from '../util/UseLocalStorage'
 
 export default function Menu() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
@@ -13,6 +12,7 @@ export default function Menu() {
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
   const [searchParams, _] = useSearchParams()
   const categoryId = searchParams.get('category')
+  const [AUTHED, setAuthed] = useLocalStorage('authed', false)
 
   useEffect(() => {
     fetchMenuItemsByCategory(categoryId).then(setMenuItem)
@@ -41,6 +41,14 @@ export default function Menu() {
                 menuItems.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
+            </div>
+            <div
+              onClick={() => {
+                setAuthed(!AUTHED)
+                location.reload()
+              }}
+            >
+              <Button text={'Toggle admin mode'} />
             </div>
           </div>
         </div>

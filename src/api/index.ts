@@ -1,4 +1,4 @@
 export { fetchCategories, putCategory, postCategory, deleteCategory } from './Categories'
 export { fetchMenuItems, fetchMenuItemsByCategory, putMenuItem, postMenuItem, deleteMenuItem } from './MenuItems'
 export { fetchIngredients, fetchIngredientById, putIngredient, postIngredient, deleteIngredient } from './Ingredients'
-export { createSessionFromTable } from './Session' 
+export { startSession } from './Sessions'

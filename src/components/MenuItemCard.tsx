@@ -1,11 +1,12 @@
 import '../styles/MenuItemCard.css'
 import { MenuItem } from '../types'
 import EditFormMenuItem from './EditFormMenuItem'
-import MenuItemDetails from './MenuItemDetails'
-
-const AUTHED = false
+import {useLocalStorage} from "../util/UseLocalStorage";
+import MenuItemDetails from './MenuItemDetails';
 
 export default function MenuItemCard(menuItem: MenuItem) {
+    const [AUTHED, setAuthed] = useLocalStorage("authed", false);
+
   return (
     <div className="menu-item-container" style={{ backgroundImage: `url(${menuItem.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {AUTHED ? <EditFormMenuItem {...menuItem} /> : null}
