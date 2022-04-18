@@ -43,9 +43,9 @@ export default function Cart() {
     window.alert('cancel order')
   }
 
-  function getPriceFromItem(price: number) {
+  function getPriceFromItem(amount: number) {
     setOrderItemsSum((sum) => {
-      return Math.round((sum += price) * 100) / 100
+      return Math.round((sum += amount) * 100) / 100
     })
   }
 
@@ -81,7 +81,7 @@ export default function Cart() {
                 <small>€</small>
               </h3>
             </div>
-            
+
             <div className="genericDetail">
               <h2>Total</h2>
               <h2>

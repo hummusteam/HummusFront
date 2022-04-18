@@ -22,15 +22,21 @@ export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }:
   }, [])
 
   useEffect(() => {
-    getPriceFromItem(menuItem.price * (!itemQty ? -1 : itemQty))
-  }, [itemQty])
+    getPriceFromItem(menuItem.price * itemQty)
+  }, [])
 
   function handleAddOrderItem() {
     setItemQty((qty) => (qty += 1))
+    getPriceFromItem(menuItem.price)
+
+    // change cookie
   }
 
   function handleRemoveOrderItem() {
     setItemQty((qty) => (qty -= 1))
+    getPriceFromItem(-menuItem.price)
+
+    // change cookie
   }
 
   return (
