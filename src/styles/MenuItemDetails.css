@@ -1,0 +1,157 @@
+.details-form {
+  cursor: default; /* FIX ME - fix cursor inheritance */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 700px;
+  height: auto;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  text-shadow: none;
+  border-radius: var(--roundness) !important;
+  padding: 30px;
+  z-index: 99;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.08), 0 6px 8px 0 rgba(0, 0, 0, 0.12);
+}
+
+.details-form-block {
+  cursor: default; /* FIX ME - fix cursor inheritance */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: 0.5;
+  z-index: 9;
+}
+
+.details-form-interact {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+.details-form-title {
+  margin-top: 0px;
+}
+
+.details-image-container {
+  min-height: 200px;
+  height: 100%;
+  width: 200px;
+  /* aspect-ratio: 1; */
+  object-fit: cover;
+  border-radius: var(--roundness);
+}
+
+.details-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 5fr;
+  gap: 2em;
+}
+
+.details-form-title {
+  font-size: 200%;
+}
+
+.details-form-detail {
+  font-size: 130%;
+}
+
+.details-form-title,
+.details-form-detail {
+  margin-bottom: 20px;
+  margin-top: 0;
+}
+
+.details-form-ingredients {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.7em;
+}
+
+.ingredient {
+  width: fit-content;
+  height: auto;
+  font-size: 14px;
+  border-radius: 5px !important;
+  white-space: nowrap;
+  padding: 7px;
+  border: solid 1.5px black;
+  user-select: none;
+  transition: 0.2s;
+  opacity: 0.3;
+}
+
+.details-form-btns {
+  margin-top: 2em;
+  display: flex;
+  gap: 1em;
+}
+
+.details-form-btns button {
+  margin: 0;
+}
+
+.extraIngredient {
+  opacity: 1;
+}
+
+@media screen and (max-width: 900px) {
+  .details-form {
+    width: 80%;
+    padding: 0px;
+  }
+
+  .details-grid {
+    margin: 30px;
+    grid-auto-flow: row;
+    grid-template-columns: unset;
+    gap: 0.5em;
+  }
+
+  .details-image-container {
+    width: 100%;
+  }
+
+  .details-form-title {
+    font-size: 70px;
+  }
+
+  .details-form-detail {
+    font-size: 30px;
+  }
+
+  .details-form-btns {
+    margin: 2em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .details-form-title {
+    font-size: 100%;
+  }
+
+  .ingredient {
+    font-size: 30% !important;
+  }
+  
+  .details-form-detail {
+    font-size: 50%;
+  }
+
+  .details-form-ingredients {
+    gap: 0.2em !important;
+  }
+
+  .details-form-btns {
+    margin: 0;
+    margin-left: 0.5em;
+    margin-bottom: 0.5em;
+    flex-direction: column;
+    gap: 0;
+  }
+}

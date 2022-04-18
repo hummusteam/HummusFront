@@ -1,24 +1,22 @@
-import {useEffect} from "react";
-import {useParams} from "react-router-dom";
-import {useLocalStorage} from "../util/UseLocalStorage";
-import {startSession} from "../api/Sessions";
+import { useEffect, useState } from 'react'
+import { BrowserRouter, Router, useParams } from 'react-router-dom'
+import { useLocalStorage } from '../util/UseLocalStorage'
+import { startSession } from '../api/Sessions'
+import Cookies from 'universal-cookie'
+import { Session } from '../types'
 
 export default function Welcome() {
-    let { tableId } = useParams();
-    const [session, setSession] = useLocalStorage("session", null);
+  const { tableId } = useParams()
+  const [session, setSession] = useLocalStorage('session', null)
 
-    useEffect(() => {
-        startSession(tableId).then(setSession);
-    }, [])
+  useEffect(() => {
+    startSession(tableId).then((session) => {
+      setSession(session)
+      const cookies = new Cookies()
+      cookies.set('_session', session, { path: '/' })
+      window.location.replace('/')
+    })
+  }, [])
 
-    return (
-        <>
-            {session != null ? (
-                <h1>{session.id}</h1>
-            ) : (
-                <h1>{tableId}</h1>
-            )}
-
-        </>
-    )
+  return <p></p>
 }

@@ -1,0 +1,53 @@
+.orderlineContainer {
+  width: 100%;
+  height: auto;
+  border-radius: var(--roundness);
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-left: 10px;
+  padding-right: 20px;
+}
+
+.orderlineDetails > * {
+  margin: 0;
+  margin-bottom: 10px;
+  display: grid;
+  grid-auto-flow: column;
+  justify-content: space-between;
+}
+
+.orderlineName {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.orderlineHeader {
+  display: grid;
+  grid-auto-flow: column;
+  margin: 0;
+}
+
+.extrasOrderline {
+  display: grid;
+  grid-auto-flow: row;
+  margin-bottom: 20px;
+}
+
+.extrasOrderline > * {
+  margin: 7px 13px;
+  font-size: 17px;
+}
+
+.ingredientItemLine {
+  display: grid;
+  grid-template-columns: 8fr 2fr;
+}
+
+.ingredientDetailsLine {
+  white-space: nowrap;
+  margin: 0;
+}
+
+.orderlineBtns {
+  margin-bottom: 20px;
+}

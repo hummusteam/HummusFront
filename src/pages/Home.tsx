@@ -1,10 +1,9 @@
 import '../styles/Home.css'
-import { AddFormCategory, CategoryCard, Loading, Navigation } from '../components'
+import { AddFormCategory, Button, CategoryCard, Loading, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
-import {useLocalStorage} from "../util/UseLocalStorage";
-import Button from "../components/Button";
+import { useLocalStorage } from '../util/UseLocalStorage'
 
 export default function Home() {
   const [AUTHED, setAuthed] = useLocalStorage("authed", false);

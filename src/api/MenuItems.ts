@@ -24,12 +24,24 @@ export async function putMenuItem(item: MenuItem) {
 }
 
 export async function postMenuItem(item: MenuItem) {
-  const res = await axios.post('https://menuapi.tycho.dev/MenuItem', item, {
-    headers: { 'Content-Type': 'application/json' },
-  })
-  .catch(console.log)
+  await axios
+    .post('https://menuapi.tycho.dev/MenuItem', item, {
+      headers: { 'Content-Type': 'application/json' },
+    })
+    .catch(console.log)
 }
 
 export async function deleteMenuItem(item: MenuItem) {
   await axios.delete('https://menuapi.tycho.dev/MenuItem', { data: item }).catch(console.log)
+}
+
+export async function fetchMenuItemsById(id: string) {
+  return await axios.get('https://menuapi.tycho.dev/MenuItem/' + id)
+    .then((res) => res.data)
+    .catch(console.log)
+}
+
+export async function fetchMenuItemByID(id: string): Promise<MenuItem> {
+  const respons = await axios.get('https://menuapi.tycho.dev/MenuItem/' + id)
+  return respons.data;
 }
