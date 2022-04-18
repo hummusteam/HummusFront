@@ -26,7 +26,7 @@ export default function Menu() {
           <Navigation url={banner} />
 
           <div className="inner-menu-container">
-            <div className="menu-carousel">
+            <div className="menu-carousel category-carousel">
               <div className="menu-carousel-inner">
                 {categories.length != 0 &&
                   categories.map((c) => {

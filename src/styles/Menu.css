@@ -7,6 +7,12 @@
   margin: 1em;
 }
 
+.category-carousel {
+  overflow-y: hidden;
+  overflow-x: scroll;
+
+}
+
 .menu-carousel {
   width: calc(100%);
   border-radius: var(--roundness);
@@ -20,7 +26,6 @@
   grid-auto-flow: column;
   gap: 1em;
   overflow: scroll;
-  overflow-x: hidden;
 }
 
 .menu-items {
