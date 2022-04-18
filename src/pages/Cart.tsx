@@ -1,9 +1,12 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
 import { fetchMenuItemByID } from '../api/MenuItems'
 import { Button, Navigation, OrderItemLine } from '../components'
-import { MenuItem, OrderItem } from '../types'
+import { MenuItem, Order, OrderItem, Session } from '../types'
+import { v4 as uuid } from 'uuid'
+import moment from 'moment'
+import { placeOrder } from '../api/Order'
 
 type OrderItemElement = {
   orderItem: OrderItem
@@ -15,13 +18,12 @@ export default function Cart() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
-  // const router = useRouter()
+  const cookies = new Cookies()
+  const desc = useRef(null)
 
   useEffect(() => {
-    const cartCookies = new Cookies()
-
-    if (cartCookies.get('_order')) {
-      const orderItems: OrderItem[] = cartCookies.get('_order')
+    if (cookies.get('_order')) {
+      const orderItems: OrderItem[] = cookies.get('_order')
 
       orderItems.forEach((orderItem) => {
         fetchMenuItemByID(orderItem.menuItemId).then((data) => {
@@ -31,16 +33,14 @@ export default function Cart() {
     }
   }, [])
 
-  useEffect(() => {
-    // router.push('/')
-  }, [orderItemsSum])
-
   function handleOrderMore() {
-    // router.push('/')
+    // redirect to menu item
   }
 
   function handleCancelation() {
-    window.alert('cancel order')
+    cookies.remove('_order')
+    // also remove session to backend
+    // redirect to menu item
   }
 
   function getPriceFromItem(amount: number) {
@@ -49,18 +49,25 @@ export default function Cart() {
     })
   }
 
+  function handleSubmission() {
+    const order: Order = {
+      id: uuid(),
+      dateTimeCreated: moment().format(),
+      orderItems: cookies.get('_order'),
+      orderStatus: 0,
+      description: desc.current.value,
+    }
+    const session: Session = cookies.get('_session')
+
+    // placeOrder(session.id, order).then(console.log).catch(console.log)
+
+    console.log(order)
+    console.log(session.id)
+  }
+
   return (
     <div className="app-container">
       <Navigation url={banner} />
-
-      <div className="cartRedirectBtns">
-        <div onClick={handleOrderMore}>
-          <Button text="Order more" />
-        </div>
-        <div onClick={handleCancelation}>
-          <Button text="Cancel my order" />
-        </div>
-      </div>
 
       <div className="ordersContainer">
         <div className="orderBoxContainer">
@@ -94,7 +101,19 @@ export default function Cart() {
 
         <div className="orderBoxContainer">
           <h1>Special Requests</h1>
-          <textarea className="orderNote" placeholder="I have a special request..." />
+          <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
+        </div>
+      </div>
+
+      <div className="cartRedirectBtns">
+        <div onClick={handleOrderMore}>
+          <Button text="Order more" />
+        </div>
+        <div onClick={handleCancelation}>
+          <Button text="Cancel my order" />
+        </div>
+        <div onClick={handleSubmission}>
+          <Button text="Place my order!" />
         </div>
       </div>
     </div>

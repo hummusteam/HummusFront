@@ -54,7 +54,7 @@ export default function MenuItemDetails(item: MenuItem) {
       id: uuid(),
       dateTimeCreated: item.dateTimeCreated,
       menuItemId: item.id,
-      allergyId: null,
+      allergyId: "", // <- empty 
       extraIngredients: extras,
       description: '',
     }

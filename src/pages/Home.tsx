@@ -1,8 +1,9 @@
 import '../styles/Home.css'
 import { AddFormCategory, CategoryCard, Loading, Navigation } from '../components'
 import { useState, useEffect } from 'react'
-import { fetchCategories } from '../api'
-import { Category } from '../types'
+import { createSessionFromTable, fetchCategories } from '../api'
+import { Category, Session } from '../types'
+import Cookies from 'universal-cookie'
 
 const AUTHED = false
 
@@ -12,6 +13,12 @@ export default function Home() {
 
   useEffect(() => {
     fetchCategories().then(setCategories)
+
+    // TEMPORARY
+    createSessionFromTable(123).then((session) => {
+      const cookies = new Cookies()
+      cookies.set('_session', session)
+    })
   }, [])
 
   return (
