@@ -15,7 +15,6 @@ export default function Cart() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
-
   // const router = useRouter()
 
   useEffect(() => {
@@ -31,6 +30,10 @@ export default function Cart() {
       })
     }
   }, [])
+
+  useEffect(() => {
+    // router.push('/')
+  }, [orderItemsSum])
 
   function handleOrderMore() {
     // router.push('/')
@@ -69,6 +72,7 @@ export default function Cart() {
                 return <OrderItemLine getPriceFromItem={getPriceFromItem} key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
               })}
           </div>
+
           <div className="orderOverview">
             <div className="genericDetail">
               <h3>Sub total</h3>
@@ -77,10 +81,11 @@ export default function Cart() {
                 <small>€</small>
               </h3>
             </div>
+            
             <div className="genericDetail">
               <h2>Total</h2>
               <h2>
-                {Math.round((orderItemsSum * 1.05) * 100) / 100}
+                {Math.round(orderItemsSum * 1.05 * 100) / 100}
                 <small>€</small>
               </h2>
             </div>

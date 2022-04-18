@@ -12,6 +12,7 @@
   border-radius: var(--roundness);
   overflow: hidden;
   margin-bottom: 20px;
+  overflow-x: hidden;
 }
 
 .menu-carousel-inner {
@@ -19,6 +20,7 @@
   grid-auto-flow: column;
   gap: 1em;
   overflow: scroll;
+  overflow-x: hidden;
 }
 
 .menu-items {
