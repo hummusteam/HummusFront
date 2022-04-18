@@ -34,13 +34,14 @@ export default function Cart() {
   }, [])
 
   function handleOrderMore() {
-    // redirect to menu item
+    window.location.replace('/')
   }
 
   function handleCancelation() {
     cookies.remove('_order')
-    // also remove session to backend
-    // redirect to menu item
+    window.location.replace('/')
+
+    // delete session on cancelation
   }
 
   function getPriceFromItem(amount: number) {
