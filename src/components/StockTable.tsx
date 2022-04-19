@@ -61,11 +61,11 @@ export default function SortableTable() {
 
   async function createIngredient() {
     await postIngredient({
-    id: "1",
-    name: nameInput.current.value,
-    dateTimeCreated: "",
-    amount: amountInput.current.value,
-    allergenIngredients: null
+      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      name: nameInput.current.value,
+      amount: amountInput.current.value,
+      allergenIngredients: [],
+      dateTimeCreated: "2022-03-29T11:11:41.796"
   })}
   
   return (
