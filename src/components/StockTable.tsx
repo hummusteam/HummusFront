@@ -1,7 +1,7 @@
 import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
 import { fetchIngredients } from '../api'
 import { Ingredient } from '../types'
-import Button from './Button'
+import EditIngredient from './EditIngredient'
 
 export default function SortableTable() {
   const [sortKey, setSortKey] = useState<SortKeys>('id')
@@ -85,7 +85,7 @@ export default function SortableTable() {
               <td>{ingredient.name}</td>
               <td>{ingredient.amount}</td>
               <td>{ingredient.allergenIngredients}</td>
-              <Button text={'Edit'} />
+              <td><EditIngredient {...ingredient}/></td>
             </tr>
           )
         })}
