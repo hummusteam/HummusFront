@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
 import { useLocalStorage } from '../util/UseLocalStorage'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [AUTHED, setAuthed] = useLocalStorage("authed", false);
@@ -30,6 +31,11 @@ export default function Home() {
           <div onClick={() => {setAuthed(!AUTHED); location.reload();}}>
             <Button text={"Toggle admin mode"} />
           </div>
+          <Link to={'/cart'}>
+            <p>
+            <Button text="Go to cart" />
+            </p>
+          </Link>
         </div>
       ) : (
         <Loading />

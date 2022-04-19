@@ -3,7 +3,7 @@ import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMe
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useLocalStorage } from '../util/UseLocalStorage'
 
 export default function Menu() {
@@ -48,7 +48,12 @@ export default function Menu() {
                 location.reload()
               }}
             >
-              <Button text={'Toggle admin mode'} />
+              <Button text="Toggle admin mode" />
+              <Link to={'/cart'}>
+                <p>
+                <Button text="Go to cart" />
+                </p>
+              </Link>
             </div>
           </div>
         </div>
