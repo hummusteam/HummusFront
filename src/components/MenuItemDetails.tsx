@@ -54,7 +54,7 @@ export default function MenuItemDetails(item: MenuItem) {
       id: uuid(),
       dateTimeCreated: item.dateTimeCreated,
       menuItemId: item.id,
-      allergyId: null,
+      allergyId: [""], // <- empty 
       extraIngredients: extras,
       description: '',
     }
@@ -67,7 +67,6 @@ export default function MenuItemDetails(item: MenuItem) {
       const order: OrderItem[] = cookies.get('_order')
       order.push(configuredOrder)
       cookies.set('_order', JSON.stringify(order))
-      console.log(order)
     } else {
       cookies.set('_order', JSON.stringify([configuredOrder]))
     }
