@@ -11,15 +11,15 @@ export default function EditIngredient(ingredient: Ingredient) {
 
   let nameInput = useRef(null)
   let amountInput = useRef(null)
-  let allergenIngredientsInput = useRef(null)
+  let allergenInput = useRef(null)
 
   async function updateIngredient() {
     await putIngredient({
     id: ingredient.id,
     name: nameInput.current.value,
-    amount: amountInput.current.amount,
-    allergenIngredients: ingredient.allergenIngredients,
-    dateTimeCreated: ''
+    amount: amountInput.current.value,
+    allergenIngredients: allergenInput.current.value,
+    dateTimeCreated: ingredient.dateTimeCreated
   })
     window.location.reload()
   }
@@ -41,7 +41,7 @@ export default function EditIngredient(ingredient: Ingredient) {
             <h1 className="edit-form-title">Update menu item information</h1>
 
             <div className="edit-form-inputs">
-              <div className="edit-form-label">Dish name</div>
+              <div className="edit-form-label">Name</div>
               <input className="edit-form-input" ref={nameInput} defaultValue={ingredient.name} />
             </div>
 
@@ -52,7 +52,7 @@ export default function EditIngredient(ingredient: Ingredient) {
 
             <div className="edit-form-inputs">
               <div className="edit-form-label">Allergen</div>
-              <input className="edit-form-input" ref={allergenIngredientsInput} defaultValue={ingredient.allergenIngredients} />
+              <input className="edit-form-input" ref={allergenInput} defaultValue={ingredient.allergenIngredients} />
             </div>
 
             <div className="edit-form-btns">

@@ -1,5 +1,5 @@
-import { MouseEventHandler, useCallback, useEffect, useState } from 'react'
-import { fetchIngredients } from '../api'
+import { MouseEventHandler, useCallback, useEffect, useRef, useState } from 'react'
+import { fetchIngredients, postIngredient } from '../api'
 import { Ingredient } from '../types'
 import EditIngredient from './EditIngredient'
 
@@ -56,7 +56,20 @@ export default function SortableTable() {
     setSortKey(key)
   }
 
+  let nameInput = useRef(null)
+  let amountInput = useRef(null)
+
+  async function createIngredient() {
+    await postIngredient({
+    id: "1",
+    name: nameInput.current.value,
+    dateTimeCreated: "",
+    amount: amountInput.current.value,
+    allergenIngredients: null
+  })}
+  
   return (
+    
     <table>
       <thead>
         <tr>
@@ -78,6 +91,27 @@ export default function SortableTable() {
         </tr>
       </thead>
 
+      <tbody>
+        <td className="create-form-inputs">
+          <div className="create-form">Name</div>
+          <input className="create-form-input" ref={nameInput}/>
+        </td>
+
+        <td className="create-form-inputs">
+          <div className="create-form">Amount</div>
+          <input className="create-form-input" ref={amountInput}/>
+        </td>
+
+        <td className="create-form-inputs">
+          {/* Empty Block */}
+        </td>
+
+        <td onClick={() => createIngredient}>
+        Create
+        </td>
+
+      </tbody>
+      
       <tbody>
         {sortedData().map((ingredient) => {
           return (
