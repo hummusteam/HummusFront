@@ -66,7 +66,9 @@ export default function SortableTable() {
       amount: amountInput.current.value,
       allergenIngredients: [],
       dateTimeCreated: "2022-03-29T11:11:41.796"
-  })}
+  })
+  window.location.reload()
+  }
   
   return (
     
@@ -106,7 +108,7 @@ export default function SortableTable() {
           {/* Empty Block */}
         </td>
 
-        <td onClick={() => createIngredient}>
+        <td onClick={createIngredient}>
         Create
         </td>
 
