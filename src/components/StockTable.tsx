@@ -45,7 +45,7 @@ export default function SortableTable() {
   const headers: { key: SortKeys; label: string }[] = [
     { key: 'name', label: 'Name' },
     { key: 'amount', label: 'Amount' },
-    { key: 'allergenIngredients', label: 'Allergen' },
+    { key: 'allergens', label: 'Allergen' },
   ]
 
   const sortedData = useCallback(() => sortData({ tableData: ingredients, sortKey, reverse: sortOrder === 'desc' }), [ingredients, sortKey, sortOrder])
@@ -58,16 +58,15 @@ export default function SortableTable() {
 
   let nameInput = useRef(null)
   let amountInput = useRef(null)
+  let allergenInput = useRef(null)
 
   async function createIngredient() {
     await postIngredient({
-      id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
       name: nameInput.current.value,
       amount: amountInput.current.value,
-      allergenIngredients: [],
-      dateTimeCreated: "2022-03-29T11:11:41.796"
+      allergens: allergenInput.current.value.split(/[, ]+/)
   })
-  window.location.reload()
+    window.location.reload()
   }
   
   return (
@@ -105,7 +104,8 @@ export default function SortableTable() {
         </td>
 
         <td className="create-form-inputs">
-          {/* Empty Block */}
+        <div className="create-form">Allergen</div>
+          <input className="create-form-input" ref={allergenInput}/>
         </td>
 
         <td onClick={createIngredient}>
@@ -120,7 +120,7 @@ export default function SortableTable() {
             <tr key={ingredient.id}>
               <td>{ingredient.name}</td>
               <td>{ingredient.amount}</td>
-              <td>{ingredient.allergenIngredients}</td>
+              <td>{ingredient.allergens.map(allergen => { return <p>{allergen}</p> })}</td>
               <td><EditIngredient {...ingredient}/></td>
             </tr>
           )

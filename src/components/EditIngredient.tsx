@@ -1,7 +1,7 @@
 import '../styles/EditForm.css'
 import { useRef, useState } from 'react'
 import { Ingredient } from '../types'
-import { deleteIngredient, postIngredient, putIngredient} from '../api'
+import { deleteIngredient, putIngredient} from '../api'
 import Button from './Button'
 
 
@@ -18,7 +18,7 @@ export default function EditIngredient(ingredient: Ingredient) {
     id: ingredient.id,
     name: nameInput.current.value,
     amount: amountInput.current.value,
-    allergenIngredients: ingredient.allergenIngredients,
+    allergens: allergenInput.current.value.split(/[, ]+/),
     dateTimeCreated: ingredient.dateTimeCreated
   })
     window.location.reload()
@@ -52,7 +52,7 @@ export default function EditIngredient(ingredient: Ingredient) {
 
             <div className="edit-form-inputs">
               <div className="edit-form-label">Allergen</div>
-              <input className="edit-form-input" ref={allergenInput} defaultValue={ingredient.allergenIngredients} />
+              <input className="edit-form-input" ref={allergenInput} defaultValue={ingredient.allergens} />
             </div>
 
             <div className="edit-form-btns">
