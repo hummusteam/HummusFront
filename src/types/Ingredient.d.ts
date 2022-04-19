@@ -1,6 +1,7 @@
 export default interface Ingredient {
-    id: string,
+    id?: string,
     name: string,
-    allergenIngredients: string[],
-    dateTimeCreated: string
+    dateTimeCreated?: string,
+    amount: string,
+    allergens: string[],
 }
