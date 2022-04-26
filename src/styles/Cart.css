@@ -20,7 +20,7 @@
 }
 
 .orderItems {
-  max-height: 600px;
+  max-height: 400px;
   overflow: scroll;
   border-radius: var(--roundness);
   background-color: rgb(249, 249, 249);

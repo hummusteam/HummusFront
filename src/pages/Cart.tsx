@@ -106,6 +106,9 @@ export default function Cart() {
                   })}
               </div>
 
+              <h1>Special Requests</h1>
+              <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
+
               <div className="orderOverview">
                 <div className="genericDetail">
                   <h3>Sub total</h3>
@@ -117,10 +120,7 @@ export default function Cart() {
                   <h2>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h2>
                 </div>
               </div>
-
-              <h1>Special Requests</h1>
-              <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
-
+              
               <div className="cartContainerBtns">
                 <div onClick={handleSubmission}>
                   <Button text="Place my order!" />
