@@ -8,7 +8,7 @@ import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 import { placeOrder } from '../api/Order'
-import { getSessionOrders } from '../api'
+import { fetchSessionOrders } from '../api'
 import { Link } from 'react-router-dom'
 
 type OrderItemElement = {
@@ -38,13 +38,9 @@ export default function Cart() {
         })
       }
 
-      getSessionOrders(session?.id).then(setPrevOrders)
+      fetchSessionOrders(session?.id).then(setPrevOrders)
     }
   }, [])
-
-  function handleOrderMore() {
-    window.location.replace('/')
-  }
 
   function handleCancelation() {
     cookies.remove('_order')
@@ -100,8 +96,13 @@ export default function Cart() {
               <div className="orderItems">
                 {orderItemElements &&
                   orderItemElements.length != 0 &&
-                  orderItemElements.map((orderItemElement) => {
-                    return <OrderItemLine getPriceFromItem={getPriceFromItem} key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
+                  orderItemElements.map((orderItemElement, i, arr) => {
+                    return (
+                      <>
+                        <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} getPriceFromItem={getPriceFromItem} />
+                        {i + 1 != arr.length && <hr />}
+                      </>
+                    )
                   })}
               </div>
 
