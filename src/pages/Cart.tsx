@@ -41,25 +41,23 @@ export default function Cart() {
 
         orderItems.forEach((orderItem) => {
           fetchMenuItemByID(orderItem.menuItemId).then((data) => {
-            setOrderItemElements((varr) => [...varr, { orderItem: orderItem, menuItem: data, qty: 1 }])
+            setOrderItemElements((varr) => [...varr, { orderItem, menuItem: data, qty: 1 }])
           })
         })
       }
 
-      fetchSessionOrders(session?.id).then((data: SessionOrders) => {
+      fetchSessionOrders(session?.id).then(async (data: SessionOrders) => {
         setTotalPrice(data.totalAmount)
-        data.orders.forEach((order) => {
-          let prevOrderItems: OrderItemElement[] = []
-          order.orderItems.forEach((orderItem) => {
-            fetchMenuItemByID(orderItem.menuItemId).then((data) => {
-              prevOrderItems.push({ orderItem: orderItem, menuItem: data, qty: 1 })
-            })
-          })
 
-          let totalSum = 0
-          prevOrderItems.forEach((item) => {
-            totalSum += item.qty * item.menuItem.price
-          })
+        for (const order of data.orders) {
+          let prevOrderItems: OrderItemElement[] = []
+
+          for (const orderItem of order.orderItems) {
+            const menuItem = await fetchMenuItemByID(orderItem.menuItemId)
+            prevOrderItems.push({ orderItem, menuItem, qty: 1 })
+          }
+
+          let totalSum = prevOrderItems.map(o => o.qty * o.menuItem.price).reduce((a, b) => a + b)
 
           let orderTs = Date.parse(order.dateTimeCreated)
           let currentTs = Date.now()
@@ -73,7 +71,7 @@ export default function Cart() {
           }
 
           setPrevOrders((varr) => [...varr, prevOrder])
-        })
+        }
       })
     }
   }, [])
