@@ -43,17 +43,6 @@
   margin: 0;
 }
 
-.cartRedirectBtns {
-  margin: 1em;
-  display: flex;
-  gap: 1em;
-}
-
-.cartRedirectBtns > * {
-  margin: 0;
-  /* background-color: aqua; */
-}
-
 @media screen and (max-width: 900px) {
   .ordersContainer {
     grid-template-columns: 1fr;
