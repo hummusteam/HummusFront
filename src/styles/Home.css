@@ -1,6 +1,7 @@
 .app-container {
   width: var(--container);
   margin: auto;
+  margin-bottom: 200px;
 }
 
 .app-canvas {

@@ -9,7 +9,7 @@ import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 import { placeOrder } from '../api/Order'
 import { getSessionOrders } from '../api'
-import {Link} from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 type OrderItemElement = {
   orderItem: OrderItem
@@ -25,20 +25,21 @@ export default function Cart() {
   const cookies = new Cookies()
   const desc = useRef(null)
   const session: Session = cookies.get('_session')
-  
-  
+
   useEffect(() => {
-    if (cookies.get('_order')) {
-      const orderItems: OrderItem[] = cookies.get('_order')
+    if (session) {
+      if (cookies.get('_order')) {
+        const orderItems: OrderItem[] = cookies.get('_order')
 
-      orderItems.forEach((orderItem) => {
-        fetchMenuItemByID(orderItem.menuItemId).then((data) => {
-          setOrderItemElements((varr) => [...varr, { orderItem: orderItem, menuItem: data, qty: 1 }])
+        orderItems.forEach((orderItem) => {
+          fetchMenuItemByID(orderItem.menuItemId).then((data) => {
+            setOrderItemElements((varr) => [...varr, { orderItem: orderItem, menuItem: data, qty: 1 }])
+          })
         })
-      })
-    }
+      }
 
-    getSessionOrders(session?.id).then(setPrevOrders)
+      getSessionOrders(session?.id).then(setPrevOrders)
+    }
   }, [])
 
   function handleOrderMore() {
@@ -47,9 +48,8 @@ export default function Cart() {
 
   function handleCancelation() {
     cookies.remove('_order')
+    cookies.remove('_session')
     window.location.replace('/')
-
-    // delete session on cancelation
   }
 
   function getPriceFromItem(amount: number) {
@@ -95,65 +95,82 @@ export default function Cart() {
       <div className="ordersContainer">
         <div className="orderBoxContainer">
           <h1>Cart Overview</h1>
-          <div className="orderItems">
-            {orderItemElements &&
-              orderItemElements.length != 0 &&
-              orderItemElements.map((orderItemElement) => {
-                return <OrderItemLine getPriceFromItem={getPriceFromItem} key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
+          {orderItemElements.length != 0 ? (
+            <>
+              <div className="orderItems">
+                {orderItemElements &&
+                  orderItemElements.length != 0 &&
+                  orderItemElements.map((orderItemElement) => {
+                    return <OrderItemLine getPriceFromItem={getPriceFromItem} key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} />
+                  })}
+              </div>
+
+              <div className="orderOverview">
+                <div className="genericDetail">
+                  <h3>Sub total</h3>
+                  <h3>{orderItemsSum} &euro;</h3>
+                </div>
+
+                <div className="genericDetail">
+                  <h2>Total</h2>
+                  <h2>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h2>
+                </div>
+              </div>
+
+              <h1>Special Requests</h1>
+              <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
+
+              <div className="cartContainerBtns">
+                <div onClick={handleSubmission}>
+                  <Button text="Place my order!" />
+                </div>
+                <Link to={'/'}>
+                  <Button text="Order more" />
+                </Link>
+                <div onClick={handleCancelation}>
+                  <Button text="Cancel" />
+                </div>
+              </div>
+            </>
+          ) : (
+            <h3 className="prompt">No items</h3>
+          )}
+        </div>
+
+        <div className="orderBoxContainer">
+          <h1>Previous Orders</h1>
+          {prevOrders?.orders ? (
+            <div className="orderItems">
+              {prevOrders?.orders.map((order) => {
+                return (
+                  <div key={order.id}>
+                    <p>{order.dateTimeCreated}</p>
+                    <p>{order.orderStatus}</p>
+                  </div>
+                )
               })}
-          </div>
+            </div>
+          ) : (
+            <h3 className="prompt">No items</h3>
+          )}
 
           <div className="orderOverview">
             <div className="genericDetail">
               <h3>Sub total</h3>
-              <h3>{orderItemsSum} &euro;</h3>
+              <h3>{prevOrders?.totalAmount ?? 0} &euro;</h3>
             </div>
 
             <div className="genericDetail">
               <h2>Total</h2>
-              <h2>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h2>
+              <h2>{prevOrders?.totalAmount ? Math.round((prevOrders?.totalAmount * 1.05 * 100) / 100) : 0} &euro;</h2>
             </div>
           </div>
-        </div>
 
-        <div className="orderBoxContainer">
-          <h1>Special Requests</h1>
-          <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
-        </div>
-
-        <div className="orderBoxContainer">
-          <h1>Previous orders</h1>
-          {prevOrders?.orders ? (
-            prevOrders?.orders.map((order) => {
-              return (
-                <>
-                  <p>{order.dateTimeCreated}</p>
-                  <p>{order.orderStatus}</p>
-                </>
-              )
-            })
-          ) : (
-            <p>No previous orders placed</p>
-          )}
-          <div className="genericDetail">
-            <h3>Total paid</h3>
-            <h3>{prevOrders?.totalAmount ?? 0} &euro;</h3>
+          <div className="cartContainerBtns">
+            <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
+              <Button text="Confirm and pay" />
+            </div>
           </div>
-        </div>
-      </div>
-
-      <div className="cartRedirectBtns">
-        <Link to={'/'}>
-          <Button text="Order more" />
-        </Link>
-        <div onClick={handleCancelation}>
-          <Button text="Cancel my order" />
-        </div>
-        <div onClick={handleSubmission}>
-          <Button text="Place my order!" />
-        </div>
-        <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
-          <Button text="Pay!" />
         </div>
       </div>
     </div>
