@@ -19,8 +19,9 @@ type OrderItemElement = {
 
 type PreviousOrderItemElements = {
   orderId: string
-  orderItems: OrderItemElement[]
-  date: string
+  orderItemElements: OrderItemElement[]
+  since: number
+  totalPrice: number
 }
 
 export default function Cart() {
@@ -49,17 +50,26 @@ export default function Cart() {
         setTotalPrice(data.totalAmount)
         data.orders.forEach((order) => {
           let prevOrderItems: OrderItemElement[] = []
-
           order.orderItems.forEach((orderItem) => {
             fetchMenuItemByID(orderItem.menuItemId).then((data) => {
               prevOrderItems.push({ orderItem: orderItem, menuItem: data, qty: 1 })
             })
           })
 
+          let totalSum = 0
+          prevOrderItems.forEach((item) => {
+            totalSum += item.qty * item.menuItem.price
+          })
+
+          let orderTs = Date.parse(order.dateTimeCreated)
+          let currentTs = Date.now()
+          let diff = Math.floor((currentTs - orderTs) / (1000 * 60 * 60))
+
           let prevOrder: PreviousOrderItemElements = {
             orderId: order.id,
-            orderItems: prevOrderItems,
-            date: order.dateTimeCreated,
+            orderItemElements: prevOrderItems,
+            since: diff,
+            totalPrice: totalSum,
           }
 
           setPrevOrders((varr) => [...varr, prevOrder])
@@ -122,13 +132,8 @@ export default function Cart() {
               <div className="orderItems">
                 {orderItemElements &&
                   orderItemElements.length != 0 &&
-                  orderItemElements.map((orderItemElement, i, arr) => {
-                    return (
-                      <>
-                        <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} getPriceFromItem={getPriceFromItem} />
-                        {i + 1 != arr.length && <hr />}
-                      </>
-                    )
+                  orderItemElements.map((orderItemElement) => {
+                    return <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} getPriceFromItem={getPriceFromItem} />
                   })}
               </div>
 
@@ -167,55 +172,54 @@ export default function Cart() {
         <div className="orderBoxContainer">
           <h1>Previous Orders</h1>
           {prevOrders.length != 0 ? (
-            <div className="orderItems">
-              {prevOrders.map((order, x, xarr) => {
-                let orderTs = Date.parse('2022-04-19T11:36:16')
-                let currentTs = Date.now()
-                let diff = Math.floor((currentTs - orderTs) / (1000*60))
-                return (
-                  <div key={order.orderId}>
-                    <div className="genericDetail">
-                      <h3>Order #{x + 1}</h3>
-                      <h3>{diff} mins ago</h3>
+            <>
+              <div className="orderItems">
+                {prevOrders.map((order, x, xarr) => {
+                  return (
+                    <div key={order.orderId}>
+                      <div className="genericDetail">
+                        <h3>Order #{x + 1}</h3>
+                        <h3>{order.since} mins ago</h3>
+                      </div>
+                      {/* {order.orderItemElements?.map((orderItem, i, arr) => {
+                        return (
+                          <>
+                            <OrderItemLine key={uuid()} menuItem={orderItem.menuItem} orderItem={orderItem.orderItem} showBtns={false} />
+                            {i + 1 != arr.length && <hr />}
+                          </>
+                        )
+                      })} */}
+                      <div className="genericDetail">
+                        <h3>Total</h3>
+                        <h3>{Math.round(order.totalPrice * 1.05 * 100) / 100} &euro;</h3>
+                      </div>
+                      {x + 1 != xarr.length && <hr />}
                     </div>
-                    {order.orderItems?.map((orderItem, i, arr) => {
-                      return (
-                        <>
-                          <OrderItemLine key={uuid()} menuItem={orderItem.menuItem} orderItem={orderItem.orderItem} showBtns={false} />
-                          {i + 1 != arr.length && <hr />}
-                        </>
-                      )
-                    })}
-                    <div className="genericDetail">
-                      <h3>Total</h3>
-                      <h3>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h3>
-                    </div>
-                    {x + 1 != xarr.length && <hr />}
-                  </div>
-                )
-              })}
-            </div>
+                  )
+                })}
+              </div>
+
+              <div className="orderOverview">
+                <div className="genericDetail">
+                  <h3>Sub total</h3>
+                  <h3>{totalPrice! ?? 0} &euro;</h3>
+                </div>
+
+                <div className="genericDetail">
+                  <h2>Total</h2>
+                  <h2>{totalPrice! ? Math.round((totalPrice! * 1.05 * 100) / 100) : 0} &euro;</h2>
+                </div>
+              </div>
+
+              <div className="cartContainerBtns">
+                <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
+                  <Button text="Confirm and pay" />
+                </div>
+              </div>
+            </>
           ) : (
             <h3 className="prompt">No previous orders</h3>
           )}
-
-          <div className="orderOverview">
-            <div className="genericDetail">
-              <h3>Sub total</h3>
-              <h3>{totalPrice! ?? 0} &euro;</h3>
-            </div>
-
-            <div className="genericDetail">
-              <h2>Total</h2>
-              <h2>{totalPrice! ? Math.round((totalPrice! * 1.05 * 100) / 100) : 0} &euro;</h2>
-            </div>
-          </div>
-
-          <div className="cartContainerBtns">
-            <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
-              <Button text="Confirm and pay" />
-            </div>
-          </div>
         </div>
       </div>
     </div>

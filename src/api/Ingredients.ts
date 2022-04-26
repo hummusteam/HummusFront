@@ -16,7 +16,6 @@ export async function fetchIngredientById(ingredient: string): Promise<Ingredien
 }
 
 export async function putIngredient(ingredient: Ingredient) {
-  console.log(ingredient)
   await axios
     .put('https://inventoryapi.tycho.dev/Ingredient', ingredient, {
       headers: { 'Content-Type': 'application/json' },
@@ -25,7 +24,6 @@ export async function putIngredient(ingredient: Ingredient) {
 }
 
 export async function postIngredient(ingredient: Ingredient) {
-  console.log(ingredient)
   await axios
     .post('https://inventoryapi.tycho.dev/Ingredient', ingredient, {
       headers: { 'Content-Type': 'application/json' },

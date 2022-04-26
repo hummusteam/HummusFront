@@ -21,7 +21,7 @@ export default function Home() {
         <div className="app-container">
           <Navigation url={banner} />
 
-          <div className="app-canvas">
+          <div className="app-canvas categories">
             {AUTHED ? <AddFormCategory /> : null}
             {categories.length &&
               categories.map((c) => {
