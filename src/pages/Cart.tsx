@@ -2,6 +2,7 @@ import '../styles/Cart.css'
 import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
 import { fetchMenuItemByID } from '../api/MenuItems'
+import { redirectToPaymnetWithId } from '../api/Payment'
 import { Button, Navigation, OrderItemLine } from '../components'
 import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
@@ -23,7 +24,9 @@ export default function Cart() {
   const [prevOrders, setPrevOrders] = useState<SessionOrders>()
   const cookies = new Cookies()
   const desc = useRef(null)
-
+  const session: Session = cookies.get('_session')
+  
+  
   useEffect(() => {
     if (cookies.get('_order')) {
       const orderItems: OrderItem[] = cookies.get('_order')
@@ -35,9 +38,7 @@ export default function Cart() {
       })
     }
 
-    const session: Session = cookies.get('_session')
-
-    getSessionOrders(session.id).then(setPrevOrders)
+    getSessionOrders(session?.id).then(setPrevOrders)
   }, [])
 
   function handleOrderMore() {
@@ -150,6 +151,9 @@ export default function Cart() {
         </div>
         <div onClick={handleSubmission}>
           <Button text="Place my order!" />
+        </div>
+        <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
+          <Button text="Pay!" />
         </div>
       </div>
     </div>

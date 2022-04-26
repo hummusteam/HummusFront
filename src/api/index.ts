@@ -2,3 +2,4 @@ export { fetchCategories, putCategory, postCategory, deleteCategory } from './Ca
 export { fetchMenuItems, fetchMenuItemsByCategory, putMenuItem, postMenuItem, deleteMenuItem } from './MenuItems'
 export { fetchIngredients, fetchIngredientById, putIngredient, postIngredient, deleteIngredient } from './Ingredients'
 export { startSession, getSessionOrders } from './Sessions'
+export { redirectToPaymnetWithId } from './Payment'
