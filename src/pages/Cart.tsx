@@ -8,6 +8,7 @@ import { v4 as uuid } from 'uuid'
 import moment from 'moment'
 import { placeOrder } from '../api/Order'
 import { getSessionOrders } from '../api'
+import {Link} from "react-router-dom";
 
 type OrderItemElement = {
   orderItem: OrderItem
@@ -141,9 +142,9 @@ export default function Cart() {
       </div>
 
       <div className="cartRedirectBtns">
-        <div onClick={handleOrderMore}>
+        <Link to={'/'}>
           <Button text="Order more" />
-        </div>
+        </Link>
         <div onClick={handleCancelation}>
           <Button text="Cancel my order" />
         </div>
