@@ -26,6 +26,7 @@
   background-color: rgb(249, 249, 249);
   margin: 20px 0;
   overflow-x: hidden;
+  padding: 1em;
 }
 
 .orderNote {

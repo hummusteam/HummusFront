@@ -17,11 +17,18 @@ type OrderItemElement = {
   qty: number
 }
 
+type PreviousOrderItemElements = {
+  orderId: string
+  orderItems: OrderItemElement[]
+  date: string
+}
+
 export default function Cart() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
-  const [prevOrders, setPrevOrders] = useState<SessionOrders>()
+  const [prevOrders, setPrevOrders] = useState<PreviousOrderItemElements[]>([])
+  const [totalPrice, setTotalPrice] = useState<number>(0)
   const cookies = new Cookies()
   const desc = useRef(null)
   const session: Session = cookies.get('_session')
@@ -38,7 +45,26 @@ export default function Cart() {
         })
       }
 
-      fetchSessionOrders(session?.id).then(setPrevOrders)
+      fetchSessionOrders(session?.id).then((data: SessionOrders) => {
+        setTotalPrice(data.totalAmount)
+        data.orders.forEach((order) => {
+          let prevOrderItems: OrderItemElement[] = []
+
+          order.orderItems.forEach((orderItem) => {
+            fetchMenuItemByID(orderItem.menuItemId).then((data) => {
+              prevOrderItems.push({ orderItem: orderItem, menuItem: data, qty: 1 })
+            })
+          })
+
+          let prevOrder: PreviousOrderItemElements = {
+            orderId: order.id,
+            orderItems: prevOrderItems,
+            date: order.dateTimeCreated,
+          }
+
+          setPrevOrders((varr) => [...varr, prevOrder])
+        })
+      })
     }
   }, [])
 
@@ -120,7 +146,7 @@ export default function Cart() {
                   <h2>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h2>
                 </div>
               </div>
-              
+
               <div className="cartContainerBtns">
                 <div onClick={handleSubmission}>
                   <Button text="Place my order!" />
@@ -140,30 +166,48 @@ export default function Cart() {
 
         <div className="orderBoxContainer">
           <h1>Previous Orders</h1>
-          {prevOrders?.orders ? (
+          {prevOrders.length != 0 ? (
             <div className="orderItems">
-              {prevOrders?.orders.map((order) => {
+              {prevOrders.map((order, x, xarr) => {
+                let orderTs = Date.parse('2022-04-19T11:36:16')
+                let currentTs = Date.now()
+                let diff = Math.floor((currentTs - orderTs) / (1000*60))
                 return (
-                  <div key={order.id}>
-                    <p>{order.dateTimeCreated}</p>
-                    <p>{order.orderStatus}</p>
+                  <div key={order.orderId}>
+                    <div className="genericDetail">
+                      <h3>Order #{x + 1}</h3>
+                      <h3>{diff} mins ago</h3>
+                    </div>
+                    {order.orderItems?.map((orderItem, i, arr) => {
+                      return (
+                        <>
+                          <OrderItemLine key={uuid()} menuItem={orderItem.menuItem} orderItem={orderItem.orderItem} showBtns={false} />
+                          {i + 1 != arr.length && <hr />}
+                        </>
+                      )
+                    })}
+                    <div className="genericDetail">
+                      <h3>Total</h3>
+                      <h3>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h3>
+                    </div>
+                    {x + 1 != xarr.length && <hr />}
                   </div>
                 )
               })}
             </div>
           ) : (
-            <h3 className="prompt">No items</h3>
+            <h3 className="prompt">No previous orders</h3>
           )}
 
           <div className="orderOverview">
             <div className="genericDetail">
               <h3>Sub total</h3>
-              <h3>{prevOrders?.totalAmount ?? 0} &euro;</h3>
+              <h3>{totalPrice! ?? 0} &euro;</h3>
             </div>
 
             <div className="genericDetail">
               <h2>Total</h2>
-              <h2>{prevOrders?.totalAmount ? Math.round((prevOrders?.totalAmount * 1.05 * 100) / 100) : 0} &euro;</h2>
+              <h2>{totalPrice! ? Math.round((totalPrice! * 1.05 * 100) / 100) : 0} &euro;</h2>
             </div>
           </div>
 
