@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
 import { useLocalStorage } from '../util/UseLocalStorage'
+import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [AUTHED, setAuthed] = useLocalStorage("authed", false);
@@ -20,7 +21,7 @@ export default function Home() {
         <div className="app-container">
           <Navigation url={banner} />
 
-          <div className="app-canvas">
+          <div className="app-canvas categories">
             {AUTHED ? <AddFormCategory /> : null}
             {categories.length &&
               categories.map((c) => {
@@ -30,6 +31,11 @@ export default function Home() {
           <div onClick={() => {setAuthed(!AUTHED); location.reload();}}>
             <Button text={"Toggle admin mode"} />
           </div>
+          <Link to={'/cart'}>
+            <p>
+            <Button text="Go to cart" />
+            </p>
+          </Link>
         </div>
       ) : (
         <Loading />

@@ -31,6 +31,10 @@
   cursor: pointer;
 }
 
+.edit-btn-alt {
+  color: black;
+}
+
 .edit-form {
   cursor: default; /* FIX ME - fix cursor inheritance */
   position: fixed;
@@ -95,6 +99,6 @@
   display: flex;
 }
 
-.edit-form-btns button {
+.edit-form-btns > * {
   margin-right: 1em;
 }
