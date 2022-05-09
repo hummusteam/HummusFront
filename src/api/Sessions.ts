@@ -8,7 +8,7 @@ export async function startSession(tableId: string): Promise<Session> {
     .catch(console.log)
 }
 
-export async function getSessionOrders(sessionId: string): Promise<SessionOrders> {
+export async function fetchSessionOrders(sessionId: string): Promise<SessionOrders> {
   return await axios
     .get('https://sessionapi.tycho.dev/SessionSummary/' + sessionId)
     .then((res) => res.data)
