@@ -1,0 +1,63 @@
+:root {
+  --container: 50%;
+  --roundness: 7px;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/src/public/font/Ubuntu-Regular.ttf');
+  font-style: normal;
+}
+
+body {
+  font-family: 'Ubuntu';
+  margin: 0;
+  background-color: whitesmoke;
+  overflow-x: hidden;
+}
+
+textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: var(--roundness);
+  background-color: rgb(249, 249, 249);
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: calc(var(--roundness)/2);
+  min-width: 50px;
+  text-align: center;
+}
+
+button:active {
+  background-color: white;
+}
+
+hr {
+  border: 1px dashed rgb(208, 208, 208);
+  padding: 0;
+  margin: 0;
+}
+
+@media screen and (max-width: 1550px) {
+  :root {
+    --container: 70%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --container: 100%;
+  }
+
+  body {
+    background-color: white;
+  }
+}

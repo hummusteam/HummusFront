@@ -4,10 +4,8 @@
   transition: 0.2s;
   font-weight: 500;
   height: 350px;
-  /* min-width: 200px; */
   font-weight: bold;
   color: white;
-  font-size: 20px;
   background-color: white;
 }
 
@@ -18,4 +16,10 @@
 .menu-item-container:hover {
   box-shadow: 0 -1px 4px 0 rgba(144, 144, 144, 0.08), 0 6px 8px 0 rgba(87, 87, 87, 0.12);
   cursor: pointer;
+}
+
+@media screen and (max-width: 400px) {
+  .menu-item-container * {
+    font-size: 100%;
+  }
 }
