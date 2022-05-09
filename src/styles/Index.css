@@ -1,0 +1,103 @@
+:root {
+  --container: 50%;
+  --roundness: 7px;
+}
+
+@font-face {
+  font-family: 'Ubuntu';
+  src: url('/src/public/font/Ubuntu-Regular.ttf');
+  font-style: normal;
+}
+
+body {
+  font-family: 'Ubuntu';
+  margin: 0;
+  background-color: whitesmoke;
+  overflow-x: hidden;
+}
+
+textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  font-family: inherit;
+  font-size: 15px;
+  box-sizing: border-box;
+  padding: 14px;
+  border-radius: var(--roundness);
+  background-color: rgb(249, 249, 249);
+}
+
+button {
+  border: none;
+  outline: none;
+  border-radius: calc(var(--roundness)/2);
+  min-width: 50px;
+  text-align: center;
+}
+
+button:active {
+  background-color: white;
+}
+
+hr {
+  border: 1px dashed rgb(208, 208, 208);
+  padding: 0;
+  /* margin: 0 20px; */
+}
+
+.app-container {
+  width: var(--container);
+  margin: auto;
+  margin-bottom: 200px;
+}
+
+.app-canvas {
+  margin: auto;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: space-around;
+  grid-auto-flow: dense;
+  gap: 1em;
+  padding: 1em;
+  padding-bottom: 100px;
+}
+
+@media screen and (max-width: 1550px) {
+  .app-canvas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .app-canvas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .app-canvas {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 1550px) {
+  :root {
+    --container: 70%;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  :root {
+    --container: 100%;
+  }
+
+  body {
+    background-color: white;
+  }
+}

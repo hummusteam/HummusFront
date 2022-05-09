@@ -10,7 +10,7 @@ export default function EditFormCategories(category: Category) {
   let nameInput = useRef(null)
   let imageInput = useRef(null)
 
-  const updateCategory = async () => {
+  async function updateCategory() {
     await putCategory({
       id: category.id,
       dateTimeCreated: category.dateTimeCreated,
@@ -20,8 +20,8 @@ export default function EditFormCategories(category: Category) {
     window.location.reload()
   }
 
-  const removeCategory = async () => {
-    await deleteCategory(category)
+  async function removeCategory() {
+    deleteCategory(category)
     window.location.reload()
   }
 
@@ -59,7 +59,7 @@ export default function EditFormCategories(category: Category) {
               </div>
             </div>
           </div>
-          
+
           <div onClick={() => setEditingState(false)} className="edit-form-block" />
         </>
       ) : null}
