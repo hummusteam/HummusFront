@@ -2,3 +2,9 @@
   margin: 1em;
   gap: 1em !important;
 }
+
+@media screen and (min-width: 900px) {
+  .categories {
+    margin: 0;
+  }
+}
