@@ -102,6 +102,7 @@ export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem, s
                 </div>
               </div>
             )}
+            <hr />
           </div>
         </div>
       ) : null}

@@ -20,12 +20,13 @@
 }
 
 .orderItems {
-  max-height: 600px;
+  max-height: 400px;
   overflow: scroll;
   border-radius: var(--roundness);
   background-color: rgb(249, 249, 249);
   margin: 20px 0;
   overflow-x: hidden;
+  padding: 1em;
 }
 
 .orderNote {

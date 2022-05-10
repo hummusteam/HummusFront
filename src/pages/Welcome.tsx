@@ -9,6 +9,8 @@ export default function Welcome() {
   useEffect(() => {
     startSession(tableId).then((session) => {
       const cookies = new Cookies()
+      cookies.remove('_session')
+      cookies.remove('_order')
       cookies.set('_session', session, { path: '/' })
       window.location.replace('/')
     })

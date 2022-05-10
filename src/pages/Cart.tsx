@@ -17,11 +17,19 @@ type OrderItemElement = {
   qty: number
 }
 
+type PreviousOrderItemElements = {
+  orderId: string
+  orderItemElements: OrderItemElement[]
+  since: number
+  totalPrice: number
+}
+
 export default function Cart() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
-  const [prevOrders, setPrevOrders] = useState<SessionOrders>()
+  const [prevOrders, setPrevOrders] = useState<PreviousOrderItemElements[]>([])
+  const [totalPrice, setTotalPrice] = useState<number>(0)
   const cookies = new Cookies()
   const desc = useRef(null)
   const session: Session = cookies.get('_session')
@@ -33,12 +41,38 @@ export default function Cart() {
 
         orderItems.forEach((orderItem) => {
           fetchMenuItemByID(orderItem.menuItemId).then((data) => {
-            setOrderItemElements((varr) => [...varr, { orderItem: orderItem, menuItem: data, qty: 1 }])
+            setOrderItemElements((varr) => [...varr, { orderItem, menuItem: data, qty: 1 }])
           })
         })
       }
 
-      fetchSessionOrders(session?.id).then(setPrevOrders)
+      fetchSessionOrders(session?.id).then(async (data: SessionOrders) => {
+        setTotalPrice(data.totalAmount)
+
+        for (const order of data.orders) {
+          let prevOrderItems: OrderItemElement[] = []
+
+          for (const orderItem of order.orderItems) {
+            const menuItem = await fetchMenuItemByID(orderItem.menuItemId)
+            prevOrderItems.push({ orderItem, menuItem, qty: 1 })
+          }
+
+          let totalSum = prevOrderItems.map(o => o.qty * o.menuItem.price).reduce((a, b) => a + b)
+
+          let orderTs = Date.parse(order.dateTimeCreated)
+          let currentTs = Date.now()
+          let diff = Math.floor((currentTs - orderTs) / (1000 * 60 * 60))
+
+          let prevOrder: PreviousOrderItemElements = {
+            orderId: order.id,
+            orderItemElements: prevOrderItems,
+            since: diff,
+            totalPrice: totalSum,
+          }
+
+          setPrevOrders((varr) => [...varr, prevOrder])
+        }
+      })
     }
   }, [])
 
@@ -96,15 +130,13 @@ export default function Cart() {
               <div className="orderItems">
                 {orderItemElements &&
                   orderItemElements.length != 0 &&
-                  orderItemElements.map((orderItemElement, i, arr) => {
-                    return (
-                      <>
-                        <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} getPriceFromItem={getPriceFromItem} />
-                        {i + 1 != arr.length && <hr />}
-                      </>
-                    )
+                  orderItemElements.map((orderItemElement) => {
+                    return <OrderItemLine key={orderItemElement.orderItem.id} menuItem={orderItemElement.menuItem} orderItem={orderItemElement.orderItem} getPriceFromItem={getPriceFromItem} />
                   })}
               </div>
+
+              <h1>Special Requests</h1>
+              <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
 
               <div className="orderOverview">
                 <div className="genericDetail">
@@ -117,9 +149,6 @@ export default function Cart() {
                   <h2>{Math.round(orderItemsSum * 1.05 * 100) / 100} &euro;</h2>
                 </div>
               </div>
-
-              <h1>Special Requests</h1>
-              <textarea ref={desc} className="orderNote" placeholder="I have a special request..." />
 
               <div className="cartContainerBtns">
                 <div onClick={handleSubmission}>
@@ -140,38 +169,55 @@ export default function Cart() {
 
         <div className="orderBoxContainer">
           <h1>Previous Orders</h1>
-          {prevOrders?.orders ? (
-            <div className="orderItems">
-              {prevOrders?.orders.map((order) => {
-                return (
-                  <div key={order.id}>
-                    <p>{order.dateTimeCreated}</p>
-                    <p>{order.orderStatus}</p>
-                  </div>
-                )
-              })}
-            </div>
+          {prevOrders.length != 0 ? (
+            <>
+              <div className="orderItems">
+                {prevOrders.map((order, x, xarr) => {
+                  return (
+                    <div key={order.orderId}>
+                      <div className="genericDetail">
+                        <h3>Order #{x + 1}</h3>
+                        <h3>{order.since} mins ago</h3>
+                      </div>
+                      {/* {order.orderItemElements?.map((orderItem, i, arr) => {
+                        return (
+                          <>
+                            <OrderItemLine key={uuid()} menuItem={orderItem.menuItem} orderItem={orderItem.orderItem} showBtns={false} />
+                            {i + 1 != arr.length && <hr />}
+                          </>
+                        )
+                      })} */}
+                      <div className="genericDetail">
+                        <h3>Total</h3>
+                        <h3>{Math.round(order.totalPrice * 1.05 * 100) / 100} &euro;</h3>
+                      </div>
+                      {x + 1 != xarr.length && <hr />}
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className="orderOverview">
+                <div className="genericDetail">
+                  <h3>Sub total</h3>
+                  <h3>{totalPrice! ?? 0} &euro;</h3>
+                </div>
+
+                <div className="genericDetail">
+                  <h2>Total</h2>
+                  <h2>{totalPrice! ? Math.round((totalPrice! * 1.05 * 100) / 100) : 0} &euro;</h2>
+                </div>
+              </div>
+
+              <div className="cartContainerBtns">
+                <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
+                  <Button text="Confirm and pay" />
+                </div>
+              </div>
+            </>
           ) : (
-            <h3 className="prompt">No items</h3>
+            <h3 className="prompt">No previous orders</h3>
           )}
-
-          <div className="orderOverview">
-            <div className="genericDetail">
-              <h3>Sub total</h3>
-              <h3>{prevOrders?.totalAmount ?? 0} &euro;</h3>
-            </div>
-
-            <div className="genericDetail">
-              <h2>Total</h2>
-              <h2>{prevOrders?.totalAmount ? Math.round((prevOrders?.totalAmount * 1.05 * 100) / 100) : 0} &euro;</h2>
-            </div>
-          </div>
-
-          <div className="cartContainerBtns">
-            <div onClick={async () => await redirectToPaymnetWithId(session?.id)}>
-              <Button text="Confirm and pay" />
-            </div>
-          </div>
         </div>
       </div>
     </div>
