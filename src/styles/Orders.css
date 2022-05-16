@@ -1,9 +1,30 @@
-.container-kds {
-    display: grid;
-    gap: 1em;
-    grid-template-columns: 1fr 1fr 1fr;
-    justify-content: space-between;
-    width: 60%;
-    height: 100%;
-    margin: 4em auto;
+.orders {
+  display: grid;
+  grid-template-rows: 1fr 10fr;
+  gap: 1em;
+  margin: 1em;
+}
+
+.orders > div {
+  display: grid;
+  gap: 1em;
+}
+
+.container-kds-incoming {
+  overflow: scroll;
+  grid-auto-flow: column;
+  padding-bottom: 1em;
+  display: none !important;
+}
+
+.container-kds-incoming .orderCard {
+  width: 300px;
+}
+
+.container-kds-inprep {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-kds-inprep .orderCard {
+    height: fit-content;
 }

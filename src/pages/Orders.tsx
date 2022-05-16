@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
+import { MenuItem, Order, ProperIngredient, ProperOrder, ProperOrderItem } from '../types'
+import { fetchAllOrders, fetchIngredientById, fetchMenuItemById } from '../api'
 import OrderCard from '../components/OrderCard'
 import '../styles/Orders.css'
-import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
-import { MenuItem, Order, OrderItem, ProperIngredient, ProperOrder, ProperOrderItem } from '../types'
-import { fetchAllOrders, fetchIngredientById, fetchMenuItemById } from '../api'
 
 export default function Orders() {
   const [connection, setConnection] = useState<HubConnection>(null)
@@ -21,19 +21,17 @@ export default function Orders() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   if (connection) {
-  //     connection
-  //       .start()
-  //       .then(() => {
-  //         console.log('Connected!')
-  //         connection.on('OrderNew', (newOrder: Order) => {
-  //           setOrders((arr) => [...arr, convertOrderToProper(newOrder)])
-  //         })
-  //       })
-  //       .catch((e) => console.log('Connection failed: ', e))
-  //   }
-  // }, [connection])
+  useEffect(() => {
+    if (connection) {
+      connection.start().then(() => {
+          connection.on('OrderNew', async (newOrder: Order) => {
+            const pasredOrder = await convertOrderToProper(newOrder)
+            setOrders((arr) => [...arr, pasredOrder])
+          })
+        })
+        .catch(console.log)
+    }
+  }, [connection])
 
   async function convertOrderToProper(order: Order): Promise<ProperOrder> {
     const parsedOrderItems: ProperOrderItem[] = []
@@ -51,7 +49,7 @@ export default function Orders() {
             ingredient: await fetchIngredientById(key),
             qty: value,
           })
-        } catch (e) {}
+        } catch (e) {console.log(e)}
       }
 
       parsedOrderItems.push({

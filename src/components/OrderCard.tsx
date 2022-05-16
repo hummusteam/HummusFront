@@ -1,31 +1,41 @@
-import '../styles/OrderCard.css'
+import { ProperOrder } from '../types'
+import { v4 as uuid } from 'uuid'
 import Button from './Button'
+import '../styles/OrderCard.css'
 
-export default function OrderCard() {
+export default function OrderCard({ index, properOrder }: { index: number; properOrder: ProperOrder }) {
   return (
     <div className="orderCard">
-      <h1>{'Order #1'}</h1>
+      <h1>Order #{index}</h1>
 
       <div className="orderCard-orderItems">
-        <div className="title">
-          <h2>{'Steak'}</h2>
-          <h2>
-            <small>Qty</small> {'1'}
-          </h2>
-        </div>
+        {properOrder.orderItems?.length != 0 &&
+          properOrder.orderItems.map((item) => {
+            return (
+              <>
+                <div key={uuid()} className="title">
+                  <h2>{item.menuItem?.name}</h2>
+                  <h2>
+                    <small>Qty</small> {'1'}
+                  </h2>
+                </div>
 
-        <div className="orderItem-extras">
-          <ul className="leaders">
-            <li>
-              <span>Potato</span>
-              <span>10</span>
-            </li>
-            <li>
-              <span>Potato</span>
-              <span>4</span>
-            </li>
-          </ul>
-        </div>
+                <div className="orderItem-extras">
+                  <ul className="leaders">
+                    {item?.extraIngredients?.length != 0 &&
+                      item?.extraIngredients.map((ingredient) => {
+                        return ingredient.ingredient ? (
+                          <li key={uuid()}>
+                            <span>{ingredient.ingredient.name}</span>
+                            <span>{ingredient.qty}</span>
+                          </li>
+                        ) : null
+                      })}
+                  </ul>
+                </div>
+              </>
+            )
+          })}
       </div>
 
       <div className="orderCard-btns">
