@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
@@ -24,6 +24,8 @@ export default function Menu() {
       {menuItems.length != 0 || categories.length != 0 ? (
         <div className="menu-container">
           <Navigation url={banner} />
+          
+          <Meta table={5} pin={1634} />
 
           <div className="inner-menu-container">
             <div className="menu-carousel category-carousel">

@@ -1,4 +1,18 @@
-.crumbs {
+.metaContainer {
   font-weight: bold;
-  margin: auto;
+  border-radius: var(--roundness);
+  display: grid;
+  grid-auto-flow: column;
+  justify-items: center;
+  background-color: white;
+  margin: 1em;
+  border: 1px solid #eee;
+}
+
+.metaContainer div {
+  margin: 2em 0;
+}
+
+.metaContainer b {
+  font-size: 30px;
 }
