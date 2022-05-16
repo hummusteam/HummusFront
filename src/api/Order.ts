@@ -7,3 +7,7 @@ export async function placeOrder(sessionId: string, order: Order) {
     .then((res) => res.data)
     .catch(console.log)
 }
+
+export async function fetchAllOrders() : Promise<Order[]> {
+  return await axios.get('https://orderapi.tycho.dev/Order').then(res => res.data)
+}
