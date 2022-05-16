@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import { Home, Menu, Ingredients, Cart, Stock } from './pages'
 import Welcome from './pages/Welcome'
-import Orders from './pages/orders'
+import Orders from './pages/Orders'
 
 ReactDOM.render(
   <Router>
