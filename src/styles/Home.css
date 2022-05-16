@@ -15,10 +15,6 @@
   padding-bottom: 100px;
 }
 
-.app-container .app-canvas:nth-child(2n + 1) {
-  transform: translateX(-100px);
-}
-
 @media screen and (max-width: 1550px) {
   .app-canvas {
     grid-template-columns: repeat(3, 1fr);
