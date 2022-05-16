@@ -6,6 +6,8 @@
   background-color: white;
   font-size: 20px;
   font-weight: bolder;
+  /* border: 2px solid #eee; */
+  z-index: 9;
 }
 
 .menu-item {
@@ -17,7 +19,6 @@
 }
 
 .add-form-container:hover {
-  box-shadow: 0 -1px 4px 0 rgba(144, 144, 144, 0.08), 0 6px 8px 0 rgba(87, 87, 87, 0.12);
   cursor: pointer;
 }
 
@@ -27,4 +28,9 @@
   top: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
+  z-index: -99;
+}
+
+.edit-form-btns > * {
+  margin-right: 1em;
 }

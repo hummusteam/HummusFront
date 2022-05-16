@@ -16,6 +16,7 @@
   font-size: 17px;
   transition: 0.2s;
   filter: drop-shadow(10px);
+  z-index: 2;
 }
 
 .edit-btn-block {
@@ -63,7 +64,7 @@
   height: 100%;
   background-color: black;
   opacity: 0.5;
-  z-index: 9;
+  z-index: 50;
 }
 
 .edit-form-title {
@@ -99,6 +100,6 @@
   display: flex;
 }
 
-.edit-form-btns button {
+.edit-form-btns > * {
   margin-right: 1em;
 }

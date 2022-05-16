@@ -1,5 +1,5 @@
 import '../styles/EditForm.css'
-import { useRef, useState } from 'react'
+import { MouseEvent, useRef, useState } from 'react'
 import { MenuItem } from '../types'
 import { Button } from '../components'
 import { deleteMenuItem, putMenuItem } from '../api'
@@ -29,10 +29,15 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
     window.location.reload()
   }
 
+  function handleClick(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
+    event.stopPropagation()
+    setEditingState(true)
+  }
+
   return (
     <>
       {/* <div className="edit-btn-block" /> */}
-      <button onClick={() => setEditingState(true)} type="button" className="edit-btn">
+      <button onClick={(event) => handleClick(event)} type="button" className="edit-btn">
         Edit
       </button>
 

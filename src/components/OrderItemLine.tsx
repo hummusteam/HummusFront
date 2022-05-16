@@ -12,7 +12,7 @@ type IngredientElement = {
   qty: number
 }
 
-export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }: { menuItem: MenuItem; orderItem: OrderItem; getPriceFromItem: any }) {
+export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem, showBtns = true }: { menuItem: MenuItem; orderItem: OrderItem; getPriceFromItem?: any; showBtns?: boolean }) {
   const [extras, setExtras] = useState<IngredientElement[]>([])
   const [itemQty, setItemQty] = useState<number>(1)
   const cookies = new Cookies()
@@ -92,16 +92,18 @@ export default function OrderItemLine({ menuItem, orderItem, getPriceFromItem }:
                 })}
               </div>
             ) : null}
-            <div className="orderlineBtns">
-              <div onClick={handleAddOrderItem}>
-                <Button text="Add" />
+            {showBtns && (
+              <div className="orderlineBtns">
+                <div onClick={handleAddOrderItem}>
+                  <Button text="Add" />
+                </div>
+                <div onClick={handleRemoveOrderItem}>
+                  <Button text="Remove" />
+                </div>
               </div>
-              <div onClick={handleRemoveOrderItem}>
-                <Button text="Remove" />
-              </div>
-            </div>
+            )}
+            <hr />
           </div>
-          <hr />
         </div>
       ) : null}
     </>
