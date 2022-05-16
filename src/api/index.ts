@@ -3,3 +3,4 @@ export { fetchMenuItems, fetchMenuItemById, fetchMenuItemsByCategory, putMenuIte
 export { fetchIngredients, fetchIngredientById, putIngredient, postIngredient, deleteIngredient } from './Ingredients'
 export { startSession, fetchSessionOrders } from './Sessions'
 export { redirectToPaymnetWithId } from './Payment'
+export { placeOrder, fetchAllOrders } from './Order'

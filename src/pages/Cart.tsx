@@ -7,7 +7,7 @@ import { Button, Navigation, OrderItemLine } from '../components'
 import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
-import { placeOrder } from '../api/Order'
+import { placeOrder } from '../api'
 import { fetchSessionOrders } from '../api'
 import { Link } from 'react-router-dom'
 
