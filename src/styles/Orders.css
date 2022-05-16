@@ -1,4 +1,5 @@
 .orders {
+  height: fit-content;
   display: grid;
   grid-template-rows: 1fr 10fr;
   gap: 1em;
@@ -26,5 +27,6 @@
 }
 
 .container-kds-inprep .orderCard {
-    height: fit-content;
+  height: fit-content;
+  margin-bottom: 3em;
 }

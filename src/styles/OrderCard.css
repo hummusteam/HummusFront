@@ -54,3 +54,15 @@ li {
   position: absolute;
   bottom: 20px;
 }
+
+.loaded {
+  animation-name: entry;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 2 s;
+}
+
+@keyframes entry {
+  from  {transform: rotateY(45deg)}
+  to    {transform: rotateY(0deg)}
+}
