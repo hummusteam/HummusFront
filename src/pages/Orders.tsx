@@ -2,47 +2,24 @@ import { useEffect, useState } from 'react'
 import OrderCard from '../components/OrderCard'
 import '../styles/Orders.css'
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
-import { Ingredient, MenuItem, Order } from '../types'
-import { fetchAllOrders } from '../api/Order'
-import { fetchMenuItemById, fetchIngredientById } from '../api'
-
-interface ProperOrder {
-  id: string
-  dateTimeCreated: string
-  orderItems: ProperOrderItem[]
-  orderStatus: number
-  description: string
-}
-
-interface ProperOrderItem {
-  id: string
-  dateTimeCreated: string
-  menuItem: MenuItem
-  allergyId: string[]
-  description: string
-  extraIngredients: ProperIngredient[]
-}
-
-interface ProperIngredient {
-  ingredient: Ingredient
-  qty: number
-}
+import { MenuItem, Order, OrderItem, ProperIngredient, ProperOrder, ProperOrderItem } from '../types'
+import { fetchAllOrders, fetchIngredientById, fetchMenuItemById } from '../api'
 
 export default function Orders() {
   const [connection, setConnection] = useState<HubConnection>(null)
-  const [orders, setOrders] = useState<ProperOrder[]>()
+  const [orders, setOrders] = useState<ProperOrder[]>([])
 
-  // useEffect(() => {
-  //   const newConnection = new HubConnectionBuilder().withUrl('https://orderapi.tycho.dev/orderhub').withAutomaticReconnect().build()
-  //   setConnection(newConnection)
+  useEffect(() => {
+    const newConnection = new HubConnectionBuilder().withUrl('https://orderapi.tycho.dev/orderhub').withAutomaticReconnect().build()
+    setConnection(newConnection)
 
-  //   fetchAllOrders().then((orders: Order[]) => {
-  //     orders.forEach((order: Order) => {
-  //       convertOrderToProper(order)
-  //       // setOrders((orders) => [...orders, convertOrderToProper(order)])
-  //     })
-  //   })
-  // }, [])
+    fetchAllOrders().then(async (fetchedOrders: Order[]) => {
+      for (const order of fetchedOrders) {
+        const pasredOrder = await convertOrderToProper(order)
+        setOrders((arr) => [...arr, pasredOrder])
+      }
+    })
+  }, [])
 
   // useEffect(() => {
   //   if (connection) {
@@ -50,75 +27,69 @@ export default function Orders() {
   //       .start()
   //       .then(() => {
   //         console.log('Connected!')
-  //         connection.on('OrderNew', (order: Order) => {
-  //           if (order) {
-  //             setOrders((orders) => [...orders, convertOrderToProper(order)])
-  //           }
+  //         connection.on('OrderNew', (newOrder: Order) => {
+  //           setOrders((arr) => [...arr, convertOrderToProper(newOrder)])
   //         })
   //       })
   //       .catch((e) => console.log('Connection failed: ', e))
   //   }
   // }, [connection])
 
-  function convertOrderToProper(order: Order): ProperOrder {
-    let parsedOrderItems: ProperOrderItem[] = []
+  async function convertOrderToProper(order: Order): Promise<ProperOrder> {
+    const parsedOrderItems: ProperOrderItem[] = []
 
-    order.orderItems.forEach(async (item) => {
-      let extras: ProperIngredient[] = []
+    for (const item of order.orderItems) {
       let menuItem: MenuItem = null
-      let parsedOrderItem: ProperOrderItem
-
       try {
         menuItem = await fetchMenuItemById(item.menuItemId)
       } catch (e) {}
 
+      const extras: ProperIngredient[] = []
       for (const [key, value] of Object.entries(item.extraIngredients)) {
-        let extraIngredient: ProperIngredient = null
-
         try {
-          extraIngredient = {
+          extras.push({
             ingredient: await fetchIngredientById(key),
             qty: value,
-          }
+          })
         } catch (e) {}
-
-        extras.push(extraIngredient)
       }
 
-      parsedOrderItem = {
+      parsedOrderItems.push({
         id: item.id,
         dateTimeCreated: item.dateTimeCreated,
         menuItem: menuItem,
         allergyId: item.allergyId,
         description: item.description,
         extraIngredients: extras,
-      }
+      })
+    }
 
-      parsedOrderItems.push(parsedOrderItem)
-    })
-
-    let parsedOrder: ProperOrder = {
+    return {
       id: order.id,
       dateTimeCreated: order.dateTimeCreated,
       orderItems: parsedOrderItems,
       orderStatus: order.orderStatus,
       description: order.description,
     }
-
-    console.log(parsedOrder)
-    return parsedOrder
   }
 
   return (
-    <>
-      <div className="container-kds">
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
-        <OrderCard />
+    <div className="app-container">
+      <div className="orders">
+        {/* <div className="container-kds-incoming">
+          {orders.length != 0 &&
+            orders.map((order, i) => {
+              return <OrderCard key={order.id} index={i + 1} properOrder={order} />
+            })}
+          </div> */}
+
+        <div className="container-kds-inprep">
+          {orders &&
+            orders.map((order, i) => {
+              return <OrderCard key={order.id} index={i + 1} properOrder={order} />
+            })}
+        </div>
       </div>
-    </>
+    </div>
   )
 }
