@@ -7,6 +7,7 @@
   border-radius: var(--roundness);
   box-sizing: border-box;
   padding: 20px;
+  transition: 0.2s;
 }
 
 ul.leaders {
@@ -46,20 +47,18 @@ li {
   justify-content: space-between;
 }
 
-.orderCard-btns button {
-  margin-right: 10px !important;
-}
-
 .orderCard-btns {
   position: absolute;
   bottom: 30px;
+  display: flex;
+  gap: 1em;
 }
 
 .loaded {
   animation-name: entry;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-  animation-duration: 1s;
+  animation-duration: 0.7s;
   transform-origin: top left;
 }
 

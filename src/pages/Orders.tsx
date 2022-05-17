@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr'
 import { MenuItem, Order, ProperIngredient, ProperOrder, ProperOrderItem } from '../types'
-import { fetchAllOrders, fetchIngredientById, fetchMenuItemById } from '../api'
+import { fetchAllOrders, fetchIngredientById, fetchMenuItemById, updateOrder } from '../api'
 import OrderCard from '../components/OrderCard'
 import '../styles/Orders.css'
 
@@ -15,8 +15,10 @@ export default function Orders() {
 
     fetchAllOrders().then(async (fetchedOrders: Order[]) => {
       for (const order of fetchedOrders) {
-        const pasredOrder = await convertOrderToProper(order)
-        setOrders((arr) => [...arr, pasredOrder])
+        if (order.orderStatus != 2) {
+          const pasredOrder = await convertOrderToProper(order)
+          setOrders((arr) => [...arr, pasredOrder])
+        }
       }
     })
   }, [])
@@ -34,6 +36,10 @@ export default function Orders() {
         .catch(console.log)
     }
   }, [connection])
+
+  function handleUpdateStatus(order: Order) {
+    updateOrder(order)
+  }
 
   async function convertOrderToProper(order: Order): Promise<ProperOrder> {
     const parsedOrderItems: ProperOrderItem[] = []
@@ -68,6 +74,7 @@ export default function Orders() {
 
     return {
       id: order.id,
+      original: order,
       dateTimeCreated: order.dateTimeCreated,
       orderItems: parsedOrderItems,
       orderStatus: order.orderStatus,
@@ -78,17 +85,10 @@ export default function Orders() {
   return (
     <div className="app-container">
       <div className="orders">
-        {/* <div className="container-kds-incoming">
-          {orders.length != 0 &&
-            orders.map((order, i) => {
-              return <OrderCard key={order.id} index={i + 1} properOrder={order} />
-            })}
-        </div> */}
-
         <div className="container-kds-inprep">
           {orders &&
             orders.reverse().map((order, i) => {
-              return <OrderCard key={order.id} index={orders.length - i} properOrder={order} />
+              return <OrderCard onStatusUpdate={(order: Order) => handleUpdateStatus(order)} key={order.id} index={orders.length - i} properOrder={order} />
             })}
         </div>
       </div>
