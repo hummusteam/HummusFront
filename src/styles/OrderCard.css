@@ -1,0 +1,87 @@
+.orderCard {
+  height: auto;
+  /* min-width: 300px; */
+  width: auto;
+  background-color: white;
+  margin: 0;
+  border-radius: var(--roundness);
+  box-sizing: border-box;
+  padding: 20px;
+  transition: 0.2s;
+}
+
+ul.leaders {
+  max-width: 40em;
+  padding: 0;
+  overflow-x: hidden;
+  list-style: none;
+  width: 100%;
+  margin: 0;
+}
+ul.leaders li:before {
+  float: left;
+  width: 0;
+  white-space: nowrap;
+  content: '. . . . . . . . . . . . . . . . . . . . ' '. . . . . . . . . . . . . . . . . . . . ' '. . . . . . . . . . . . . . . . . . . . ' '. . . . . . . . . . . . . . . . . . . . ';
+}
+ul.leaders span:first-child {
+  padding-right: 0.33em;
+  background: white;
+}
+ul.leaders span + span {
+  float: right;
+  padding-left: 0.33em;
+  background: white;
+}
+li {
+  margin-bottom: 10px;
+}
+
+.orderCard {
+  position: relative;
+  padding-bottom: 110px;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.orderCard-btns {
+  position: absolute;
+  bottom: 30px;
+  display: flex;
+  gap: 1em;
+}
+
+.loaded {
+  animation-name: entry;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+  animation-duration: 0.7s;
+  transform-origin: top left;
+}
+
+@keyframes entry {
+  from  {transform: rotateX(90deg)}
+  to    {transform: rotateX(0deg)}
+}
+
+.incoming, .inprep {
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: bolder;
+}
+
+.incoming {
+  background-color: darkorange;
+}
+
+.inprep {
+  background-color: green;
+}

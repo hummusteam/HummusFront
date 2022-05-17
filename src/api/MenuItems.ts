@@ -35,13 +35,8 @@ export async function deleteMenuItem(item: MenuItem) {
   await axios.delete('https://menuapi.tycho.dev/MenuItem', { data: item }).catch(console.log)
 }
 
-export async function fetchMenuItemsById(id: string) {
+export async function fetchMenuItemById(id: string): Promise<MenuItem> {
   return await axios.get('https://menuapi.tycho.dev/MenuItem/' + id)
     .then((res) => res.data)
     .catch(console.log)
-}
-
-export async function fetchMenuItemByID(id: string): Promise<MenuItem> {
-  const respons = await axios.get('https://menuapi.tycho.dev/MenuItem/' + id)
-  return respons.data;
 }
