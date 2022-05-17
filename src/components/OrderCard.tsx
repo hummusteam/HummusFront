@@ -28,7 +28,7 @@ export default function OrderCard({ index, properOrder, onStatusUpdate }: { inde
   return status != 2 ? (
     <div id={properOrder.id} className="orderCard loaded">
       <h1>Order #{index}</h1>
-      <p>Status &nbsp; {status}</p>
+      {status == 0 ? <p className="incoming">On standby</p> : <p className="inprep">In preparation</p>}
 
       <div className="orderCard-orderItems">
         {properOrder.orderItems?.length != 0 &&

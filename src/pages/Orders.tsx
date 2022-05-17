@@ -87,7 +87,7 @@ export default function Orders() {
       <div className="orders">
         <div className="container-kds-inprep">
           {orders &&
-            orders.reverse().map((order, i) => {
+            orders.map((order, i) => {
               return <OrderCard onStatusUpdate={(order: Order) => handleUpdateStatus(order)} key={order.id} index={orders.length - i} properOrder={order} />
             })}
         </div>

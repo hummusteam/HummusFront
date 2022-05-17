@@ -45,6 +45,7 @@ li {
 .title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .orderCard-btns {
@@ -65,4 +66,22 @@ li {
 @keyframes entry {
   from  {transform: rotateX(90deg)}
   to    {transform: rotateX(0deg)}
+}
+
+.incoming, .inprep {
+  width: fit-content;
+  height: fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: bolder;
+}
+
+.incoming {
+  background-color: darkorange;
+}
+
+.inprep {
+  background-color: green;
 }
