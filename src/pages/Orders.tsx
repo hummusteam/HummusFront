@@ -23,7 +23,9 @@ export default function Orders() {
 
   useEffect(() => {
     if (connection) {
-      connection.start().then(() => {
+      connection
+        .start()
+        .then(() => {
           connection.on('OrderNew', async (newOrder: Order) => {
             const pasredOrder = await convertOrderToProper(newOrder)
             setOrders((arr) => [...arr, pasredOrder])
@@ -49,7 +51,9 @@ export default function Orders() {
             ingredient: await fetchIngredientById(key),
             qty: value,
           })
-        } catch (e) {console.log(e)}
+        } catch (e) {
+          console.log(e)
+        }
       }
 
       parsedOrderItems.push({
@@ -79,12 +83,12 @@ export default function Orders() {
             orders.map((order, i) => {
               return <OrderCard key={order.id} index={i + 1} properOrder={order} />
             })}
-          </div> */}
+        </div> */}
 
         <div className="container-kds-inprep">
           {orders &&
-            orders.map((order, i) => {
-              return <OrderCard key={order.id} index={i + 1} properOrder={order} />
+            orders.reverse().map((order, i) => {
+              return <OrderCard key={order.id} index={orders.length - i} properOrder={order} />
             })}
         </div>
       </div>

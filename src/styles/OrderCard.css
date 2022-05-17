@@ -38,7 +38,7 @@ li {
 
 .orderCard {
   position: relative;
-  padding-bottom: 100px;
+  padding-bottom: 110px;
 }
 
 .title {
@@ -52,17 +52,18 @@ li {
 
 .orderCard-btns {
   position: absolute;
-  bottom: 20px;
+  bottom: 30px;
 }
 
 .loaded {
   animation-name: entry;
   animation-timing-function: ease-out;
   animation-fill-mode: forwards;
-  animation-duration: 2 s;
+  animation-duration: 1s;
+  transform-origin: top left;
 }
 
 @keyframes entry {
-  from  {transform: rotateY(45deg)}
-  to    {transform: rotateY(0deg)}
+  from  {transform: rotateX(90deg)}
+  to    {transform: rotateX(0deg)}
 }

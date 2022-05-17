@@ -1,12 +1,11 @@
 .orders {
-  height: fit-content;
   display: grid;
-  grid-template-rows: 1fr 10fr;
   gap: 1em;
   margin: 1em;
 }
 
-.orders > div {
+.orders .container-kds-incoming,
+.orders .container-kds-inprep {
   display: grid;
   gap: 1em;
 }
@@ -15,11 +14,14 @@
   overflow: scroll;
   grid-auto-flow: column;
   padding-bottom: 1em;
-  display: none !important;
+  height: 540px;
 }
 
 .container-kds-incoming .orderCard {
   width: 300px;
+  max-height: 500px;
+  height: fit-content;
+  overflow: scroll;
 }
 
 .container-kds-inprep {

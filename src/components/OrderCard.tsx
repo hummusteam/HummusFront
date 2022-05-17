@@ -2,10 +2,15 @@ import { ProperOrder } from '../types'
 import { v4 as uuid } from 'uuid'
 import Button from './Button'
 import '../styles/OrderCard.css'
+import { useEffect } from 'react'
 
 export default function OrderCard({ index, properOrder }: { index: number; properOrder: ProperOrder }) {
+  useEffect(() => {
+    setTimeout(() => document.getElementById(properOrder.id).classList.remove('loaded'), 1000)
+  }, [])
+  
   return (
-    <div className="orderCard">
+    <div id={properOrder.id} className="orderCard loaded">
       <h1>Order #{index}</h1>
 
       <div className="orderCard-orderItems">
@@ -21,6 +26,7 @@ export default function OrderCard({ index, properOrder }: { index: number; prope
                 </div>
 
                 <div className="orderItem-extras">
+                  {/* {item?.extraIngredients?.length != 0 ? <p>Extras</p> : <p>No extras</p>} */}
                   <ul className="leaders">
                     {item?.extraIngredients?.length != 0 &&
                       item?.extraIngredients.map((ingredient) => {
@@ -37,6 +43,16 @@ export default function OrderCard({ index, properOrder }: { index: number; prope
             )
           })}
       </div>
+
+      {properOrder.description ? (
+        <div className="orderCard-note">
+          <p>
+            <i>
+              <b>Note:</b> &nbsp; {properOrder.description}
+            </i>
+          </p>
+        </div>
+      ) : null}
 
       <div className="orderCard-btns">
         <Button text="Prepare" />
