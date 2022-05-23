@@ -46,6 +46,10 @@ hr {
   /* margin: 0 20px; */
 }
 
+main {
+  margin: 1em;
+}
+
 .app-container {
   width: var(--container);
   margin: auto;

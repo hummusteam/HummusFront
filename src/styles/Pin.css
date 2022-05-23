@@ -1,0 +1,52 @@
+.pin-container {
+  width: 400px;
+  height: 500px;
+  border-radius: var(--roundness);
+  background-color: white;
+  margin: auto;
+  position: relative;
+}
+
+.inner-pin-container {
+  padding: 30px 50px;
+  box-sizing: border-box;
+  margin: auto 0;
+}
+
+.input {
+  display: grid;
+  margin-bottom: 1em;
+}
+
+.input label {
+  margin-bottom: 1em;
+}
+
+.btns {
+  position: absolute;
+  bottom: 50px;
+  display: flex;
+  gap: 1em;
+}
+
+.edit-form-input {
+  min-height: 37px;
+  --padding: 15px;
+  width: calc(100% - 2 * var(--padding));
+  padding: 0 var(--padding);
+  font-family: Ubuntu, Segoe UI, Roboto;
+  border-radius: var(--roundness);
+  border: none;
+  transition: 0.2s;
+  font-size: 15px;
+  font-weight: 500;
+  background-color: #eee;
+}
+
+.pin {
+  margin: 60px auto;
+  font-size: 70px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1em;
+}
