@@ -1,13 +1,19 @@
 import { useState } from 'react'
 import { startSession } from '../api'
 import { Button, Navigation } from '../components'
-import '../styles/Pin.css'
 import { useLocalStorage } from '../util/UseLocalStorage'
+import '../styles/Pin.css'
 
 export default function Pin() {
   const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
-  const [pin, setPin] = useState<number>(null)
+  const [pin, setPin] = useState<string>(null)
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
+
+  function generateSession() {
+    startSession().then((session) => {
+      setPin(session.password)
+    })
+  }
 
   return (
     <div className="app-container">
@@ -44,7 +50,7 @@ export default function Pin() {
               <h1>Customer PIN</h1>
               <div className="pin">{pin}</div>
               <div className="btns">
-                <div className="btn" onClick={() => setPin(Math.floor(Math.random() * 9999))}>
+                <div className="btn" onClick={generateSession}>
                   <Button text="Generate" />
                 </div>
                 <div

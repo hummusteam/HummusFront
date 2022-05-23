@@ -11,3 +11,7 @@
 body {
     background-color: whitesmoke;
 }
+
+input:disabled {
+    opacity: 0.6;
+}

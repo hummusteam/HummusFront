@@ -7,7 +7,8 @@ ReactDOM.render(
   <Router>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/join/:tableId" element={<Welcome />} />
+      <Route path="/welcome" element={<Welcome />} />
+      <Route path="/welcome/:tableId" element={<Welcome />} />
       <Route path="/menu" element={<Menu />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/menu:categoryId" element={<Menu />} />
