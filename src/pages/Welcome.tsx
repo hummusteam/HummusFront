@@ -47,10 +47,10 @@ export default function Welcome() {
         <Button text="Enter menu" />
       </div>
       <br />
-      <br />
       <h3>How does it work?</h3>
       <p>Please enter the 4 digit PIN you were given upon entry and/or a table number if you wish to rejoin a session. You will be redirected to your menu.</p>
       <p>You will be able to join the table with the same PIN.</p>
+      <br />
     </div>
   )
 }
