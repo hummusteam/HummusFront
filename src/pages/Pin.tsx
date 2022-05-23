@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { startSession } from '../api'
 import { Button, Navigation } from '../components'
 import '../styles/Pin.css'
 import { useLocalStorage } from '../util/UseLocalStorage'
@@ -40,7 +41,7 @@ export default function Pin() {
             </div>
           ) : (
             <div className="inner-pin-container">
-              <h1>Customer Pin</h1>
+              <h1>Customer PIN</h1>
               <div className="pin">{pin}</div>
               <div className="btns">
                 <div className="btn" onClick={() => setPin(Math.floor(Math.random() * 9999))}>
