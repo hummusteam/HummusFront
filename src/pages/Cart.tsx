@@ -1,13 +1,13 @@
 import '../styles/Cart.css'
 import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
-import { fetchMenuItemByID } from '../api/MenuItems'
+import { fetchMenuItemById } from '../api'
 import { redirectToPaymnetWithId } from '../api/Payment'
 import { Button, Navigation, OrderItemLine } from '../components'
 import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
-import { placeOrder } from '../api/Order'
+import { placeOrder } from '../api'
 import { fetchSessionOrders } from '../api'
 import { Link } from 'react-router-dom'
 
@@ -40,7 +40,7 @@ export default function Cart() {
         const orderItems: OrderItem[] = cookies.get('_order')
 
         orderItems.forEach((orderItem) => {
-          fetchMenuItemByID(orderItem.menuItemId).then((data) => {
+          fetchMenuItemById(orderItem.menuItemId).then((data) => {
             setOrderItemElements((varr) => [...varr, { orderItem, menuItem: data, qty: 1 }])
           })
         })
@@ -53,7 +53,7 @@ export default function Cart() {
           let prevOrderItems: OrderItemElement[] = []
 
           for (const orderItem of order.orderItems) {
-            const menuItem = await fetchMenuItemByID(orderItem.menuItemId)
+            const menuItem = await fetchMenuItemById(orderItem.menuItemId)
             prevOrderItems.push({ orderItem, menuItem, qty: 1 })
           }
 
