@@ -25,7 +25,6 @@ type PreviousOrderItemElements = {
 }
 
 export default function Cart() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
   const [prevOrders, setPrevOrders] = useState<PreviousOrderItemElements[]>([])
@@ -120,7 +119,7 @@ export default function Cart() {
 
   return (
     <div className="app-container">
-      <Navigation url={banner} />
+      <Navigation />
       <Meta />
 
       <div className="ordersContainer">

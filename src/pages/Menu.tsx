@@ -7,7 +7,6 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useLocalStorage } from '../util/UseLocalStorage'
 
 export default function Menu() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
   const [searchParams, _] = useSearchParams()
@@ -23,7 +22,7 @@ export default function Menu() {
     <>
       {menuItems?.length != 0 || categories?.length != 0 ? (
         <div className="menu-container">
-          <Navigation url={banner} />
+          <Navigation />
           <Meta />
 
           <div className="inner-menu-container">
@@ -53,12 +52,6 @@ export default function Menu() {
                 location.reload()
               }}
             >
-              <Button text="Toggle admin mode" />
-              <Link to={'/cart'}>
-                <p>
-                <Button text="Go to cart" />
-                </p>
-              </Link>
             </div> */}
           </div>
         </div>

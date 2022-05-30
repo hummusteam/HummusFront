@@ -1,5 +1,6 @@
 .menu-container {
   width: var(--container);
+  padding-bottom: 100px;
   margin: auto;
 }
 

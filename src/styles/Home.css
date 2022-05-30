@@ -1,6 +1,7 @@
 .categories-container {
   width: var(--container);
   margin: auto;
+  padding-bottom: 100px;
 }
 
 .inner-categories-container {

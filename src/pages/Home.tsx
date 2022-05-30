@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function Home() {
     <>
       {categories?.length != 0 ? (
         <div className="categories-container">
-          <Navigation url={banner} />
+          <Navigation />
           <Meta />
 
           <div className="inner-categories-container">

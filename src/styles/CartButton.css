@@ -1,11 +1,22 @@
 .cart-button-container {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 1em;
+  right: 1em;
+  width: 70px;
   height: 70px;
-  background-color: black;
+  border-radius: 1000px;
+  /* background-color: black; */
+  background-color: white;
   color: white;
   text-align: center;
   font-size: 30px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 5px 7px rgba(47, 47, 47, 0.1);
+}
+
+.cart-button-container img {
+  height: 40%;
+  margin: auto;
+  /* filter: invert(100%); */
 }

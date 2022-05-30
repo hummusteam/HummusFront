@@ -5,7 +5,6 @@ import { fetchMenuItems } from '../api'
 import { MenuItem } from '../types'
 
 export default function Ingredients() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
   useEffect(() => {
     fetchMenuItems().then(setMenuItem)
@@ -13,7 +12,7 @@ export default function Ingredients() {
 
   return (
     <div className="app-container ">
-      <Navigation url={banner} />
+      <Navigation />
 
       <div className="app-canvas">
         {menuItems.length &&

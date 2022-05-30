@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { Button } from '../components'
+import { Button, Navigation } from '../components'
 import { useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import '../styles/Welcome.css'
@@ -48,6 +48,8 @@ export default function Welcome() {
 
   return (
     <div className="pin-form">
+      {/* <Navigation /> */}
+
       <h1>Welcome</h1>
       <br />
       <div className="input">
