@@ -2,8 +2,6 @@
   margin: 1em;
   display: grid;
   grid-auto-flow: row;
-  /* grid-template-columns: 1fr 1fr; */
-  grid-template-columns: 1fr;
   gap: 1em;
 }
 
@@ -55,18 +53,4 @@
   gap: 1em;
   flex-wrap: wrap;
   margin: 20px 0;
-}
-
-@media screen and (max-width: 900px) {
-  .ordersContainer {
-    grid-template-columns: 1fr;
-  }
-
-  .orderBoxContainer {
-    padding: 0;
-  }
-
-  .ordersContainer {
-    margin-bottom: 300px;
-  }
 }

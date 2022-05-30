@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
@@ -7,7 +7,6 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useLocalStorage } from '../util/UseLocalStorage'
 
 export default function Menu() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [categories, setCategories] = useState<Category[]>([])
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
   const [searchParams, _] = useSearchParams()
@@ -23,9 +22,8 @@ export default function Menu() {
     <>
       {menuItems?.length != 0 || categories?.length != 0 ? (
         <div className="menu-container">
-          <Navigation url={banner} />
-          
-          <Meta table={5} pin={1634} />
+          <Navigation />
+          <Meta />
 
           <div className="inner-menu-container">
             <div className="menu-carousel category-carousel">
@@ -39,24 +37,22 @@ export default function Menu() {
 
             <div className="menu-items">
               {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
+
               {menuItems?.length != 0 &&
                 menuItems?.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
             </div>
-            <div
+
+            <CartButton />
+
+            {/* <div
               onClick={() => {
                 setAuthed(!AUTHED)
                 location.reload()
               }}
             >
-              <Button text="Toggle admin mode" />
-              <Link to={'/cart'}>
-                <p>
-                <Button text="Go to cart" />
-                </p>
-              </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

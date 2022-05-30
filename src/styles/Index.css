@@ -50,6 +50,10 @@ main {
   margin: 1em;
 }
 
+a {
+  text-decoration: none;
+}
+
 .app-container {
   width: var(--container);
   margin: auto;

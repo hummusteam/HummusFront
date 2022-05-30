@@ -5,7 +5,6 @@ import { useLocalStorage } from '../util/UseLocalStorage'
 import '../styles/Pin.css'
 
 export default function Pin() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [pin, setPin] = useState<string>(null)
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
 
@@ -17,7 +16,7 @@ export default function Pin() {
 
   return (
     <div className="app-container">
-      <Navigation url={banner} />
+      <Navigation />
 
       <main>
         <div className="pin-container">

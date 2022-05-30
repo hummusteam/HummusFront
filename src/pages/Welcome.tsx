@@ -1,24 +1,40 @@
 import { useParams } from 'react-router-dom'
-import { joinTableSession } from '../api'
-import { Button } from '../components'
-import { useRef } from 'react'
+import { Button, Navigation } from '../components'
+import { useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import '../styles/Welcome.css'
-import { enterSession, putSession } from '../api'
+import { fetchSessionByPin, fetchSessionByPinAndTable, putSession } from '../api'
 import { Session } from '../types'
 
 export default function Welcome() {
   const { tableId } = useParams()
   const pinRef = useRef(null)
   const tableRef = useRef(null)
+  const [error, setError] = useState<string>(null)
 
   async function joinSession() {
-    if (!tableId) {
-      const bearSession = await enterSession(pinRef.current.value)
-      bearSession.table = tableRef.current.value
-      putSession(bearSession).then(setSession)
-    } else {
-      joinTableSession(tableRef.current.value, pinRef.current.value).then(setSession)
+    if (!!tableId) {
+      try {
+        const bearSession: Session = await fetchSessionByPin(pinRef.current.value)
+        console.log(bearSession)
+        if (bearSession === ('' as unknown as Session)) {
+          throw 'No session found'
+        }
+        bearSession.table = tableId
+        await putSession(bearSession)
+      } catch (e) {
+        setError('Invalid PIN for table ' + tableId)
+      }
+    }
+
+    try {
+      const properSession: Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
+      if (properSession == null) {
+        throw 'No session found'
+      }
+      setSession(properSession)
+    } catch (e) {
+      setError('Invalid PIN or table number')
     }
   }
 
@@ -32,6 +48,8 @@ export default function Welcome() {
 
   return (
     <div className="pin-form">
+      {/* <Navigation /> */}
+
       <h1>Welcome</h1>
       <br />
       <div className="input">
@@ -46,6 +64,7 @@ export default function Welcome() {
       <div onClick={joinSession}>
         <Button text="Enter menu" />
       </div>
+      {error ? <p className="error">{error}</p> : null}
       <br />
       <h3>How does it work?</h3>
       <p>Please enter the 4 digit PIN you were given upon entry and/or a table number if you wish to rejoin a session. You will be redirected to your menu.</p>

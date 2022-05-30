@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
 import { fetchMenuItemById } from '../api'
 import { redirectToPaymnetWithId } from '../api/Payment'
-import { Button, Navigation, OrderItemLine } from '../components'
+import { Button, Meta, Navigation, OrderItemLine } from '../components'
 import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
@@ -25,7 +25,6 @@ type PreviousOrderItemElements = {
 }
 
 export default function Cart() {
-  const banner = 'https://www.nestleprofessionalmena.com/sites/default/files/2020-05/Vision%20banner.png'
   const [orderItemElements, setOrderItemElements] = useState<OrderItemElement[]>([])
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
   const [prevOrders, setPrevOrders] = useState<PreviousOrderItemElements[]>([])
@@ -120,7 +119,8 @@ export default function Cart() {
 
   return (
     <div className="app-container">
-      <Navigation url={banner} />
+      <Navigation />
+      <Meta />
 
       <div className="ordersContainer">
         <div className="orderBoxContainer">

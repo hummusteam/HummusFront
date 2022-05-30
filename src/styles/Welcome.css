@@ -1,17 +1,21 @@
 .pin-form {
-    margin: 1em;
-    padding: 20px 50px;
-    box-sizing: border-box;
-    max-width: 600px;
-    max-height: 600px;
-    background-color: white;
-    border-radius: var(--roundness);
+  margin: 1em;
+  padding: 20px 50px;
+  box-sizing: border-box;
+  max-width: 600px;
+  background-color: white;
+  border-radius: var(--roundness);
 }
 
 body {
-    background-color: whitesmoke;
+  background-color: whitesmoke;
 }
 
 input:disabled {
-    opacity: 0.6;
+  opacity: 0.6;
+}
+
+.error {
+  color: rgb(180, 0, 0);
+  font-size: 15px;
 }

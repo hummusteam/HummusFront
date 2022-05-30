@@ -13,18 +13,19 @@ export default function MenuItemDetails(item: MenuItem) {
   let unwantedIngredients: Ingredient[] = []
 
   useEffect(() => {
-    const ingredients: Ingredient[] = getIngredientsFromItem()
-    setIngredients(ingredients)
-  }, [])
-
-  function getIngredientsFromItem(): Ingredient[] {
-    let ingredients: Ingredient[] = []
-    item.ingredientIds.forEach(async (i) => {
-      let ingredient = await fetchIngredientById(i)
-      ingredients.push(ingredient)
+    item.ingredientIds.map(async (id) => {
+      if (id !== '') {
+        try {
+          const ingredient: Ingredient = await fetchIngredientById(id)
+          if (ingredient.name != null) {
+            setIngredients((arr) => [...arr, ingredient])
+          }
+        } catch (e) {
+          console.log(e)
+        }
+      }
     })
-    return ingredients
-  }
+  }, [])
 
   function handleExtraIngredient(item: Ingredient): void {
     document.getElementById(item.id).classList.toggle('extraIngredient')
@@ -42,7 +43,6 @@ export default function MenuItemDetails(item: MenuItem) {
     const ingredientElements = document.getElementsByClassName('extraIngredient')
 
     let extras: { [id: string]: number } = {}
-
     for (let i = 0; i < ingredientElements.length; i++) {
       extras[ingredientElements[i].id] = 1 // currently adds 1 bc not fully implemented
     }
@@ -52,14 +52,13 @@ export default function MenuItemDetails(item: MenuItem) {
       id: uuid(),
       dateTimeCreated: item.dateTimeCreated,
       menuItemId: item.id,
-      allergyId: [""], // <- empty 
+      allergyId: [''], // <- empty
       extraIngredients: extras,
       description: '',
     }
 
     // Create cookie with order item. Check if orders already added
     const cookies = new Cookies()
-
     if (cookies.get('_order')) {
       // Deserialize object from cookie using casting
       const order: OrderItem[] = cookies.get('_order')
@@ -68,7 +67,6 @@ export default function MenuItemDetails(item: MenuItem) {
     } else {
       cookies.set('_order', JSON.stringify([configuredOrder]))
     }
-
     document.location.reload()
   }
 
@@ -82,15 +80,17 @@ export default function MenuItemDetails(item: MenuItem) {
             <div className="details-grid">
               <img className="details-image-container" src={item.image} />
               <div className="details-form-details">
-                <p className="details-form-title">{item.name}</p>
-                <p className="details-form-detail">{item.price} €</p>
-                {ingredients != null && ingredients.length != 0 ? (
+                <h1 className="details-form-title">{item.name}</h1>
+                <h2 className="details-form-detail">
+                  {item.price} <small>€</small>
+                </h2>
+                {!!ingredients?.length ? (
                   <>
                     <h3>Extra ingredients</h3>
                     <div className="details-form-ingredients">
                       {ingredients.map((i) => {
                         return (
-                          <div onClick={() => handleExtraIngredient(i)} id={i.id} className="ingredient" key={i.id}>
+                          <div key={i.id} onClick={() => handleExtraIngredient(i)} id={i.id} className="ingredient">
                             {i.name}
                           </div>
                         )
