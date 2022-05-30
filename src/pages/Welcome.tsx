@@ -4,39 +4,46 @@ import { useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import '../styles/Welcome.css'
 import { fetchSessionByPin, fetchSessionByPinAndTable, putSession } from '../api'
-import { Ingredient, Session } from '../types'
+import { Session } from '../types'
 
 export default function Welcome() {
   const { tableId } = useParams()
   const pinRef = useRef(null)
   const tableRef = useRef(null)
-  const [error, showError] = useState<boolean>(false)
+  const [error, setError] = useState<string>(null)
 
   async function joinSession() {
-    try {
-      if (!!tableId) {
+    if (!!tableId) {
+      try {
         const bearSession: Session = await fetchSessionByPin(pinRef.current.value)
+        console.log(bearSession)
         if (bearSession === ('' as unknown as Session)) {
+          throw 'No session found'
         }
         bearSession.table = tableId
         await putSession(bearSession)
+      } catch (e) {
+        setError('Invalid PIN for table ' + tableId)
       }
+    }
 
-      const properSession : Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
+    try {
+      const properSession: Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
+      if (properSession == null) {
+        throw 'No session found'
+      }
       setSession(properSession)
     } catch (e) {
-      console.log(e)
-      showError(true)
+      setError('Invalid PIN or table number')
     }
   }
 
   function setSession(session: Session) {
     const cookies = new Cookies()
-    console.log(session)
     cookies.remove('_session')
     cookies.remove('_order')
     cookies.set('_session', session, { path: '/' })
-    // window.location.replace('/')
+    window.location.replace('/')
   }
 
   return (
@@ -46,7 +53,6 @@ export default function Welcome() {
       <div className="input">
         <label htmlFor="pin">Enter PIN</label>
         <input ref={pinRef} className="edit-form-input" name="pin" id="pin" />
-        {error ? <p className="error">Invalid PIN entered</p> : null}
       </div>
       <div className="input">
         <label htmlFor="table">Table number</label>
@@ -56,6 +62,7 @@ export default function Welcome() {
       <div onClick={joinSession}>
         <Button text="Enter menu" />
       </div>
+      {error ? <p className="error">{error}</p> : null}
       <br />
       <h3>How does it work?</h3>
       <p>Please enter the 4 digit PIN you were given upon entry and/or a table number if you wish to rejoin a session. You will be redirected to your menu.</p>

@@ -9,16 +9,11 @@ export async function startSession(): Promise<Session> {
 }
 
 export async function fetchSessionByPin(pin: string): Promise<Session> {
-  return await axios
-    .get('https://sessionapi.tycho.dev/Session/GetSessionByPassword/' + pin)
-    .then((res) => res.data)
+  return await axios.get('https://sessionapi.tycho.dev/Session/GetSessionByPassword/' + pin).then((res) => res.data)
 }
 
 export async function fetchSessionByPinAndTable(table: string, pin: string): Promise<Session> {
-  return await axios
-    .put('https://sessionapi.tycho.dev/Session/RestartSession/' + table + '/' + pin)
-    .then((res) => res.data)
-    .catch(console.log)
+  return await axios.put('https://sessionapi.tycho.dev/Session/RestartSession/' + table + '/' + pin).then((res) => res.data)
 }
 
 export async function putSession(session: Session) {
