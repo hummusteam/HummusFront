@@ -2,10 +2,9 @@
   position: fixed;
   bottom: 1em;
   right: 1em;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  aspect-ratio: 1;
   border-radius: 1000px;
-  /* background-color: black; */
   background-color: white;
   color: white;
   text-align: center;
@@ -18,5 +17,4 @@
 .cart-button-container img {
   height: 40%;
   margin: auto;
-  /* filter: invert(100%); */
 }

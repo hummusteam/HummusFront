@@ -12,8 +12,8 @@ export default function CartButton() {
     <Link to={'/cart'}>
       <div className="cart-button-container">
         <img src={cartImage} />
-        {/* Go to cart ({orderItems?.length ?? 0}) */}
       </div>
+        {/* <div>{orderItems?.length ?? 0}</div> */}
     </Link>
   )
 }
