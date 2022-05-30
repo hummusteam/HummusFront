@@ -23,7 +23,7 @@ export default function Home() {
 
           <Meta table={5} pin={1634} />
           
-          <div className="app-canvas categories">
+          <div className="app-canvas">
             {AUTHED ? <AddFormCategory /> : null}
 
             {categories?.length &&

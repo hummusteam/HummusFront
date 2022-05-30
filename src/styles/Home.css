@@ -24,8 +24,6 @@
 @media screen and (max-width: 900px) {
   .app-canvas {
     grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    padding: 0;
   }
 
   .app-canvas div {
@@ -37,17 +35,11 @@
 @media screen and (max-width: 400px) {
   .app-canvas {
     grid-template-columns: 1fr;
-    gap: 0;
     padding: 0;
   }
 
   .app-canvas div {
     border-radius: unset;
     font-size: 50px;
-  }
-  @media screen and (min-width: 900px) {
-    .categories {
-      margin: 0;
-    }
   }
 }

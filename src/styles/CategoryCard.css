@@ -4,14 +4,16 @@
   transition: 0.2s;
   text-shadow: rgb(97, 97, 97) 1px 0 10px;
   font-weight: 500;
-  align-items: center;
+  height: 250px;
+  font-weight: bold;
+  color: white;
+  background-color: white;
 }
 
 .big-category-card {
   color: white;
   padding: 50px 25px;
   height: 150px;
-  /* min-width: 150px; */
   font-size: 30px;
 }
 
