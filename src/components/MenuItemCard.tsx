@@ -14,7 +14,7 @@ export default function MenuItemCard(menuItem: MenuItem) {
       <MenuItemDetails {...menuItem} />
       <div className="menu-item-inner-container">
         <h1>{menuItem.name}</h1>
-        <h2>{menuItem.price}</h2>
+        <h2>{menuItem.price} <small>€</small></h2>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
@@ -44,6 +44,8 @@ export default function Menu() {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
             </div>
+
+            <CartButton />
 
             {/* <div
               onClick={() => {

@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { AddFormCategory, Button, CategoryCard, Loading, Meta, Navigation } from '../components'
+import { AddFormCategory, Button, CartButton, CategoryCard, Loading, Meta, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category } from '../types'
@@ -32,6 +32,8 @@ export default function Home() {
                 })}
             </div>
           </div>
+
+          <CartButton />
 
           {/* <div
             onClick={() => {
