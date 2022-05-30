@@ -13,17 +13,17 @@ export default function Welcome() {
   const [error, showError] = useState<boolean>(false)
 
   async function joinSession() {
-    // const updatedSession : Session = await fetchSessionByPinAndTable() // <- if joining table, not creating new session
-
     try {
-      const bearSession: Session = await fetchSessionByPin(pinRef.current.value)
-      if (bearSession === '' as unknown as Session) {
+      if (!!tableId) {
+        const bearSession: Session = await fetchSessionByPin(pinRef.current.value)
+        if (bearSession === ('' as unknown as Session)) {
+        }
+        bearSession.table = tableId
+        await putSession(bearSession)
       }
-      bearSession.table = tableRef.current.value
-      await putSession(bearSession)
-      // fetching proper session data from backend instead of reusing `bearSession`
-      const updatedSession : Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
-      setSession(updatedSession)
+
+      const properSession : Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
+      setSession(properSession)
     } catch (e) {
       console.log(e)
       showError(true)
@@ -36,7 +36,7 @@ export default function Welcome() {
     cookies.remove('_session')
     cookies.remove('_order')
     cookies.set('_session', session, { path: '/' })
-    window.location.replace('/')
+    // window.location.replace('/')
   }
 
   return (
@@ -46,7 +46,7 @@ export default function Welcome() {
       <div className="input">
         <label htmlFor="pin">Enter PIN</label>
         <input ref={pinRef} className="edit-form-input" name="pin" id="pin" />
-        {error ? <p className='error'>Invalid PIN entered</p> : null}
+        {error ? <p className="error">Invalid PIN entered</p> : null}
       </div>
       <div className="input">
         <label htmlFor="table">Table number</label>
