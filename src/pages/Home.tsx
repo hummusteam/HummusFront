@@ -18,20 +18,22 @@ export default function Home() {
   return (
     <>
       {categories?.length != 0 ? (
-        <div className="app-container">
+        <div className="categories-container">
           <Navigation url={banner} />
           <Meta />
-          
-          <div className="app-canvas">
-            {AUTHED ? <AddFormCategory /> : null}
 
-            {categories?.length &&
-              categories?.map((c) => {
-                return <CategoryCard key={c.id} {...c} />
-              })}
+          <div className="inner-categories-container">
+            <div className="categories-items">
+              {AUTHED ? <AddFormCategory /> : null}
+
+              {categories?.length &&
+                categories?.map((c) => {
+                  return <CategoryCard key={c.id} {...c} />
+                })}
+            </div>
           </div>
 
-          <div
+          {/* <div
             onClick={() => {
               setAuthed(!AUTHED)
               location.reload()
@@ -43,7 +45,7 @@ export default function Home() {
             <p>
               <Button text="Go to cart" />
             </p>
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <Loading />

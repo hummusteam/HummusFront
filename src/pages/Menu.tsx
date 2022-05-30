@@ -38,12 +38,14 @@ export default function Menu() {
 
             <div className="menu-items">
               {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
+
               {menuItems?.length != 0 &&
                 menuItems?.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
             </div>
-            <div
+
+            {/* <div
               onClick={() => {
                 setAuthed(!AUTHED)
                 location.reload()
@@ -55,7 +57,7 @@ export default function Menu() {
                 <Button text="Go to cart" />
                 </p>
               </Link>
-            </div>
+            </div> */}
           </div>
         </div>
       ) : (

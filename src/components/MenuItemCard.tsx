@@ -10,6 +10,7 @@ export default function MenuItemCard(menuItem: MenuItem) {
   return (
     <div className="menu-item-container" style={{ backgroundImage: `url(${menuItem.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       {AUTHED ? <EditFormMenuItem {...menuItem} /> : null}
+      
       <MenuItemDetails {...menuItem} />
       <div className="menu-item-inner-container">
         <h1>{menuItem.name}</h1>

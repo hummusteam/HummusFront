@@ -1,6 +1,6 @@
 .category-card-container {
   position: relative;
-  border-radius: var(--roundness);
+  border-radius: var(--roundness) !important;
   transition: 0.2s;
   text-shadow: rgb(97, 97, 97) 1px 0 10px;
   font-weight: 500;
@@ -12,9 +12,10 @@
 
 .big-category-card {
   color: white;
-  padding: 50px 25px;
   height: 150px;
-  font-size: 30px;
+  width: 100px;
+  font-size: 27px;
+  padding: 70px 25px;
 }
 
 .small-category-card {
@@ -24,4 +25,3 @@
   height: fit-content;
   font-size: 22px;
 }
-
