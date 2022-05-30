@@ -13,7 +13,7 @@ export default function Welcome() {
   const tableRef = useRef(null)
 
   async function joinSession() {
-    if (!!tableId) {
+    if (!tableId) {
       const bearSession = await enterSession(pinRef.current.value)
       bearSession.table = tableRef.current.value
       putSession(bearSession).then(setSession)

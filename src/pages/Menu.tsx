@@ -21,7 +21,7 @@ export default function Menu() {
 
   return (
     <>
-      {menuItems.length != 0 || categories.length != 0 ? (
+      {menuItems?.length != 0 || categories?.length != 0 ? (
         <div className="menu-container">
           <Navigation url={banner} />
           
@@ -31,7 +31,7 @@ export default function Menu() {
             <div className="menu-carousel category-carousel">
               <div className="menu-carousel-inner">
                 {categories.length != 0 &&
-                  categories.map((c) => {
+                  categories?.map((c) => {
                     return <SmallCategoryCard key={c.id} {...c} />
                   })}
               </div>
@@ -39,8 +39,8 @@ export default function Menu() {
 
             <div className="menu-items">
               {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
-              {menuItems.length != 0 &&
-                menuItems.map((m) => {
+              {menuItems?.length != 0 &&
+                menuItems?.map((m) => {
                   return <MenuItemCard key={m.id} {...m} />
                 })}
             </div>

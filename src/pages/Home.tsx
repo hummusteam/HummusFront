@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <>
-      {categories.length != 0 ? (
+      {categories?.length != 0 ? (
         <div className="app-container">
           <Navigation url={banner} />
 
@@ -26,8 +26,8 @@ export default function Home() {
           <div className="app-canvas categories">
             {AUTHED ? <AddFormCategory /> : null}
 
-            {categories.length &&
-              categories.map((c) => {
+            {categories?.length &&
+              categories?.map((c) => {
                 return <CategoryCard key={c.id} {...c} />
               })}
           </div>
