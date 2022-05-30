@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from 'react'
 import Cookies from 'universal-cookie'
 import { fetchMenuItemById } from '../api'
 import { redirectToPaymnetWithId } from '../api/Payment'
-import { Button, Navigation, OrderItemLine } from '../components'
+import { Button, Meta, Navigation, OrderItemLine } from '../components'
 import { MenuItem, Order, OrderItem, Session, SessionOrders } from '../types'
 import { v4 as uuid } from 'uuid'
 import moment from 'moment'
@@ -121,6 +121,7 @@ export default function Cart() {
   return (
     <div className="app-container">
       <Navigation url={banner} />
+      <Meta />
 
       <div className="ordersContainer">
         <div className="orderBoxContainer">

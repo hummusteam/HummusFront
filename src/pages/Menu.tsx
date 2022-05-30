@@ -24,8 +24,7 @@ export default function Menu() {
       {menuItems?.length != 0 || categories?.length != 0 ? (
         <div className="menu-container">
           <Navigation url={banner} />
-          
-          <Meta table={5} pin={1634} />
+          <Meta />
 
           <div className="inner-menu-container">
             <div className="menu-carousel category-carousel">

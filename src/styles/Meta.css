@@ -2,15 +2,18 @@
   font-weight: bold;
   border-radius: var(--roundness);
   display: grid;
+  grid-template-columns: 1fr 1fr;
   grid-auto-flow: column;
   justify-items: center;
   background-color: white;
   margin: 1em;
-  border: 1px solid #eee;
 }
 
-.metaContainer div {
+.metaContainer > div {
+  display: grid;
+  gap: 1em;
   margin: 2em 0;
+  text-align: center;
 }
 
 .metaContainer b {

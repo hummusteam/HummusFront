@@ -20,8 +20,7 @@ export default function Home() {
       {categories?.length != 0 ? (
         <div className="app-container">
           <Navigation url={banner} />
-
-          <Meta table={5} pin={1634} />
+          <Meta />
           
           <div className="app-canvas">
             {AUTHED ? <AddFormCategory /> : null}
