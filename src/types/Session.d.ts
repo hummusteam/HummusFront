@@ -4,4 +4,5 @@ export default interface Session {
     orderIds: string[]
     table: string
     status: number
+    password: string
 }
