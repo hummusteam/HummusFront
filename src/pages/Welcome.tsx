@@ -1,29 +1,38 @@
 import { useParams } from 'react-router-dom'
-import { joinTableSession } from '../api'
 import { Button } from '../components'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import '../styles/Welcome.css'
-import { enterSession, putSession } from '../api'
-import { Session } from '../types'
+import { fetchSessionByPin, fetchSessionByPinAndTable, putSession } from '../api'
+import { Ingredient, Session } from '../types'
 
 export default function Welcome() {
   const { tableId } = useParams()
   const pinRef = useRef(null)
   const tableRef = useRef(null)
+  const [error, showError] = useState<boolean>(false)
 
   async function joinSession() {
-    if (!tableId) {
-      const bearSession = await enterSession(pinRef.current.value)
+    // const updatedSession : Session = await fetchSessionByPinAndTable() // <- if joining table, not creating new session
+
+    try {
+      const bearSession: Session = await fetchSessionByPin(pinRef.current.value)
+      if (bearSession === '' as unknown as Session) {
+      }
       bearSession.table = tableRef.current.value
-      putSession(bearSession).then(setSession)
-    } else {
-      joinTableSession(tableRef.current.value, pinRef.current.value).then(setSession)
+      await putSession(bearSession)
+      // fetching proper session data from backend instead of reusing `bearSession`
+      const updatedSession : Session = await fetchSessionByPinAndTable(tableRef.current.value, pinRef.current.value)
+      setSession(updatedSession)
+    } catch (e) {
+      console.log(e)
+      showError(true)
     }
   }
 
   function setSession(session: Session) {
     const cookies = new Cookies()
+    console.log(session)
     cookies.remove('_session')
     cookies.remove('_order')
     cookies.set('_session', session, { path: '/' })
@@ -37,6 +46,7 @@ export default function Welcome() {
       <div className="input">
         <label htmlFor="pin">Enter PIN</label>
         <input ref={pinRef} className="edit-form-input" name="pin" id="pin" />
+        {error ? <p className='error'>Invalid PIN entered</p> : null}
       </div>
       <div className="input">
         <label htmlFor="table">Table number</label>

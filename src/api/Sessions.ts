@@ -8,14 +8,15 @@ export async function startSession(): Promise<Session> {
     .catch(console.log)
 }
 
-export async function enterSession(pin: string): Promise<Session> {
+export async function fetchSessionByPin(pin: string): Promise<Session> {
+  console.log('https://sessionapi.tycho.dev/Session/GetSessionByPassword/' + pin)
   return await axios
     .get('https://sessionapi.tycho.dev/Session/GetSessionByPassword/' + pin)
     .then((res) => res.data)
-    .catch(console.log)
 }
 
-export async function joinTableSession(table: string, pin: string): Promise<Session> {
+export async function fetchSessionByPinAndTable(table: string, pin: string): Promise<Session> {
+  console.log('https://sessionapi.tycho.dev/Session/RestartSession/' + table + '/' + pin)
   return await axios
     .put('https://sessionapi.tycho.dev/Session/RestartSession/' + table + '/' + pin)
     .then((res) => res.data)
