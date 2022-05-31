@@ -25,10 +25,19 @@ export default function OrderCard({ index, properOrder, onStatusUpdate }: { inde
     onStatusUpdate(order)
   }
 
-  return status != 2 ? (
+  function serve() {
+    setStatus(3)
+  }
+
+  console.log(status)
+
+  return status != 3 ? (
     <div id={properOrder.id} className="orderCard loaded">
+      <div className={status == 0 ? 'incoming' : status == 1 ? 'inprep' : 'outgoing'}>
+        <h3>{status == 0 ? 'On standby' : status == 1 ? 'In preparation' : 'Ready to serve'}</h3>
+      </div>
+
       <h1>Order #{index}</h1>
-      {status == 0 ? <p className="incoming">On standby</p> : <p className="inprep">In preparation</p>}
 
       <div className="orderCard-orderItems">
         {properOrder.orderItems?.length != 0 &&
@@ -80,6 +89,12 @@ export default function OrderCard({ index, properOrder, onStatusUpdate }: { inde
         {status == 1 ? (
           <div onClick={complete}>
             <Button text="Complete" />
+          </div>
+        ) : null}
+
+        {status == 2 ? (
+          <div onClick={serve}>
+            <Button text="Serve" />
           </div>
         ) : null}
       </div>
