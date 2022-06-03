@@ -5,6 +5,7 @@ import { Category, MenuItem } from '../types'
 import { fetchCategories, fetchMenuItemsByCategory } from '../api'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useLocalStorage } from '../util/UseLocalStorage'
+import Cookies from 'universal-cookie'
 
 export default function Menu() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -14,6 +15,10 @@ export default function Menu() {
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
 
   useEffect(() => {
+    if (!new Cookies().get('_session')) {
+      window.location.replace('/welcome')
+    }
+    
     fetchMenuItemsByCategory(categoryId).then(setMenuItem)
     fetchCategories().then(setCategories)
   }, [])

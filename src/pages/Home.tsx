@@ -2,15 +2,20 @@ import '../styles/Home.css'
 import { AddFormCategory, Button, CartButton, CategoryCard, Loading, Meta, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
-import { Category } from '../types'
+import { Category, Session } from '../types'
 import { useLocalStorage } from '../util/UseLocalStorage'
 import { Link } from 'react-router-dom'
+import Cookies from 'universal-cookie'
 
 export default function Home() {
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
   const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
+    if (!new Cookies().get('_session')) {
+      window.location.replace('/welcome')
+    }
+
     fetchCategories().then(setCategories)
   }, [])
 
