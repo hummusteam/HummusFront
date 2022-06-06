@@ -109,3 +109,18 @@
     width: 100%;
   }
 }
+
+.allergens {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.7em;
+  margin-left: 0.3em;
+}
+
+.allergen {
+
+}
+
+.allergen-warning {
+
+}

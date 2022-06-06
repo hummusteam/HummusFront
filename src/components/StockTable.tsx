@@ -13,7 +13,7 @@ export default function SortableTable() {
       setIngredients([...data])
     })
   }, [])
-  
+
   type Data = typeof ingredients
 
   type SortKeys = keyof Data[0]
@@ -64,13 +64,12 @@ export default function SortableTable() {
     await postIngredient({
       name: nameInput.current.value,
       amount: amountInput.current.value,
-      allergens: allergenInput.current.value.split(/[, ]+/)
-  })
+      allergens: allergenInput.current.value.split(/[, ]+/),
+    })
     window.location.reload()
   }
-  
+
   return (
-    
     <table>
       <thead>
         <tr>
@@ -95,33 +94,38 @@ export default function SortableTable() {
       <tbody>
         <td className="create-form-inputs">
           <div className="create-form">Name</div>
-          <input className="create-form-input" ref={nameInput}/>
+          <input className="create-form-input" ref={nameInput} />
         </td>
 
         <td className="create-form-inputs">
           <div className="create-form">Amount</div>
-          <input className="create-form-input" ref={amountInput}/>
+          <input className="create-form-input" ref={amountInput} />
         </td>
 
         <td className="create-form-inputs">
-        <div className="create-form">Allergen</div>
-          <input className="create-form-input" ref={allergenInput}/>
+          <div className="create-form">Allergen</div>
+          <input className="create-form-input" ref={allergenInput} />
         </td>
 
-        <td onClick={createIngredient}>
-        Create
+        <td className="btn" onClick={createIngredient}>
+          Create
         </td>
-
       </tbody>
-      
+
       <tbody>
         {sortedData().map((ingredient) => {
           return (
             <tr key={ingredient.id}>
               <td>{ingredient.name}</td>
               <td>{ingredient.amount}</td>
-              <td>{ingredient.allergens.map(allergen => { return <p>{allergen}</p> })}</td>
-              <td><EditIngredient {...ingredient}/></td>
+              <td>
+                {ingredient.allergens.map((allergen) => {
+                  return <p>{allergen}</p>
+                })}
+              </td>
+              <td>
+                <EditIngredient {...ingredient} />
+              </td>
             </tr>
           )
         })}

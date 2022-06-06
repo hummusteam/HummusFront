@@ -31,7 +31,7 @@ export default function EditIngredient(ingredient: Ingredient) {
 
   return (
     <>
-      <div onClick={() => setEditingState(true)}>
+      <div className='btn' onClick={() => setEditingState(true)}>
         Edit
       </div>
 

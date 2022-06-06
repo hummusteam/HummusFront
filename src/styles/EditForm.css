@@ -130,3 +130,7 @@
   display: flex;
   gap: 0.7em;
 }
+
+.btn:hover {
+  cursor: pointer;
+}
