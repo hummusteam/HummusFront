@@ -43,7 +43,7 @@ export default function Menu() {
             </div>
 
             <div className="menu-items">
-              {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
+              {AUTHED ? <AddFormMenuItem categoryId={categoryId} ingredients={ingredients} /> : null}
 
               {menuItems?.length != 0 &&
                 menuItems?.map((m) => {

@@ -17,12 +17,12 @@ export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: 
     for (let i = 0; i < selectedIngredients.length; i++) {
       ingredientsIds.push(selectedIngredients[i].id)
     }
-
+    
     await putMenuItem({
       id: menuItem.id,
       dateTimeCreated: menuItem.dateTimeCreated,
       name: nameInput.current.value,
-      price: priceInput.current.value,
+      price: priceInput.current.value === '' ? 0 : priceInput.current.value,
       image: imageInput.current.value,
       category: menuItem.category,
       ingredientIds: ingredientsIds,
