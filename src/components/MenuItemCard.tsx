@@ -1,20 +1,22 @@
 import '../styles/MenuItemCard.css'
-import { MenuItem } from '../types'
+import { Ingredient, MenuItem } from '../types'
 import EditFormMenuItem from './EditFormMenuItem'
-import {useLocalStorage} from "../util/UseLocalStorage";
-import MenuItemDetails from './MenuItemDetails';
+import { useLocalStorage } from '../util/UseLocalStorage'
+import MenuItemDetails from './MenuItemDetails'
 
-export default function MenuItemCard(menuItem: MenuItem) {
-    const [AUTHED, setAuthed] = useLocalStorage("authed", false);
+export default function MenuItemCard({ menuItem, ingredients }: { menuItem: MenuItem; ingredients: Ingredient[] }) {
+  const [AUTHED, setAuthed] = useLocalStorage('authed', false)
 
   return (
     <div className="menu-item-container" style={{ backgroundImage: `url(${menuItem.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-      {AUTHED ? <EditFormMenuItem {...menuItem} /> : null}
-      
+      {AUTHED ? <EditFormMenuItem menuItem={menuItem} ingredients={ingredients} /> : null}
+
       <MenuItemDetails {...menuItem} />
       <div className="menu-item-inner-container">
         <h1>{menuItem.name}</h1>
-        <h2>{menuItem.price} <small>€</small></h2>
+        <h2>
+          {menuItem.price} <small>€</small>
+        </h2>
       </div>
     </div>
   )

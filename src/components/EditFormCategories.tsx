@@ -28,7 +28,12 @@ export default function EditFormCategories(category: Category) {
   return (
     <>
       {/* <div className="edit-btn-block" /> */}
-      <button onClick={() => setEditingState(true)} type="button" className="edit-btn">
+      <button onClick={(event) => {
+        event.preventDefault()
+        event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation();
+        setEditingState(true)
+      }} type="button" className="edit-btn">
         Edit
       </button>
 

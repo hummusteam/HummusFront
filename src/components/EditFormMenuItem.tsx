@@ -1,15 +1,15 @@
 import '../styles/EditForm.css'
 import { MouseEvent, useRef, useState } from 'react'
-import { MenuItem } from '../types'
+import { Ingredient, MenuItem } from '../types'
 import { Button } from '../components'
 import { deleteMenuItem, putMenuItem } from '../api'
 
-export default function EditFormMenuItem(menuItem: MenuItem) {
+export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: MenuItem; ingredients: Ingredient[] }) {
   const [editingState, setEditingState] = useState(false)
-
   let nameInput = useRef(null)
   let priceInput = useRef(null)
   let imageInput = useRef(null)
+  let unwantedIngredients: Ingredient[] = []
 
   async function updateMenuItem() {
     await putMenuItem({
@@ -32,6 +32,17 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
   function handleClick(event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
     event.stopPropagation()
     setEditingState(true)
+  }
+
+  function handleExtraIngredient(item: Ingredient): void {
+    document.getElementById(item.id).classList.toggle('extraIngredient')
+    if (!unwantedIngredients.includes(item)) {
+      unwantedIngredients.push(item)
+    } else {
+      unwantedIngredients = unwantedIngredients.filter((ele) => {
+        return ele != item
+      })
+    }
   }
 
   return (
@@ -59,6 +70,20 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
             <div className="edit-form-inputs">
               <div className="edit-form-label">Image URL</div>
               <input className="edit-form-input" ref={imageInput} defaultValue={menuItem.image} />
+            </div>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Ingredients</div>
+
+              <div className="menuitem-ingredients">
+                {ingredients.map((ingredient) => {
+                  return (
+                    <div key={ingredient.id} onClick={() => handleExtraIngredient(ingredient)} id={ingredient.id} className="ingredient">
+                      {ingredient.name}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             <div className="edit-form-btns">

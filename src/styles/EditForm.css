@@ -103,3 +103,26 @@
 .edit-form-btns > * {
   margin-right: 1em;
 }
+
+.extraIngredient {
+  opacity: 1;
+}
+
+.ingredient {
+  width: fit-content;
+  height: auto;
+  font-size: 14px;
+  border-radius: 5px !important;
+  white-space: nowrap;
+  padding: 7px;
+  border: solid 1.5px black;
+  user-select: none;
+  transition: 0.2s;
+  opacity: 0.3;
+}
+
+.menuitem-ingredients {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.7em;
+}
