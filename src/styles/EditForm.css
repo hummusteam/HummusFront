@@ -121,6 +121,10 @@
   opacity: 0.3;
 }
 
+.ingredient:hover {
+  cursor: pointer;
+}
+
 .menuitem-ingredients {
   flex-wrap: wrap;
   display: flex;

@@ -1,5 +1,5 @@
 import '../styles/EditForm.css'
-import { MouseEvent, useRef, useState } from 'react'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
 import { Ingredient, MenuItem } from '../types'
 import { Button } from '../components'
 import { deleteMenuItem, putMenuItem } from '../api'
@@ -9,9 +9,15 @@ export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: 
   let nameInput = useRef(null)
   let priceInput = useRef(null)
   let imageInput = useRef(null)
-  let unwantedIngredients: Ingredient[] = []
 
   async function updateMenuItem() {
+    const selectedIngredients = document.getElementsByClassName('extraIngredient')
+    const ingredientsIds: string[] = []
+
+    for (let i = 0; i < selectedIngredients.length; i++) {
+      ingredientsIds.push(selectedIngredients[i].id)
+    }
+
     await putMenuItem({
       id: menuItem.id,
       dateTimeCreated: menuItem.dateTimeCreated,
@@ -19,8 +25,9 @@ export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: 
       price: priceInput.current.value,
       image: imageInput.current.value,
       category: menuItem.category,
-      ingredientIds: menuItem.ingredientIds,
+      ingredientIds: ingredientsIds,
     })
+
     window.location.reload()
   }
 
@@ -34,20 +41,12 @@ export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: 
     setEditingState(true)
   }
 
-  function handleExtraIngredient(item: Ingredient): void {
+  function handleExtraIngredient(item: Ingredient) {
     document.getElementById(item.id).classList.toggle('extraIngredient')
-    if (!unwantedIngredients.includes(item)) {
-      unwantedIngredients.push(item)
-    } else {
-      unwantedIngredients = unwantedIngredients.filter((ele) => {
-        return ele != item
-      })
-    }
   }
 
   return (
     <>
-      {/* <div className="edit-btn-block" /> */}
       <button onClick={(event) => handleClick(event)} type="button" className="edit-btn">
         Edit
       </button>
@@ -78,7 +77,7 @@ export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: 
               <div className="menuitem-ingredients">
                 {ingredients.map((ingredient) => {
                   return (
-                    <div key={ingredient.id} onClick={() => handleExtraIngredient(ingredient)} id={ingredient.id} className="ingredient">
+                    <div key={ingredient.id} onClick={() => handleExtraIngredient(ingredient)} className={menuItem.ingredientIds.includes(ingredient.id) ? 'ingredient extraIngredient' : 'ingredient'} id={ingredient.id}>
                       {ingredient.name}
                     </div>
                   )
