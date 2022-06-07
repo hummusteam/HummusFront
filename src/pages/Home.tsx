@@ -1,5 +1,5 @@
 import '../styles/Home.css'
-import { AddFormCategory, Button, CartButton, CategoryCard, Loading, Meta, Navigation } from '../components'
+import { AddFormCategory, CartButton, CategoryCard, Loading, Meta, Navigation, FeedbacksFooter } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchCategories } from '../api'
 import { Category, Session } from '../types'
@@ -52,6 +52,9 @@ export default function Home() {
               <Button text="Go to cart" />
             </p>
           </Link> */}
+
+          <FeedbacksFooter/>
+
         </div>
       ) : (
         <Loading />
