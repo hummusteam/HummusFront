@@ -37,6 +37,10 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="inner-categories-container">
+              <FeedbacksFooter />
+          </div>
+
           <CartButton />
 
           {/* <div
@@ -52,9 +56,6 @@ export default function Home() {
               <Button text="Go to cart" />
             </p>
           </Link> */}
-
-          <FeedbacksFooter/>
-
         </div>
       ) : (
         <Loading />

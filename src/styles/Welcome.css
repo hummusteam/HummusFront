@@ -13,6 +13,14 @@
   border-radius: var(--roundness);
 }
 
+.welcome-box-container h1 {
+  white-space: nowrap;
+}
+
+.welcome-container .carousel-wrapper {
+  margin: 1em;
+}
+
 .welcome-box-container > p {
   line-height: 23px;
 }
