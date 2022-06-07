@@ -4,4 +4,4 @@ export { fetchIngredients, fetchIngredientById, putIngredient, postIngredient, d
 export { startSession, fetchSessionByPinAndTable, putSession, fetchSessionByPin, fetchSessionOrders } from './Sessions'
 export { redirectToPaymnetWithId } from './Payment'
 export { placeOrder, updateOrder, fetchAllOrders } from './Order'
-export { fetchFeedbacks, postFeedback, fetchFeedbackById, fetchFeedbackBySessionId } from './Feedback'
+export { fetchFeedbacks, postFeedback, fetchFeedbackById, fetchFeedbackBySessionId, deleteFeedback } from './Feedback'

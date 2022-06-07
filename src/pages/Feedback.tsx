@@ -1,32 +1,36 @@
 import '../styles/Home.css'
-import { Navigation } from '../components'
+import { DeleteFeedback, Navigation } from '../components'
 import { useState, useEffect } from 'react'
 import { fetchFeedbacks } from '../api'
-import { Feedback} from '../types'
+import { Feedback } from '../types'
 
 export default function Feedbacks() {
-    const [feedbacks, setFeedbacks] = useState<Feedback[]>([])
-    useEffect(() => {
-        fetchFeedbacks().then(setFeedbacks)
-    }, [])
-  
-    return (
-      <div className="app-container ">
-        <Navigation />
-  
-        <div className="app-canvas">
-          {feedbacks.length &&
-            feedbacks.map((f) => {
-              return (
-                <div>
-                  <h1>{f.dateTimeCreated}</h1>
-                  <p>Raing: {f.rating}</p>
-                  <p>Notes: {f.notes} $</p>
-                </div>
-              )
-            })}
-        </div>
+  const [feedbacks, setFeedback] = useState<Feedback[]>([])
+  useEffect(() => {
+    fetchFeedbacks().then(setFeedback)
+  }, [])
+
+  return (
+    <div className="app-container ">
+      <Navigation />
+
+      <div className="app-canvas">
+        {feedbacks.length &&
+          feedbacks.map((f) => {
+
+            const splitted = f.dateTimeCreated.split('T')[0]
+
+            return (
+              <div>
+                <h1>{splitted}</h1>
+                <p className="carousel-item">{splitted}</p>
+                <p className="carousel-item">Rating: {f.rating}</p>
+                <p className="carousel-item">Review: {f.notes}</p>
+                <DeleteFeedback {...f}/>
+              </div>
+            )
+          })}
       </div>
-    )
-  }
-  
+    </div>
+  )
+}

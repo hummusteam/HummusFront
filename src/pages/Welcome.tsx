@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { Button, Navigation } from '../components'
+import { Button, FeedbacksFooter, Navigation } from '../components'
 import { useRef, useState } from 'react'
 import Cookies from 'universal-cookie'
 import '../styles/Welcome.css'
