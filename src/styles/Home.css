@@ -1,7 +1,6 @@
 .categories-container {
   width: var(--container);
   margin: auto;
-  padding-bottom: 100px;
 }
 
 .inner-categories-container {
@@ -16,7 +15,6 @@
   justify-content: space-around;
   grid-auto-flow: dense;
   gap: 1em;
-  padding-bottom: 100px;
 }
 
 .categories-items {
@@ -27,7 +25,6 @@
   justify-content: space-around;
   grid-auto-flow: dense;
   gap: 1em;
-  padding-bottom: 100px;
 }
 
 @media screen and (max-width: 1550px) {

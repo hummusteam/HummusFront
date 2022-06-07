@@ -6,3 +6,4 @@ export { default as Stock } from "./Stock"
 export { default as Welcome } from "./Welcome";
 export { default as Orders } from "./Orders";
 export { default as Pin } from "./Pin";
+export { default as Feedbacks } from "./Feedback";
