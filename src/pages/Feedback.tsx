@@ -17,16 +17,21 @@ export default function Feedbacks() {
       <div className="app-canvas">
         {feedbacks.length &&
           feedbacks.map((f) => {
-
             const splitted = f.dateTimeCreated.split('T')[0]
 
             return (
               <div>
                 <h1>{splitted}</h1>
-                <p className="carousel-item">{splitted}</p>
-                <p className="carousel-item">Rating: {f.rating}</p>
-                <p className="carousel-item">Review: {f.notes}</p>
-                <DeleteFeedback {...f}/>
+                <div className="rating">
+                  {[...Array(Math.round((f.rating as unknown as number) / 2))].map((_) => {
+                    return <img height={10} className="star good" src="https://uploads-ssl.webflow.com/60c8ab76d8eab209d6060807/614c8cf94ea2611db1fcd1ec_star.svg" />
+                  })}
+                  {[...Array(5 - Math.round((f.rating as unknown as number) / 2))].map((_) => {
+                    return <img height={10} className="star neutral" src="https://uploads-ssl.webflow.com/60c8ab76d8eab209d6060807/614c8cf94ea2611db1fcd1ec_star.svg" />
+                  })}
+                </div>
+                <p className="carousel-item">{f.notes}</p>
+                <DeleteFeedback {...f} />
               </div>
             )
           })}
