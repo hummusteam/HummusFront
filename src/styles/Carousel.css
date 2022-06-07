@@ -35,6 +35,10 @@
   gap: 0.1em;
 }
 
+.app-canvas .rating {
+  justify-content: left;
+}
+
 .neutral {
   filter: grayscale(100%);
 }
