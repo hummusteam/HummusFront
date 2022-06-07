@@ -1,5 +1,5 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton, FeedbacksFooter } from '../components'
 import { useState, useEffect } from 'react'
 import { Category, Ingredient, MenuItem } from '../types'
 import { fetchCategories, fetchIngredients, fetchMenuItemsByCategory } from '../api'
@@ -53,6 +53,8 @@ export default function Menu() {
 
             <CartButton />
 
+            <FeedbacksFooter />
+
             <div
               onClick={() => {
                 setAuthed(!AUTHED)
@@ -61,6 +63,7 @@ export default function Menu() {
             >
               Admin mode
             </div>
+
           </div>
         </div>
       ) : (

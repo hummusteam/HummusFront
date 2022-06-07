@@ -51,7 +51,7 @@ export default function Welcome() {
       <Navigation />
 
       <div className="welcome-box-container">
-        <h1>Welcome</h1>
+        <h1>Join a table</h1>
 
         {error ? <p className="error">{error}</p> : null}
 
@@ -70,7 +70,6 @@ export default function Welcome() {
         <div onClick={joinSession}>
           <Button text="Enter menu" />
         </div>
-
       </div>
 
       <div className="welcome-box-container">
@@ -79,6 +78,8 @@ export default function Welcome() {
         <p>You will be able to join the table with the same PIN.</p>
         <br />
       </div>
+
+        <FeedbacksFooter />
     </div>
   )
 }
