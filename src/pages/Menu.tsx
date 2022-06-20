@@ -1,21 +1,28 @@
 import '../styles/Menu.css'
-import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton } from '../components'
+import { Navigation, SmallCategoryCard, MenuItemCard, Loading, Button, AddFormMenuItem, AddFormCategory, Meta, CartButton, FeedbacksFooter } from '../components'
 import { useState, useEffect } from 'react'
-import { Category, MenuItem } from '../types'
-import { fetchCategories, fetchMenuItemsByCategory } from '../api'
+import { Category, Ingredient, MenuItem } from '../types'
+import { fetchCategories, fetchIngredients, fetchMenuItemsByCategory } from '../api'
 import { Link, useSearchParams } from 'react-router-dom'
 import { useLocalStorage } from '../util/UseLocalStorage'
+import Cookies from 'universal-cookie'
 
 export default function Menu() {
   const [categories, setCategories] = useState<Category[]>([])
   const [menuItems, setMenuItem] = useState<MenuItem[]>([])
+  const [ingredients, setIngredients] = useState<Ingredient[]>([])
   const [searchParams, _] = useSearchParams()
   const categoryId = searchParams.get('category')
   const [AUTHED, setAuthed] = useLocalStorage('authed', false)
 
   useEffect(() => {
+    if (!new Cookies().get('_session')) {
+      window.location.replace('/welcome')
+    }
+
     fetchMenuItemsByCategory(categoryId).then(setMenuItem)
     fetchCategories().then(setCategories)
+    fetchIngredients().then(setIngredients)
   }, [])
 
   return (
@@ -36,23 +43,27 @@ export default function Menu() {
             </div>
 
             <div className="menu-items">
-              {AUTHED ? <AddFormMenuItem categoryId={categoryId} /> : null}
+              {AUTHED ? <AddFormMenuItem categoryId={categoryId} ingredients={ingredients} /> : null}
 
               {menuItems?.length != 0 &&
                 menuItems?.map((m) => {
-                  return <MenuItemCard key={m.id} {...m} />
+                  return <MenuItemCard key={m.id} menuItem={m} ingredients={ingredients} />
                 })}
             </div>
 
             <CartButton />
 
-            {/* <div
+            <FeedbacksFooter />
+
+            <div
               onClick={() => {
                 setAuthed(!AUTHED)
                 location.reload()
               }}
             >
-            </div> */}
+              Admin mode
+            </div>
+
           </div>
         </div>
       ) : (

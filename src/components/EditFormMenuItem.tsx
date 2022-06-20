@@ -1,26 +1,33 @@
 import '../styles/EditForm.css'
-import { MouseEvent, useRef, useState } from 'react'
-import { MenuItem } from '../types'
+import { MouseEvent, useEffect, useRef, useState } from 'react'
+import { Ingredient, MenuItem } from '../types'
 import { Button } from '../components'
 import { deleteMenuItem, putMenuItem } from '../api'
 
-export default function EditFormMenuItem(menuItem: MenuItem) {
+export default function EditFormMenuItem({ menuItem, ingredients }: { menuItem: MenuItem; ingredients: Ingredient[] }) {
   const [editingState, setEditingState] = useState(false)
-
   let nameInput = useRef(null)
   let priceInput = useRef(null)
   let imageInput = useRef(null)
 
   async function updateMenuItem() {
+    const selectedIngredients = document.getElementsByClassName('extraIngredient')
+    const ingredientsIds: string[] = []
+
+    for (let i = 0; i < selectedIngredients.length; i++) {
+      ingredientsIds.push(selectedIngredients[i].id)
+    }
+    
     await putMenuItem({
       id: menuItem.id,
       dateTimeCreated: menuItem.dateTimeCreated,
       name: nameInput.current.value,
-      price: priceInput.current.value,
+      price: priceInput.current.value === '' ? 0 : priceInput.current.value,
       image: imageInput.current.value,
       category: menuItem.category,
-      ingredientIds: menuItem.ingredientIds,
+      ingredientIds: ingredientsIds,
     })
+
     window.location.reload()
   }
 
@@ -34,9 +41,12 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
     setEditingState(true)
   }
 
+  function handleExtraIngredient(item: Ingredient) {
+    document.getElementById(item.id).classList.toggle('extraIngredient')
+  }
+
   return (
     <>
-      {/* <div className="edit-btn-block" /> */}
       <button onClick={(event) => handleClick(event)} type="button" className="edit-btn">
         Edit
       </button>
@@ -59,6 +69,20 @@ export default function EditFormMenuItem(menuItem: MenuItem) {
             <div className="edit-form-inputs">
               <div className="edit-form-label">Image URL</div>
               <input className="edit-form-input" ref={imageInput} defaultValue={menuItem.image} />
+            </div>
+
+            <div className="edit-form-inputs">
+              <div className="edit-form-label">Ingredients</div>
+
+              <div className="menuitem-ingredients">
+                {ingredients.map((ingredient) => {
+                  return (
+                    <div key={ingredient.id} onClick={() => handleExtraIngredient(ingredient)} className={menuItem.ingredientIds.includes(ingredient.id) ? 'ingredient extraIngredient' : 'ingredient'} id={ingredient.id}>
+                      {ingredient.name}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
 
             <div className="edit-form-btns">

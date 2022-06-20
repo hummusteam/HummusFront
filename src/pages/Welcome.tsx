@@ -47,29 +47,39 @@ export default function Welcome() {
   }
 
   return (
-    <div className="pin-form">
-      {/* <Navigation /> */}
+    <div className="welcome-container">
+      <Navigation />
 
-      <h1>Welcome</h1>
-      <br />
-      <div className="input">
-        <label htmlFor="pin">Enter PIN</label>
-        <input ref={pinRef} className="edit-form-input" name="pin" id="pin" />
+      <div className="welcome-box-container">
+        <h1>Join a table</h1>
+
+        {error ? <p className="error">{error}</p> : null}
+
+        <div className="input">
+          <label htmlFor="pin">Enter PIN</label>
+          <input ref={pinRef} className="edit-form-input" name="pin" id="pin" />
+        </div>
+
+        <div className="input">
+          <label htmlFor="table">Table number</label>
+          <input ref={tableRef} defaultValue={tableId} className="edit-form-input" name="table" id="table" disabled={!!tableId} />
+        </div>
+
+        <br />
+
+        <div onClick={joinSession}>
+          <Button text="Enter menu" />
+        </div>
       </div>
-      <div className="input">
-        <label htmlFor="table">Table number</label>
-        <input ref={tableRef} defaultValue={tableId} className="edit-form-input" name="table" id="table" disabled={!!tableId} />
+
+      <div className="welcome-box-container">
+        <h1>How does it work?</h1>
+        <p>Please enter the 4 digit PIN you were given upon entry and/or a table number if you wish to rejoin a session. You will be redirected to your menu.</p>
+        <p>You will be able to join the table with the same PIN.</p>
+        <br />
       </div>
-      <br />
-      <div onClick={joinSession}>
-        <Button text="Enter menu" />
-      </div>
-      {error ? <p className="error">{error}</p> : null}
-      <br />
-      <h3>How does it work?</h3>
-      <p>Please enter the 4 digit PIN you were given upon entry and/or a table number if you wish to rejoin a session. You will be redirected to your menu.</p>
-      <p>You will be able to join the table with the same PIN.</p>
-      <br />
+
+        <FeedbacksFooter />
     </div>
   )
 }

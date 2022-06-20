@@ -29,8 +29,8 @@ export default function Cart() {
   const [orderItemsSum, setOrderItemsSum] = useState<number>(0)
   const [prevOrders, setPrevOrders] = useState<PreviousOrderItemElements[]>([])
   const [totalPrice, setTotalPrice] = useState<number>(0)
-  const cookies = new Cookies()
   const desc = useRef(null)
+  const cookies = new Cookies()
   const session: Session = cookies.get('_session')
 
   useEffect(() => {
@@ -72,6 +72,8 @@ export default function Cart() {
           setPrevOrders((varr) => [...varr, prevOrder])
         }
       })
+    } else {
+      window.location.replace('/welcome')
     }
   }, [])
 

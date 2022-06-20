@@ -11,7 +11,7 @@
 }
 
 .menu-item {
-  height: 350px;
+  height: 250px;
 }
 
 .category {
@@ -33,4 +33,27 @@
 
 .edit-form-btns > * {
   margin-right: 1em;
+}
+
+.details-form-ingredients {
+  flex-wrap: wrap;
+  display: flex;
+  gap: 0.7em;
+}
+
+.ingredient {
+  width: fit-content;
+  height: auto;
+  font-size: 14px;
+  border-radius: 5px !important;
+  white-space: nowrap;
+  padding: 7px;
+  border: solid 1.5px black;
+  user-select: none;
+  transition: 0.2s;
+  opacity: 0.3;
+}
+
+.extraIngredient {
+  opacity: 1;
 }

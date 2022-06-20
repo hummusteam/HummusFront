@@ -10,6 +10,7 @@ import { v4 as uuid } from 'uuid'
 export default function MenuItemDetails(item: MenuItem) {
   const [isShowing, showDetails] = useState(false)
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
+  const [allergen, setAllergen] = useState<string[]>([])
   let unwantedIngredients: Ingredient[] = []
 
   useEffect(() => {
@@ -19,6 +20,13 @@ export default function MenuItemDetails(item: MenuItem) {
           const ingredient: Ingredient = await fetchIngredientById(id)
           if (ingredient.name != null) {
             setIngredients((arr) => [...arr, ingredient])
+
+            for (let i = 0; i < ingredient.allergens.length; i++) {
+              const all = ingredient.allergens[i]
+              if (/[a-zA-Z]/.test(all)) {
+                setAllergen((arr) => [...arr, all])
+              }
+            }
           }
         } catch (e) {
           console.log(e)
@@ -94,6 +102,18 @@ export default function MenuItemDetails(item: MenuItem) {
                             {i.name}
                           </div>
                         )
+                      })}
+                    </div>
+                  </>
+                ) : null}
+
+                {!!allergen.length ? (
+                  <>
+                    <h3>Allergy warning</h3>
+
+                    <div className="allergens">
+                      {allergen.map((all) => {
+                        return <div className="allergen">{all}</div>
                       })}
                     </div>
                   </>
