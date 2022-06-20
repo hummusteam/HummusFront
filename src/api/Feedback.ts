@@ -31,6 +31,6 @@ export async function fetchFeedbackBySessionId(feedback: string): Promise<Feedba
 }
 
 export async function deleteFeedback(feedback: Feedback) {
-  await axios.delete('https://inventoryapi.tycho.dev/Ingredient', { data: feedback })
+  await axios.delete('https://sessionapi.tycho.dev/Feedback?feedbackID=' + feedback.id)
   .catch(console.log)
 }
